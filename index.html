@@ -1107,6 +1107,102 @@
       }
 
       /* =====================================================
+         LIGHTBOX — overlay para exibir imagens de exemplo.
+         Abre ao clicar em cards com [data-lightbox].
+         Fecha com Escape, clique no backdrop, ou botão ×.
+         ===================================================== */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 500;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(6, 10, 20, 0.92);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s var(--ease-out-expo);
+      }
+      .lightbox.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: clamp(1rem, 3vh, 2rem);
+        right: clamp(1rem, 3vw, 2rem);
+        font-family: var(--font-mono);
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+        line-height: 1;
+        color: var(--ink-mute);
+        cursor: pointer;
+        border: none;
+        background: none;
+        padding: 0.3rem 0.5rem;
+        transition: color 0.2s var(--ease-out-quint), transform 0.2s var(--ease-out-quint);
+        z-index: 501;
+      }
+      .lightbox-close:hover { color: var(--topo); transform: scale(1.15); }
+      .lightbox-content {
+        display: flex;
+        gap: clamp(1rem, 2.5vw, 2.5rem);
+        align-items: center;
+        justify-content: center;
+        max-width: 92vw;
+        max-height: 85vh;
+        transform: scale(0.92) translateY(12px);
+        transition: transform 0.35s var(--ease-out-expo);
+      }
+      .lightbox.open .lightbox-content {
+        transform: scale(1) translateY(0);
+      }
+      .lightbox-content img {
+        max-height: 72vh;
+        max-width: 44vw;
+        object-fit: contain;
+        border-radius: 6px;
+        border: 1px solid var(--hairline);
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.6);
+      }
+      .lightbox-caption {
+        font-family: var(--font-mono);
+        font-size: var(--micro-size);
+        color: var(--ink-faint);
+        text-align: center;
+        letter-spacing: 0.08em;
+        margin-top: clamp(0.5rem, 1vh, 0.8rem);
+      }
+      .lightbox-figure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      @media (max-width: 800px) {
+        .lightbox-content { flex-direction: column; }
+        .lightbox-content img { max-width: 88vw; max-height: 38vh; }
+      }
+      /* Card que abre lightbox: cursor + hint visual */
+      [data-lightbox] {
+        cursor: pointer;
+        position: relative;
+      }
+      [data-lightbox]::after {
+        content: "clique para ver exemplos";
+        position: absolute;
+        bottom: clamp(0.4rem, 0.8vh, 0.6rem);
+        right: clamp(0.6rem, 1.2vw, 1rem);
+        font-family: var(--font-mono);
+        font-size: clamp(0.55rem, 0.65vw, 0.7rem);
+        color: var(--topo);
+        letter-spacing: 0.1em;
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
+      [data-lightbox]:hover::after { opacity: 0.7; }
+
+      /* =====================================================
          MAGNIFIER — lupa ativada por botão direito do mouse.
          Usa backdrop-filter para realçar a área sob o
          cursor (brilho, contraste, saturação) — efeito
@@ -1353,7 +1449,7 @@
         </p>
 
         <div class="two-col reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
-          <div class="col-card">
+          <div class="col-card" data-lightbox="vector-examples">
             <div class="col-eyebrow">Geometria discreta</div>
             <h3>Vetor</h3>
             <p class="col-desc">Ponto, linha, polígono — coordenadas + atributos.</p>
@@ -2565,6 +2661,25 @@
       </div>
     </section>
 
+    <!-- =====================================================
+         LIGHTBOX — overlay para imagens de exemplo
+         Conteúdo carregado por data-lightbox ID match.
+         ===================================================== -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" aria-label="Fechar">&times;</button>
+      <div class="lightbox-content" id="lightboxContent">
+        <!-- vector-examples -->
+        <div class="lightbox-figure" data-lightbox-group="vector-examples">
+          <img src="assets/01-poi-lin-pol.png" alt="Tipos de geometria vetorial: Point, Multipoint, Linestring, Multilinestring, Polygon, Multipolygon"/>
+          <div class="lightbox-caption">Tipos de geometria vetorial (Point, Line, Polygon + Multi)</div>
+        </div>
+        <div class="lightbox-figure" data-lightbox-group="vector-examples">
+          <img src="assets/02-vector-example.png" alt="Dados vetoriais sobre imagem de satélite: pivôs de irrigação e talhões"/>
+          <div class="lightbox-caption">Exemplo real: vetores sobre imagem de satélite (agricultura)</div>
+        </div>
+      </div>
+    </div>
+
     <script>
       /* =====================================================
          SLIDE PRESENTATION CONTROLLER
@@ -2930,12 +3045,48 @@
         }
       }
 
+      /* =====================================================
+         LIGHTBOX — abre/fecha overlay de imagens.
+         Cards com [data-lightbox="group-id"] abrem o grupo
+         correspondente. Fecha: ×, Escape, clique no backdrop.
+         ===================================================== */
+      class Lightbox {
+        constructor() {
+          this.el = document.getElementById('lightbox');
+          this.content = document.getElementById('lightboxContent');
+          this.figures = this.content.querySelectorAll('[data-lightbox-group]');
+
+          this.el.addEventListener('click', (e) => {
+            if (e.target === this.el || e.target.closest('.lightbox-close')) {
+              this.close();
+            }
+          });
+          document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.el.classList.contains('open')) this.close();
+          });
+
+          document.querySelectorAll('[data-lightbox]').forEach(card => {
+            card.addEventListener('click', () => this.open(card.dataset.lightbox));
+          });
+        }
+
+        open(groupId) {
+          this.figures.forEach(fig => {
+            fig.style.display = fig.dataset.lightboxGroup === groupId ? '' : 'none';
+          });
+          this.el.classList.add('open');
+        }
+
+        close() { this.el.classList.remove('open'); }
+      }
+
       /* Boot */
       document.addEventListener('DOMContentLoaded', () => {
         new SlidePresentation();
         new ParticleField(document.getElementById('particle-canvas'));
         new CursorRing(document.getElementById('cursorRing'));
         new Magnifier(document.getElementById('magnifierLens'));
+        new Lightbox();
         document.querySelector('.slide').classList.add('visible');
       });
     </script>
