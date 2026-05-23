@@ -1147,20 +1147,27 @@
       .lightbox-close:hover { color: var(--topo); transform: scale(1.15); }
       .lightbox-content {
         display: flex;
-        gap: clamp(1rem, 2.5vw, 2.5rem);
-        align-items: center;
+        gap: clamp(0.8rem, 2vw, 2rem);
+        align-items: flex-start;
         justify-content: center;
-        max-width: 92vw;
-        max-height: 85vh;
+        max-width: 94vw;
+        max-height: 88vh;
         transform: scale(0.92) translateY(12px);
         transition: transform 0.35s var(--ease-out-expo);
       }
       .lightbox.open .lightbox-content {
         transform: scale(1) translateY(0);
       }
+      .lightbox-figure {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1 1 0%;
+        min-width: 0;
+      }
       .lightbox-content img {
-        max-height: 72vh;
-        max-width: 44vw;
+        width: 100%;
+        height: auto;
         object-fit: contain;
         border-radius: 6px;
         border: 1px solid var(--hairline);
@@ -1174,14 +1181,9 @@
         letter-spacing: 0.08em;
         margin-top: clamp(0.5rem, 1vh, 0.8rem);
       }
-      .lightbox-figure {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
       @media (max-width: 800px) {
-        .lightbox-content { flex-direction: column; }
-        .lightbox-content img { max-width: 88vw; max-height: 38vh; }
+        .lightbox-content { flex-direction: column; align-items: center; }
+        .lightbox-figure { flex: none; width: 90vw; }
       }
       /* Card que abre lightbox: cursor + hint visual */
       [data-lightbox] {
