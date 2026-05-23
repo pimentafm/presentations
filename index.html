@@ -2454,33 +2454,47 @@
           IDEs governamentais e demos rodando o stack que você acabou de ver — clique pra abrir.
         </p>
 
-        <div class="layer-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+        <div class="layer-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap); grid-template-columns: repeat(3, 1fr);">
+          <!-- INDE -->
+          <a href="https://inde.gov.br/CatalogoGeoservicos" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer;">
+            <div class="num">GOVERNO FEDERAL · OGC WMS/WFS/WCS</div>
+            <div class="name">INDE</div>
+            <div class="desc">Infraestrutura Nacional de Dados Espaciais. Catálogo de geosserviços de todas as esferas (federal, estadual, municipal).</div>
+          </a>
+
           <!-- IDESP -->
           <a href="https://www.idesp.sp.gov.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer;">
             <div class="num">GOVERNO SP · GEONETWORK + MAPSTORE</div>
             <div class="name">IDESP</div>
-            <div class="desc">Infraestrutura de Dados Espaciais de São Paulo. Catálogo de metadados + mapas interativos para dados públicos estaduais.</div>
+            <div class="desc">IDE de São Paulo. Catálogo de metadados + mapas interativos para dados públicos estaduais.</div>
           </a>
 
           <!-- DataGeo -->
           <a href="https://datageo.ambiente.sp.gov.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer;">
             <div class="num">MEIO AMBIENTE SP · WEBGIS</div>
             <div class="name">DataGeo</div>
-            <div class="desc">Base Territorial Ambiental Unificada. Geoportal ambiental com CAR, áreas protegidas, qualidade da água e recursos hídricos.</div>
+            <div class="desc">Base Territorial Ambiental Unificada. Geoportal com CAR, áreas protegidas e recursos hídricos.</div>
           </a>
 
           <!-- IDE GeoBase-ES -->
           <a href="https://ide.geobases.es.gov.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer;">
             <div class="num">GOVERNO ES · GEONODE + WMS/WFS</div>
             <div class="name">GeoBase-ES</div>
-            <div class="desc">IDE do Espírito Santo. Portal GeoNode com camadas, mapas e documentos geográficos estaduais — "Encontre seus dados".</div>
+            <div class="desc">IDE do Espírito Santo. Portal GeoNode com camadas, mapas e documentos geográficos.</div>
           </a>
 
           <!-- MapStore Demo -->
           <a href="https://dev-mapstore.geosolutionsgroup.com/mapstore/" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer;">
             <div class="num">GEOSOLUTIONS · MAPSTORE DEMO</div>
             <div class="name">MapStore</div>
-            <div class="desc">Demo oficial do MapStore — mapas, dashboards, geostories. Teste o framework WebGIS ao vivo com dados OGC públicos.</div>
+            <div class="desc">Demo oficial — mapas, dashboards, geostories ao vivo com dados OGC públicos.</div>
+          </a>
+
+          <!-- Normas DSG -->
+          <a href="https://geoportal.eb.mil.br/portal/index.php/normas-tecnicas/especificacoes-tecnicas-e-manuais-do-exercito-brasileiro" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--uplink);">
+            <div class="num" style="color: var(--uplink);">DSG · EXÉRCITO · NORMAS TÉCNICAS</div>
+            <div class="name">Normas DSG</div>
+            <div class="desc">ET-EDGV 3.0, ET-CQDG, Perfil MGB 2.0 — padrões para dados cartográficos e geoespaciais do Brasil.</div>
           </a>
         </div>
       </div>
