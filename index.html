@@ -1816,7 +1816,7 @@
         <span class="eyebrow reveal" style="--delay: 0.05s">Descobrir + governar</span>
         <h2 class="section reveal" style="--delay: 0.15s">Catálogo &amp; governança</h2>
         <p class="tagline reveal" style="--delay: 0.3s">
-          Sem catálogo, dado é arquivo solto. Duas camadas complementares: ISO-19115 para descritivo, OpenMetadata para operacional.
+          Sem catálogo, dado é arquivo solto. Duas camadas complementares: ISO-19115-3 para descritivo, OpenMetadata para operacional.
         </p>
 
         <div class="two-col reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
@@ -1887,7 +1887,7 @@
             </ul>
           </div>
           <div class="col-card">
-            <div class="col-eyebrow">2D/3D · Portal geoespacial</div>
+            <div class="col-eyebrow">2D/3D · Portal</div>
             <h3>MapStore</h3>
             <p class="col-desc">Mapas, dashboards e geostories. Engine-agnóstico.</p>
             <ul>
@@ -1898,7 +1898,7 @@
             </ul>
           </div>
           <div class="col-card">
-            <div class="col-eyebrow">SDI · Portal completo</div>
+            <div class="col-eyebrow">SDI · Portal</div>
             <h3>GeoNode</h3>
             <p class="col-desc">Plataforma open source para criar IDEs. Gestão de dados, metadados e mapas.</p>
             <ul>
@@ -1914,7 +1914,7 @@
             <p class="col-desc">Globo WGS84 de alta precisão, no browser.</p>
             <ul>
               <li>3D Tiles · edifícios · fotogrametria · point clouds</li>
-              <li>Terreno + imagery por padrões abertos</li>
+              <li>Terreno + imagens por padrões abertos</li>
               <li>Dados 4D time-dynamic (telemetria, simulação)</li>
               <li>3D · 2D · 2.5D Columbus, troca em runtime</li>
             </ul>
@@ -1945,7 +1945,7 @@
         <span class="eyebrow reveal" style="--delay: 0.05s">O novo consumidor do stack</span>
         <h2 class="section reveal" style="--delay: 0.15s">AI + <span class="accent">Geospatial</span></h2>
         <p class="tagline reveal" style="--delay: 0.3s">
-          Foundation models treinados em petabytes de imagery estão transformando como dados espaciais são consumidos, analisados e publicados.
+          Foundation models treinados em petabytes de imagens estão transformando como dados espaciais são consumidos, analisados e publicados.
         </p>
 
         <div class="two-col reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
@@ -1956,7 +1956,7 @@
               <li><strong style="color: var(--ink)">Prithvi</strong> · NASA/IBM — segmentação, flood mapping, burn scars</li>
               <li><strong style="color: var(--ink)">Clay</strong> · foundation model para Earth Observation multi-sensor</li>
               <li><strong style="color: var(--ink)">SatCLIP</strong> · location embeddings a partir de coordenadas</li>
-              <li><strong style="color: var(--ink)">SAM-Geo</strong> · Segment Anything aplicado a imagery</li>
+              <li><strong style="color: var(--ink)">SAM-Geo</strong> · Segment Anything aplicado a imagens</li>
             </ul>
           </div>
           <div class="col-card uplink">
@@ -1965,7 +1965,7 @@
             <ul>
               <li><strong style="color: var(--ink)">Text-to-SQL</strong> · consultar PostGIS em linguagem natural</li>
               <li><strong style="color: var(--ink)">Change detection</strong> · comparar imagens multi-temporais com IA</li>
-              <li><strong style="color: var(--ink)">Object detection</strong> · veículos, edificações, pivôs em imagery</li>
+              <li><strong style="color: var(--ink)">Object detection</strong> · veículos, edificações, pivôs</li>
               <li><strong style="color: var(--ink)">Geocoding semântico</strong> · resolver localidades ambíguas via contexto</li>
             </ul>
           </div>
@@ -2074,7 +2074,7 @@
             <div class="col-eyebrow">Exemplo concreto</div>
             <h3>Monitoramento de desmatamento</h3>
             <ul>
-              <li>Agent ingere Sentinel-2 imagery a cada 5 dias</li>
+              <li>Agent ingere imagens Sentinel-2 a cada 5 dias</li>
               <li>Foundation model detecta mudanças de cobertura</li>
               <li>Vectoriza polígonos de alerta e persiste em PostGIS</li>
               <li>Publica camada WMS + notifica stakeholders</li>
@@ -2084,7 +2084,7 @@
             <div class="col-eyebrow">Decisão autônoma</div>
             <h3>Agent loop</h3>
             <ul>
-              <li>Avalia qualidade da imagery (cloud cover &lt; 20%)</li>
+              <li>Avalia qualidade da imagem (cloud cover &lt; 20%)</li>
               <li>Seleciona modelo por tipo de análise</li>
               <li>Valida resultado contra ground truth anterior</li>
               <li>Decide: publicar, reproccessar ou escalar humano</li>
@@ -2161,10 +2161,10 @@
       </div>
 
       <div class="slide-content stack">
-        <span class="eyebrow reveal" style="--delay: 0.05s">Pra você bookmark agora</span>
+        <span class="eyebrow reveal" style="--delay: 0.05s">bookmark</span>
         <h2 class="section reveal" style="--delay: 0.15s">As <span class="accent">ferramentas</span>.</h2>
         <p class="tagline reveal" style="--delay: 0.3s">
-          Documentação oficial — clique pra abrir. Todas open source, todas com Helm chart ou Docker compose disponível.
+          Documentação oficial — clique pra abrir. Todas open source, todas com Helm chart, Docker compose ou Docker friendly.
         </p>
 
         <div class="tool-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
@@ -2657,7 +2657,7 @@
       </div>
 
       <div class="foot-bar">
-        <span class="author">Ferramentas usadas neste talk</span>
+        <span class="author">Ferramentas</span>
         <span>TODAS OSS · HELM-READY · DOCKER-FRIENDLY</span>
       </div>
     </section>
@@ -2728,14 +2728,14 @@
           <a href="http://obahia.dea.ufv.br/landuse/#/" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
             <div class="num">UFV · REMOTE SENSING + TIME SERIES</div>
             <div class="name">OBahia Land Use</div>
-            <div class="desc">Mapeamento de uso e cobertura do solo na bacia do Rio Grande (BA) com séries temporais de satélite.</div>
+            <div class="desc">Mapeamento de uso e cobertura do solo na região Oeste da Bahia.</div>
           </a>
 
           <!-- OBahia Irrigation -->
           <a href="http://obahia.dea.ufv.br/irrigation/#/" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
             <div class="num">UFV · RASTER + WEBGIS</div>
             <div class="name">OBahia Irrigation</div>
-            <div class="desc">Monitoramento de irrigação por pivô central na bacia do Rio Grande (BA) via detecção remota.</div>
+            <div class="desc">Monitoramento de irrigação por pivô central na região Oeste da Bahia.</div>
           </a>
         </div>
       </div>
