@@ -383,12 +383,11 @@
         font-family: var(--font-display);
         font-size: var(--title-size);
         font-weight: 900;
-        font-style: italic;
         line-height: 0.95;
         letter-spacing: -0.035em;
-        color: var(--ink);
+        color: var(--topo);
       }
-      h1.display .accent { color: var(--topo); font-style: normal; font-weight: 900; }
+      h1.display .accent { color: var(--ink); font-style: normal; font-weight: 900; }
 
       h2.section {
         font-family: var(--font-display);
@@ -673,13 +672,13 @@
         text-transform: uppercase;
         color: var(--ink-faint);
         padding: clamp(0.4rem, 0.8vh, 0.7rem) clamp(0.5rem, 1vw, 0.9rem);
-        border-bottom: 1px solid var(--hairline);
+        border-bottom: none;
       }
       .term-table thead th.you { color: var(--uplink); }
       .term-table thead th.geo { color: var(--topo); }
       .term-table tbody td {
         padding: clamp(0.4rem, 0.8vh, 0.65rem) clamp(0.5rem, 1vw, 0.9rem);
-        border-bottom: 1px solid rgba(244, 236, 216, 0.05);
+        border-bottom: none;
         line-height: 1.4;
       }
       .term-table tbody tr:last-child td { border-bottom: none; }
@@ -1088,7 +1087,7 @@
         border: 1.5px solid var(--topo);
         border-radius: 50%;
         pointer-events: none;
-        z-index: 200;
+        z-index: 9000;
         transform: translate(-50%, -50%);
         opacity: 0;
         transition: opacity 0.3s var(--ease-out-quint),
@@ -1217,7 +1216,7 @@
         border: 2px solid var(--topo);
         border-radius: 50%;
         pointer-events: none;
-        z-index: 199;
+        z-index: 9001;
         transform: translate(-50%, -50%) scale(0.6);
         opacity: 0;
         -webkit-backdrop-filter: brightness(1.5) contrast(1.15) saturate(1.4);
@@ -1351,11 +1350,11 @@
         <div class="title-block">
           <span class="eyebrow reveal" style="--delay: 0.15s">Para quem opera o que funciona</span>
           <h1 class="display reveal-slow" style="--delay: 0.3s">
-            Infraestruturas de<br/>
-            <span class="accent">Dados Espaciais</span>
+            <span class="accent">I</span>nfraestruturas de<br/>
+            <span class="accent">D</span>ados <span class="accent">E</span>spaciais
           </h1>
           <p class="subtitle reveal" style="--delay: 0.7s">
-            O stack open source pela ótica de quem cuida de Postgres, Kubernetes e Prometheus.
+            Ecossistema geospatial sob a ótica de quem opera infraestrutura.
           </p>
         </div>
       </div>
@@ -1435,7 +1434,7 @@
 
     <!-- =====================================================
          SLIDE 03 — TIPOS DE DADO ESPACIAL
-         Vetor vs Raster + variantes 3D/4D/Tiles
+         Vector vs Raster + variantes 3D/4D/Tiles
          ===================================================== -->
     <section class="slide" data-title="Tipos de dado">
       <div class="meta-bar">
@@ -1444,16 +1443,16 @@
       </div>
 
       <div class="slide-content stack">
-        <span class="eyebrow reveal" style="--delay: 0.05s">Vetor &amp; raster</span>
+        <span class="eyebrow reveal" style="--delay: 0.05s">Vector &amp; raster</span>
         <h2 class="section reveal" style="--delay: 0.15s">Tipos de <span class="accent">dado espacial</span>.</h2>
         <p class="tagline reveal" style="--delay: 0.3s">
-          Toda dado geo se reduz a duas formas: <strong style="color: var(--ink)">vetor</strong> (geometria discreta) ou <strong style="color: var(--ink)">raster</strong> (matriz contínua) — mais 3 variantes especializadas.
+          Todo dado geo se reduz a duas formas: <strong style="color: var(--ink)">vector</strong> (geometria discreta) ou <strong style="color: var(--ink)">raster</strong> (matriz contínua) — mais 3 variantes especializadas.
         </p>
 
         <div class="two-col reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
           <div class="col-card" data-lightbox="vector-examples">
             <div class="col-eyebrow">Geometria discreta</div>
-            <h3>Vetor</h3>
+            <h3>Vector</h3>
             <p class="col-desc">Ponto, linha, polígono — coordenadas + atributos.</p>
             <ul>
               <li><strong style="color: var(--ink)">Ponto</strong> · POIs, sensores, eventos</li>
@@ -1483,7 +1482,7 @@
       </div>
 
       <div class="foot-bar">
-        <span class="author">Vetor + raster + variantes</span>
+        <span class="author">Vector + raster + variantes</span>
         <span>CADA TIPO → ÍNDICE PRÓPRIO · SERVIÇO PRÓPRIO</span>
       </div>
     </section>
@@ -1507,9 +1506,9 @@
         <table class="term-table reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
           <thead>
             <tr>
-              <th class="you">No seu mundo (SRE)</th>
+              <th class="you">SRE</th>
               <th></th>
-              <th class="geo">No mundo geo</th>
+              <th class="geo">SDI</th>
             </tr>
           </thead>
           <tbody>
@@ -1617,7 +1616,7 @@
         <span class="eyebrow reveal" style="--delay: 0.05s">A fundação</span>
         <h2 class="section reveal" style="--delay: 0.15s">PostGIS</h2>
         <p class="tagline reveal" style="--delay: 0.3s">
-          É <em>só</em> Postgres — com tipos espaciais e ~500 funções extras. Tudo que você já sabe sobre operar Postgres continua valendo.
+          O mesmo PostgreSQL que você já monitora e escala. PostGIS estende o catálogo com geometria, raster e ~500 funções — sem runtime externo, sem porta extra. A operação permanece idêntica.
         </p>
 
         <ul class="feature-list reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
@@ -1650,7 +1649,7 @@
 
       <div class="slide-content stack" style="justify-content: flex-start; padding-top: clamp(2.25rem, 5.5vh, 3.5rem); padding-bottom: clamp(2.25rem, 5.5vh, 3.5rem); gap: clamp(0.5rem, 1.2vh, 1rem);">
         <span class="eyebrow reveal" style="--delay: 0.05s">A dor histórica</span>
-        <h2 class="section reveal" style="--delay: 0.15s; font-size: clamp(1.4rem, 3.4vw, 2.5rem);">GeoServer <span class="accent">clássico</span></h2>
+        <h2 class="section reveal" style="--delay: 0.15s; font-size: clamp(1.4rem, 3.4vw, 2.5rem);" data-lightbox="geoserver-examples">GeoServer <span class="accent">clássico</span></h2>
 
         <div class="two-col uneven reveal" style="--delay: 0.3s; margin-top: clamp(0.3rem, 0.8vh, 0.6rem); align-items: start; gap: clamp(0.8rem, 2vw, 1.8rem);">
           <!-- Left: SVG do monólito (height capada para garantir fit em viewport baixo) -->
@@ -2554,35 +2553,35 @@
 
         <div class="layer-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap); grid-template-columns: repeat(3, 1fr);">
           <!-- INDE -->
-          <a href="https://inde.gov.br/CatalogoGeoservicos" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer;">
+          <a href="https://inde.gov.br/CatalogoGeoservicos" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
             <div class="num">GOVERNO FEDERAL · OGC WMS/WFS/WCS</div>
             <div class="name">INDE</div>
             <div class="desc">Infraestrutura Nacional de Dados Espaciais. Catálogo de geosserviços de todas as esferas (federal, estadual, municipal).</div>
           </a>
 
           <!-- IDESP -->
-          <a href="https://www.idesp.sp.gov.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer;">
+          <a href="https://www.idesp.sp.gov.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
             <div class="num">GOVERNO SP · GEONETWORK + MAPSTORE</div>
             <div class="name">IDESP</div>
             <div class="desc">IDE de São Paulo. Catálogo de metadados + mapas interativos para dados públicos estaduais.</div>
           </a>
 
           <!-- DataGeo -->
-          <a href="https://datageo.ambiente.sp.gov.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer;">
+          <a href="https://datageo.ambiente.sp.gov.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
             <div class="num">MEIO AMBIENTE SP · WEBGIS</div>
             <div class="name">DataGeo</div>
             <div class="desc">Base Territorial Ambiental Unificada. Geoportal com CAR, áreas protegidas e recursos hídricos.</div>
           </a>
 
           <!-- IDE GeoBase-ES -->
-          <a href="https://ide.geobases.es.gov.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer;">
+          <a href="https://ide.geobases.es.gov.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
             <div class="num">GOVERNO ES · GEONODE + WMS/WFS</div>
             <div class="name">GeoBase-ES</div>
             <div class="desc">IDE do Espírito Santo. Portal GeoNode com camadas, mapas e documentos geográficos.</div>
           </a>
 
           <!-- MapStore Demo -->
-          <a href="https://dev-mapstore.geosolutionsgroup.com/mapstore/" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer;">
+          <a href="https://dev-mapstore.geosolutionsgroup.com/mapstore/" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
             <div class="num">GEOSOLUTIONS · MAPSTORE DEMO</div>
             <div class="name">MapStore</div>
             <div class="desc">Demo oficial — mapas, dashboards, geostories ao vivo com dados OGC públicos.</div>
@@ -2593,6 +2592,20 @@
             <div class="num" style="color: var(--uplink);">DSG · EXÉRCITO · NORMAS TÉCNICAS</div>
             <div class="name">Normas DSG</div>
             <div class="desc">ET-EDGV 3.0, ET-CQDG, Perfil MGB 2.0 — padrões para dados cartográficos e geoespaciais do Brasil.</div>
+          </a>
+
+          <!-- OBahia Land Use -->
+          <a href="http://obahia.dea.ufv.br/landuse/#/" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
+            <div class="num">UFV · REMOTE SENSING + TIME SERIES</div>
+            <div class="name">OBahia Land Use</div>
+            <div class="desc">Mapeamento de uso e cobertura do solo na bacia do Rio Grande (BA) com séries temporais de satélite.</div>
+          </a>
+
+          <!-- OBahia Irrigation -->
+          <a href="http://obahia.dea.ufv.br/irrigation/#/" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
+            <div class="num">UFV · RASTER + WEBGIS</div>
+            <div class="name">OBahia Irrigation</div>
+            <div class="desc">Monitoramento de irrigação por pivô central na bacia do Rio Grande (BA) via detecção remota.</div>
           </a>
         </div>
       </div>
@@ -2672,12 +2685,12 @@
       <div class="lightbox-content" id="lightboxContent">
         <!-- vector-examples -->
         <div class="lightbox-figure" data-lightbox-group="vector-examples">
-          <img src="assets/01-poi-lin-pol.png" alt="Tipos de geometria vetorial: Point, Multipoint, Linestring, Multilinestring, Polygon, Multipolygon"/>
-          <div class="lightbox-caption">Tipos de geometria vetorial (Point, Line, Polygon + Multi)</div>
+          <img src="assets/01-poi-lin-pol.png" alt="Tipos de geometria vectorial: Point, Multipoint, Linestring, Multilinestring, Polygon, Multipolygon"/>
+          <div class="lightbox-caption">Tipos de geometria vectorial (Point, Line, Polygon + Multi)</div>
         </div>
         <div class="lightbox-figure" data-lightbox-group="vector-examples">
-          <img src="assets/02-vector-example.png" alt="Dados vetoriais sobre imagem de satélite: pivôs de irrigação e talhões"/>
-          <div class="lightbox-caption">Exemplo real: vetores sobre imagem de satélite (agricultura)</div>
+          <img src="assets/02-vector-example.png" alt="Dados vectoriais sobre imagem de satélite: pivôs de irrigação e talhões"/>
+          <div class="lightbox-caption">Exemplo real: vectores sobre imagem de satélite (agricultura)</div>
         </div>
         <!-- raster-examples -->
         <div class="lightbox-figure" data-lightbox-group="raster-examples">
@@ -2691,6 +2704,19 @@
         <div class="lightbox-figure" data-lightbox-group="raster-examples">
           <img src="assets/03-raster-wl.png" alt="Espectro eletromagnético com faixa do visível em destaque"/>
           <div class="lightbox-caption">Espectro eletromagnético — faixa do visível</div>
+        </div>
+        <!-- geoserver-examples -->
+        <div class="lightbox-figure" data-lightbox-group="geoserver-examples">
+          <img src="assets/01-Geoserver.png" alt="GeoServer — interface de administração"/>
+          <div class="lightbox-caption">GeoServer — interface de administração</div>
+        </div>
+        <div class="lightbox-figure" data-lightbox-group="geoserver-examples">
+          <img src="assets/02-Geoserver.png" alt="GeoServer — preview de camadas"/>
+          <div class="lightbox-caption">GeoServer — preview de camadas</div>
+        </div>
+        <div class="lightbox-figure" data-lightbox-group="geoserver-examples">
+          <img src="assets/03-Geoserver.png" alt="GeoServer — configuração de serviços OGC"/>
+          <div class="lightbox-caption">GeoServer — configuração de serviços OGC</div>
         </div>
       </div>
     </div>
