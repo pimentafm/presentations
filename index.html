@@ -1523,12 +1523,12 @@
             <tr>
               <td class="you">Service catalog / registry</td>
               <td class="arrow">→</td>
-              <td class="geo">CSW · ISO 19115</td>
+              <td class="geo">CSW · ISO 19115-3</td>
             </tr>
             <tr>
               <td class="you">Data catalog (DataHub, Atlas)</td>
               <td class="arrow">→</td>
-              <td class="geo">OpenMetadata + ISO 19115</td>
+              <td class="geo">OpenMetadata + ISO 19115-3</td>
             </tr>
             <tr>
               <td class="you">CDN edge cache</td>
@@ -1585,7 +1585,7 @@
           <div class="layer">
             <div class="num">03 · CATALOG</div>
             <div class="name">Metadados</div>
-            <div class="desc">Service discovery + governança. ISO 19115 + CSW.</div>
+            <div class="desc">Service discovery + governança. ISO 19115-3 + CSW.</div>
           </div>
           <div class="layer">
             <div class="num">04 · CLIENTS</div>
@@ -1811,7 +1811,7 @@
             <h3>GeoNetwork</h3>
             <p class="col-desc">Catálogo CSW + editor ISO. O service-discovery do mundo geo.</p>
             <ul>
-              <li>ISO 19115 / 19119 / 19110 + CSW 2.0.2</li>
+              <li>ISO 19115-3 / 19119 / 19110 + CSW 2.0.2</li>
               <li>Harvesting: CSW, WFS, OAI-PMH, SFTP</li>
               <li>Editor multilíngue + workflow de publicação</li>
               <li>Federação nativa entre instâncias</li>
@@ -1977,7 +1977,7 @@
           <div class="layer">
             <div class="num">TOOL · DISCOVER</div>
             <div class="name">Catalog Search</div>
-            <div class="desc">Buscar metadados ISO 19115 via CSW. Agent descobre datasets por tema, BBOX ou temporal extent.</div>
+            <div class="desc">Buscar metadados ISO 19115-3 via CSW. Agent descobre datasets por tema, BBOX ou temporal extent.</div>
           </div>
           <div class="layer">
             <div class="num">TOOL · ANALYZE</div>
@@ -2544,6 +2544,73 @@
             </div>
             <div class="tool-name">Apache Hop</div>
             <div class="tool-url">hop.apache.org</div>
+          </a>
+
+          <!-- Prithvi · NASA/IBM foundation model (brain + satellite) -->
+          <a href="https://huggingface.co/ibm-nasa-geospatial" target="_blank" rel="noopener" class="tool-card uplink" aria-label="Prithvi — huggingface.co/ibm-nasa-geospatial">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="16" cy="14" r="8"/>
+                <path d="M10 12 Q13 18 16 12 Q19 6 22 12" opacity="0.6"/>
+                <path d="M10 16 Q13 22 16 16 Q19 10 22 16" opacity="0.4"/>
+                <line x1="16" y1="22" x2="16" y2="28"/>
+                <line x1="12" y1="26" x2="20" y2="26"/>
+              </svg>
+            </div>
+            <div class="tool-name">Prithvi</div>
+            <div class="tool-url">huggingface.co/ibm-nasa</div>
+          </a>
+
+          <!-- Segment Anything Geo · SAM for geospatial (crosshair + polygon) -->
+          <a href="https://samgeo.gishub.org" target="_blank" rel="noopener" class="tool-card uplink" aria-label="SAM-Geo — samgeo.gishub.org">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <polygon points="8,24 16,6 24,24 20,20 12,20"/>
+                <circle cx="16" cy="17" r="3" opacity="0.5"/>
+                <line x1="16" y1="13" x2="16" y2="15" opacity="0.5"/>
+                <line x1="16" y1="19" x2="16" y2="21" opacity="0.5"/>
+                <line x1="12" y1="17" x2="14" y2="17" opacity="0.5"/>
+                <line x1="18" y1="17" x2="20" y2="17" opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="tool-name">SAM-Geo</div>
+            <div class="tool-url">samgeo.gishub.org</div>
+          </a>
+
+          <!-- Triton · model serving (GPU chip) -->
+          <a href="https://github.com/triton-inference-server/server" target="_blank" rel="noopener" class="tool-card uplink" aria-label="Triton — triton inference server">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="6" y="8" width="20" height="16" rx="2"/>
+                <rect x="10" y="12" width="5" height="4" rx="0.5" opacity="0.6"/>
+                <rect x="17" y="12" width="5" height="4" rx="0.5" opacity="0.6"/>
+                <rect x="10" y="18" width="5" height="4" rx="0.5" opacity="0.4"/>
+                <rect x="17" y="18" width="5" height="4" rx="0.5" opacity="0.4"/>
+                <line x1="10" y1="6" x2="10" y2="8" opacity="0.5"/>
+                <line x1="16" y1="6" x2="16" y2="8" opacity="0.5"/>
+                <line x1="22" y1="6" x2="22" y2="8" opacity="0.5"/>
+                <line x1="10" y1="24" x2="10" y2="26" opacity="0.5"/>
+                <line x1="16" y1="24" x2="16" y2="26" opacity="0.5"/>
+                <line x1="22" y1="24" x2="22" y2="26" opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="tool-name">Triton</div>
+            <div class="tool-url">github.com/triton</div>
+          </a>
+
+          <!-- pgvector · vector embeddings in Postgres (database + vector arrows) -->
+          <a href="https://github.com/pgvector/pgvector" target="_blank" rel="noopener" class="tool-card uplink" aria-label="pgvector — github.com/pgvector">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <ellipse cx="16" cy="9" rx="9" ry="3"/>
+                <path d="M7 9 L7 23 C 7 24.66 11 26 16 26 C 21 26 25 24.66 25 23 L25 9"/>
+                <line x1="12" y1="15" x2="16" y2="19" opacity="0.6"/>
+                <line x1="16" y1="15" x2="20" y2="19" opacity="0.6"/>
+                <line x1="20" y1="15" x2="16" y2="19" opacity="0.4"/>
+              </svg>
+            </div>
+            <div class="tool-name">pgvector</div>
+            <div class="tool-url">github.com/pgvector</div>
           </a>
         </div>
       </div>
