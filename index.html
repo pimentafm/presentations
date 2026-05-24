@@ -1649,48 +1649,12 @@
 
       <div class="slide-content stack" style="justify-content: flex-start; padding-top: clamp(2.25rem, 5.5vh, 3.5rem); padding-bottom: clamp(2.25rem, 5.5vh, 3.5rem); gap: clamp(0.5rem, 1.2vh, 1rem);">
         <span class="eyebrow reveal" style="--delay: 0.05s">A dor histórica</span>
-        <h2 class="section reveal" style="--delay: 0.15s; font-size: clamp(1.4rem, 3.4vw, 2.5rem);" data-lightbox="geoserver-examples">GeoServer <span class="accent">clássico</span></h2>
+        <h2 class="section reveal" style="--delay: 0.15s; font-size: clamp(1.4rem, 3.4vw, 2.5rem);">GeoServer <span class="accent">clássico</span></h2>
 
-        <div class="two-col uneven reveal" style="--delay: 0.3s; margin-top: clamp(0.3rem, 0.8vh, 0.6rem); align-items: start; gap: clamp(0.8rem, 2vw, 1.8rem);">
-          <!-- Left: SVG do monólito (height capada para garantir fit em viewport baixo) -->
-          <div class="svg-diagram" style="max-height: clamp(180px, 38vh, 320px); max-width: clamp(220px, 36vw, 400px);">
-            <svg viewBox="0 0 360 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-              <defs>
-                <pattern id="diag" patternUnits="userSpaceOnUse" width="6" height="6" patternTransform="rotate(45)">
-                  <line x1="0" y1="0" x2="0" y2="6" stroke="#ed5a3e" stroke-opacity="0.18" stroke-width="1"/>
-                </pattern>
-              </defs>
-              <!-- Monolith outer -->
-              <rect x="40" y="30" width="280" height="220" fill="url(#diag)" stroke="#ed5a3e" stroke-width="1.5" rx="4"/>
-              <text x="180" y="22" text-anchor="middle" font-size="10" fill="#ed5a3e" letter-spacing="2">GEOSERVER.WAR · TOMCAT JVM</text>
-              <!-- Internal compartments -->
-              <rect x="60" y="55" width="115" height="40" fill="rgba(244,236,216,0.05)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="117" y="79" text-anchor="middle" font-size="11" font-weight="500">WMS</text>
-              <rect x="185" y="55" width="115" height="40" fill="rgba(244,236,216,0.05)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="242" y="79" text-anchor="middle" font-size="11" font-weight="500">WFS</text>
-              <rect x="60" y="105" width="115" height="40" fill="rgba(244,236,216,0.05)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="117" y="129" text-anchor="middle" font-size="11" font-weight="500">WCS</text>
-              <rect x="185" y="105" width="115" height="40" fill="rgba(244,236,216,0.05)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="242" y="129" text-anchor="middle" font-size="11" font-weight="500">REST API</text>
-              <rect x="60" y="155" width="115" height="40" fill="rgba(244,236,216,0.05)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="117" y="179" text-anchor="middle" font-size="11" font-weight="500">Web UI</text>
-              <rect x="185" y="155" width="115" height="40" fill="rgba(244,236,216,0.05)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="242" y="179" text-anchor="middle" font-size="11" font-weight="500">GWC</text>
-              <!-- State block -->
-              <rect x="60" y="208" width="240" height="30" fill="rgba(237,90,62,0.12)" stroke="#ed5a3e" stroke-opacity="0.6" stroke-dasharray="3 2" rx="2"/>
-              <text x="180" y="227" text-anchor="middle" font-size="10" fill="#ed5a3e" letter-spacing="1.5">DATA_DIR · ESTADO LOCAL EM DISCO</text>
-              <!-- Bottom caption -->
-              <text x="180" y="270" text-anchor="middle" font-size="9" fill="#f4ecd8" fill-opacity="0.5" letter-spacing="1">UMA ÚNICA JVM · ESCALA VERTICAL</text>
-            </svg>
-          </div>
-          <!-- Right: pain bullets (compactos para caber ao lado do SVG sem overflow) -->
-          <ul class="feature-list" style="margin: 0; gap: clamp(0.35rem, 0.9vh, 0.65rem); font-size: clamp(0.78rem, 1.2vw, 1rem);">
-            <li data-num="◇"><strong>Estado em disco</strong> (<code>data_dir</code>) — replicação via NFS shared.</li>
-            <li data-num="◇"><strong>Cold start 30-60s</strong> — hot-restart inviável.</li>
-            <li data-num="◇"><strong>Scale-out manual</strong> — copiar <code>data_dir</code> + sync.</li>
-            <li data-num="◇"><strong>Métricas via JMX</strong> — logs não estruturados.</li>
-            <li data-num="◇"><strong>Um restart</strong> derruba todos os endpoints OGC.</li>
-          </ul>
+        <div class="reveal" style="--delay: 0.3s; margin-top: var(--element-gap); display: flex; gap: clamp(0.8rem, 2vw, 1.8rem); align-items: flex-start; justify-content: center; max-height: 60vh;">
+          <img src="assets/01-Geoserver.png" alt="GeoServer — interface de administração" style="flex: 1; min-width: 0; max-height: 55vh; object-fit: contain; border-radius: 6px; border: 1px solid var(--hairline); box-shadow: 0 8px 32px rgba(0,0,0,0.4);"/>
+          <img src="assets/02-Geoserver.png" alt="GeoServer — preview de camadas" style="flex: 1; min-width: 0; max-height: 55vh; object-fit: contain; border-radius: 6px; border: 1px solid var(--hairline); box-shadow: 0 8px 32px rgba(0,0,0,0.4);"/>
+          <img src="assets/03-Geoserver.png" alt="GeoServer — configuração de serviços OGC" style="flex: 1; min-width: 0; max-height: 55vh; object-fit: contain; border-radius: 6px; border: 1px solid var(--hairline); box-shadow: 0 8px 32px rgba(0,0,0,0.4);"/>
         </div>
       </div>
 
@@ -2705,19 +2669,7 @@
           <img src="assets/03-raster-wl.png" alt="Espectro eletromagnético com faixa do visível em destaque"/>
           <div class="lightbox-caption">Espectro eletromagnético — faixa do visível</div>
         </div>
-        <!-- geoserver-examples -->
-        <div class="lightbox-figure" data-lightbox-group="geoserver-examples">
-          <img src="assets/01-Geoserver.png" alt="GeoServer — interface de administração"/>
-          <div class="lightbox-caption">GeoServer — interface de administração</div>
-        </div>
-        <div class="lightbox-figure" data-lightbox-group="geoserver-examples">
-          <img src="assets/02-Geoserver.png" alt="GeoServer — preview de camadas"/>
-          <div class="lightbox-caption">GeoServer — preview de camadas</div>
-        </div>
-        <div class="lightbox-figure" data-lightbox-group="geoserver-examples">
-          <img src="assets/03-Geoserver.png" alt="GeoServer — configuração de serviços OGC"/>
-          <div class="lightbox-caption">GeoServer — configuração de serviços OGC</div>
-        </div>
+
       </div>
     </div>
 
