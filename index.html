@@ -799,6 +799,7 @@
         background: var(--bg-elevated);
         border-left: 3px solid var(--topo);
       }
+      .arch-layer.ai { border-left-color: #4caf50; }
       .arch-layer.mid { border-left-color: var(--uplink); }
       .arch-layer.base { border-left-color: var(--survey); }
       .arch-layer .layer-label {
@@ -821,6 +822,7 @@
         font-weight: 400;
         margin: 0 clamp(0.35rem, 0.7vw, 0.6rem);
       }
+      .arch-layer.ai .layer-tools .sep { color: #4caf50; }
       .arch-layer.mid .layer-tools .sep { color: var(--uplink); }
       .arch-layer.base .layer-tools .sep { color: var(--survey); }
 
@@ -2731,7 +2733,7 @@
         </h2>
 
         <div class="arch-stack reveal" style="--delay: 0.35s; margin-top: var(--element-gap);">
-          <div class="arch-layer">
+          <div class="arch-layer ai">
             <div class="layer-label">AI + Agents</div>
             <div class="layer-tools">
               MCP Server <span class="sep">·</span> Prithvi <span class="sep">·</span> SAM-Geo <span class="sep">·</span> Triton <span class="sep">·</span> pgvector
