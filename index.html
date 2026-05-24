@@ -1867,9 +1867,20 @@
           Bibliotecas JavaScript ou aplicações web completas que consomem serviços OGC. De SPAs estáticas a portais geoespaciais.
         </p>
 
-        <div class="two-col reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+        <div class="layer-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap); grid-template-columns: repeat(4, 1fr);">
           <div class="col-card">
-            <div class="col-eyebrow">2D · WebGIS framework</div>
+            <div class="col-eyebrow">2D · Biblioteca JS</div>
+            <h3>OpenLayers</h3>
+            <p class="col-desc">Biblioteca JavaScript pura para mapas 2D. Bundle estático, CDN-friendly.</p>
+            <ul>
+              <li>Renderização client-side de alta performance</li>
+              <li>Consome WMS · WFS · WMTS · TMS · GeoJSON</li>
+              <li>Projeções customizadas via proj4js</li>
+              <li>Zero backend — ideal para SPAs</li>
+            </ul>
+          </div>
+          <div class="col-card">
+            <div class="col-eyebrow">2D/3D · Portal geoespacial</div>
             <h3>MapStore</h3>
             <p class="col-desc">Mapas, dashboards e geostories. Engine-agnóstico.</p>
             <ul>
@@ -1877,6 +1888,17 @@
               <li>Dashboards com widgets, gráficos, timelines</li>
               <li>GeoStories: narrativa espacial editorial</li>
               <li>Consome WMS · WFS · WMTS · CSW · TMS</li>
+            </ul>
+          </div>
+          <div class="col-card">
+            <div class="col-eyebrow">SDI · Portal completo</div>
+            <h3>GeoNode</h3>
+            <p class="col-desc">Plataforma open source para criar IDEs. Gestão de dados, metadados e mapas.</p>
+            <ul>
+              <li>Upload, publicação e compartilhamento de dados</li>
+              <li>Metadados ISO 19115-3 integrados</li>
+              <li>GeoServer + PostgreSQL embutidos</li>
+              <li>API REST + OGC services nativos</li>
             </ul>
           </div>
           <div class="col-card uplink">
