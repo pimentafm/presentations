@@ -1712,130 +1712,14 @@
         <div class="sheet">SHEET <em>09</em> / 15</div>
       </div>
 
-      <div class="slide-content stack" style="justify-content: flex-start; padding-top: clamp(2.5rem, 6vh, 4rem);">
+      <div class="slide-content stack" style="justify-content: center; gap: clamp(0.5rem, 1.2vh, 1rem);">
         <span class="eyebrow reveal" style="--delay: 0.05s">Reference architecture</span>
-        <h2 class="section reveal" style="--delay: 0.15s" style="font-size: clamp(1.3rem, 3.2vw, 2.4rem);">
+        <h2 class="section reveal" style="--delay: 0.15s; font-size: clamp(1.3rem, 3.2vw, 2.4rem);">
           GeoServer Cloud em <span class="accent">Kubernetes</span>
         </h2>
 
-        <!-- K8s architecture SVG diagram -->
-        <div class="svg-diagram reveal" style="--delay: 0.35s; margin-top: var(--element-gap);">
-          <svg viewBox="0 0 940 480" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M0,0 L10,5 L0,10 z" fill="#f4ecd8" fill-opacity="0.5"/>
-              </marker>
-              <marker id="arrow-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M0,0 L10,5 L0,10 z" fill="#4dd4d6" fill-opacity="0.7"/>
-              </marker>
-            </defs>
-
-            <!-- K8s cluster boundary -->
-            <rect x="15" y="50" width="910" height="420" fill="none" stroke="#f4ecd8" stroke-opacity="0.18" stroke-dasharray="6 4" rx="6"/>
-            <text x="30" y="42" font-size="10" fill="#f4ecd8" fill-opacity="0.5" letter-spacing="2">KUBERNETES CLUSTER</text>
-
-            <!-- Internet -->
-            <text x="470" y="20" text-anchor="middle" font-size="10" fill="#4dd4d6" fill-opacity="0.75" letter-spacing="2">INTERNET</text>
-            <line x1="470" y1="28" x2="470" y2="70" stroke="#4dd4d6" stroke-opacity="0.55" stroke-width="1.2" marker-end="url(#arrow-cyan)"/>
-
-            <!-- Ingress -->
-            <rect x="370" y="72" width="200" height="34" fill="rgba(77,212,214,0.08)" stroke="#4dd4d6" stroke-width="1.2" rx="3"/>
-            <text x="470" y="93" text-anchor="middle" font-size="11" font-weight="500" fill="#4dd4d6">Ingress · NGINX / Traefik</text>
-
-            <!-- Arrow down -->
-            <line x1="470" y1="106" x2="470" y2="124" stroke="#f4ecd8" stroke-opacity="0.4" stroke-width="1" marker-end="url(#arrow)"/>
-
-            <!-- Gateway -->
-            <rect x="350" y="124" width="240" height="34" fill="rgba(77,212,214,0.08)" stroke="#4dd4d6" stroke-width="1.2" rx="3"/>
-            <text x="470" y="145" text-anchor="middle" font-size="11" font-weight="500" fill="#4dd4d6">Gateway Service · Spring Cloud</text>
-
-            <!-- Splitter to services -->
-            <line x1="470" y1="158" x2="470" y2="178" stroke="#f4ecd8" stroke-opacity="0.35" stroke-width="1"/>
-            <line x1="100" y1="178" x2="840" y2="178" stroke="#f4ecd8" stroke-opacity="0.35" stroke-width="1"/>
-            <line x1="100" y1="178" x2="100" y2="195" stroke="#f4ecd8" stroke-opacity="0.35" stroke-width="1"/>
-            <line x1="248" y1="178" x2="248" y2="195" stroke="#f4ecd8" stroke-opacity="0.35" stroke-width="1"/>
-            <line x1="396" y1="178" x2="396" y2="195" stroke="#f4ecd8" stroke-opacity="0.35" stroke-width="1"/>
-            <line x1="544" y1="178" x2="544" y2="195" stroke="#f4ecd8" stroke-opacity="0.35" stroke-width="1"/>
-            <line x1="692" y1="178" x2="692" y2="195" stroke="#f4ecd8" stroke-opacity="0.35" stroke-width="1"/>
-            <line x1="840" y1="178" x2="840" y2="195" stroke="#f4ecd8" stroke-opacity="0.35" stroke-width="1"/>
-
-            <!-- Microservices row -->
-            <g font-size="11" text-anchor="middle">
-              <rect x="50" y="195" width="100" height="48" fill="rgba(245,183,61,0.08)" stroke="#f5b73d" stroke-width="1.2" rx="3"/>
-              <text x="100" y="216" font-weight="500" fill="#f5b73d">wms-service</text>
-              <text x="100" y="232" font-size="9" fill="#f4ecd8" fill-opacity="0.6">replicas: 3</text>
-
-              <rect x="198" y="195" width="100" height="48" fill="rgba(245,183,61,0.08)" stroke="#f5b73d" stroke-width="1.2" rx="3"/>
-              <text x="248" y="216" font-weight="500" fill="#f5b73d">wfs-service</text>
-              <text x="248" y="232" font-size="9" fill="#f4ecd8" fill-opacity="0.6">replicas: 3</text>
-
-              <rect x="346" y="195" width="100" height="48" fill="rgba(245,183,61,0.08)" stroke="#f5b73d" stroke-width="1.2" rx="3"/>
-              <text x="396" y="216" font-weight="500" fill="#f5b73d">wcs-service</text>
-              <text x="396" y="232" font-size="9" fill="#f4ecd8" fill-opacity="0.6">replicas: 2</text>
-
-              <rect x="494" y="195" width="100" height="48" fill="rgba(245,183,61,0.08)" stroke="#f5b73d" stroke-width="1.2" rx="3"/>
-              <text x="544" y="216" font-weight="500" fill="#f5b73d">rest-api</text>
-              <text x="544" y="232" font-size="9" fill="#f4ecd8" fill-opacity="0.6">replicas: 2</text>
-
-              <rect x="642" y="195" width="100" height="48" fill="rgba(245,183,61,0.08)" stroke="#f5b73d" stroke-width="1.2" rx="3"/>
-              <text x="692" y="216" font-weight="500" fill="#f5b73d">gwc</text>
-              <text x="692" y="232" font-size="9" fill="#f4ecd8" fill-opacity="0.6">replicas: 2</text>
-
-              <rect x="790" y="195" width="100" height="48" fill="rgba(245,183,61,0.08)" stroke="#f5b73d" stroke-width="1.2" rx="3"/>
-              <text x="840" y="216" font-weight="500" fill="#f5b73d">web-ui</text>
-              <text x="840" y="232" font-size="9" fill="#f4ecd8" fill-opacity="0.6">replicas: 1</text>
-            </g>
-            <text x="470" y="262" text-anchor="middle" font-size="9" fill="#f4ecd8" fill-opacity="0.55" letter-spacing="1.5">STATELESS · INDEPENDENTLY SCALABLE · HPA-FRIENDLY</text>
-
-            <!-- Platform services -->
-            <rect x="50" y="278" width="840" height="56" fill="rgba(244,236,216,0.025)" stroke="#f4ecd8" stroke-opacity="0.2" rx="3"/>
-            <text x="65" y="294" font-size="9" fill="#f4ecd8" fill-opacity="0.55" letter-spacing="1.5">PLATFORM SERVICES</text>
-            <g font-size="10.5" text-anchor="middle">
-              <rect x="120" y="298" width="170" height="28" fill="rgba(244,236,216,0.04)" stroke="#f4ecd8" stroke-opacity="0.35" rx="2"/>
-              <text x="205" y="316" fill="#f4ecd8">Consul · discovery</text>
-
-              <rect x="335" y="298" width="170" height="28" fill="rgba(244,236,216,0.04)" stroke="#f4ecd8" stroke-opacity="0.35" rx="2"/>
-              <text x="420" y="316" fill="#f4ecd8">Config Server</text>
-
-              <rect x="550" y="298" width="170" height="28" fill="rgba(244,236,216,0.04)" stroke="#f4ecd8" stroke-opacity="0.35" rx="2"/>
-              <text x="635" y="316" fill="#f4ecd8">RabbitMQ · event bus</text>
-            </g>
-
-            <!-- Data tier + Observability -->
-            <g font-size="10.5">
-              <!-- Data tier box -->
-              <rect x="50" y="354" width="500" height="98" fill="rgba(237,90,62,0.06)" stroke="#ed5a3e" stroke-opacity="0.55" rx="3"/>
-              <text x="65" y="370" font-size="9" fill="#ed5a3e" letter-spacing="1.5">DATA TIER</text>
-
-              <rect x="70" y="380" width="140" height="55" fill="rgba(244,236,216,0.04)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="140" y="402" text-anchor="middle" font-weight="500" fill="#f4ecd8">PostGIS</text>
-              <text x="140" y="418" text-anchor="middle" font-size="9" fill="#f4ecd8" fill-opacity="0.6">HA · Patroni</text>
-
-              <rect x="225" y="380" width="140" height="55" fill="rgba(244,236,216,0.04)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="295" y="402" text-anchor="middle" font-weight="500" fill="#f4ecd8">Redis</text>
-              <text x="295" y="418" text-anchor="middle" font-size="9" fill="#f4ecd8" fill-opacity="0.6">session · cache</text>
-
-              <rect x="380" y="380" width="140" height="55" fill="rgba(244,236,216,0.04)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="450" y="402" text-anchor="middle" font-weight="500" fill="#f4ecd8">S3 / MinIO</text>
-              <text x="450" y="418" text-anchor="middle" font-size="9" fill="#f4ecd8" fill-opacity="0.6">rasters · tiles</text>
-
-              <!-- Observability box -->
-              <rect x="570" y="354" width="320" height="98" fill="rgba(77,212,214,0.06)" stroke="#4dd4d6" stroke-opacity="0.55" rx="3"/>
-              <text x="585" y="370" font-size="9" fill="#4dd4d6" letter-spacing="1.5">OBSERVABILITY</text>
-
-              <rect x="590" y="380" width="90" height="55" fill="rgba(244,236,216,0.04)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="635" y="402" text-anchor="middle" font-weight="500" fill="#f4ecd8">Prom</text>
-              <text x="635" y="418" text-anchor="middle" font-size="9" fill="#f4ecd8" fill-opacity="0.6">metrics</text>
-
-              <rect x="690" y="380" width="90" height="55" fill="rgba(244,236,216,0.04)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="735" y="402" text-anchor="middle" font-weight="500" fill="#f4ecd8">Grafana</text>
-              <text x="735" y="418" text-anchor="middle" font-size="9" fill="#f4ecd8" fill-opacity="0.6">dashboards</text>
-
-              <rect x="790" y="380" width="90" height="55" fill="rgba(244,236,216,0.04)" stroke="#f4ecd8" stroke-opacity="0.3" rx="2"/>
-              <text x="835" y="402" text-anchor="middle" font-weight="500" fill="#f4ecd8">OTel</text>
-              <text x="835" y="418" text-anchor="middle" font-size="9" fill="#f4ecd8" fill-opacity="0.6">traces · logs</text>
-            </g>
-          </svg>
+        <div class="reveal" style="--delay: 0.35s; margin-top: var(--element-gap); display: flex; align-items: center; justify-content: center;">
+          <img src="assets/04-Geoserver-Cloud.svg" alt="GeoServer Cloud — arquitetura de referência em Kubernetes" style="max-width: 90vw; max-height: 62vh; object-fit: contain;"/>
         </div>
       </div>
 
