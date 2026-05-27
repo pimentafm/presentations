@@ -49,6 +49,9 @@
 
       /* Reset */
       * { margin: 0; padding: 0; box-sizing: border-box; }
+      .slide, .lightbox { -webkit-user-select: none; user-select: none; }
+      .slide img, .slide svg, .lightbox img { -webkit-user-drag: none; user-drag: none; pointer-events: none; }
+      .slide a, .slide button, .slide [data-lightbox] { pointer-events: auto; }
 
       body {
         font-family: var(--font-display);
