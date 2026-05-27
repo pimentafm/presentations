@@ -1535,67 +1535,12 @@
     </section>
 
     <!-- =====================================================
-         SLIDE 03 — TIPOS DE DADO ESPACIAL
-         Vector vs Raster + variantes 3D/4D/Tiles
-         ===================================================== -->
-    <section class="slide" data-title="Tipos de dado" data-section="Fundação">
-      <div class="meta-bar">
-        <div class="meta-left"><span class="dot"></span><span>MODELOS DE DADO · VECTOR &amp; RASTER</span></div>
-        <div class="sheet">SHEET <em>03</em> / 19</div>
-      </div>
-
-      <div class="slide-content stack">
-        <span class="eyebrow reveal" style="--delay: 0.05s">Vector &amp; raster</span>
-        <h2 class="section reveal" style="--delay: 0.15s">Tipos de <span class="accent">dado espacial</span>.</h2>
-        <p class="tagline reveal" style="--delay: 0.3s">
-          Todo dado geo se reduz a duas formas: <strong style="color: var(--ink)">vector</strong> (geometria discreta) ou <strong style="color: var(--ink)">raster</strong> (matriz contínua) — mais 3 variantes especializadas.
-        </p>
-
-        <div class="two-col reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
-          <div class="col-card" data-lightbox="vector-examples">
-            <div class="col-eyebrow">Geometria discreta</div>
-            <h3>Vector</h3>
-            <p class="col-desc">Ponto, linha, polígono — coordenadas + atributos.</p>
-            <ul>
-              <li><strong style="color: var(--ink)">Ponto</strong> · POIs, sensores, eventos</li>
-              <li><strong style="color: var(--ink)">Linha</strong> · rotas, rios, malha viária</li>
-              <li><strong style="color: var(--ink)">Polígono</strong> · limites, lotes, biomas</li>
-              <li>Formatos · GeoJSON, Shapefile, GeoPackage, PostGIS</li>
-            </ul>
-          </div>
-          <div class="col-card uplink" data-lightbox="raster-examples">
-            <div class="col-eyebrow">Matriz contínua</div>
-            <h3>Raster</h3>
-            <p class="col-desc">Grades de pixels georreferenciadas + bandas.</p>
-            <ul>
-              <li><strong style="color: var(--ink)">Imagery</strong> · Landsat, Sentinel, drone</li>
-              <li><strong style="color: var(--ink)">Elevação</strong> · DEM, DTM, batimetria</li>
-              <li><strong style="color: var(--ink)">Categorical</strong> · uso do solo, cobertura</li>
-              <li>Formatos · GeoTIFF, COG, Zarr</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="pills reveal" style="--delay: 0.65s; margin-top: var(--content-gap); justify-content: center;">
-          <span class="pill survey">3D · point clouds (LiDAR) · meshes · 3D Tiles</span>
-          <span class="pill topo">4D · time-dynamic · telemetria · NDVI</span>
-          <span class="pill uplink">Tiles · pirâmides pré-renderizadas (XYZ, WMTS)</span>
-        </div>
-      </div>
-
-      <div class="foot-bar">
-        <span class="author">Vector + raster + variantes</span>
-        <span>CADA TIPO → ÍNDICE PRÓPRIO · SERVIÇO PRÓPRIO</span>
-      </div>
-    </section>
-
-    <!-- =====================================================
          SLIDE 04 — VOCÊ JÁ OPERA ISSO (terminology bridge)
          ===================================================== -->
     <section class="slide" data-title="Você já opera isso" data-section="Fundação">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>QUADRO DE TRADUÇÃO</span></div>
-        <div class="sheet">SHEET <em>04</em> / 19</div>
+        <div class="sheet">SHEET <em>03</em> / 19</div>
       </div>
 
       <div class="slide-content stack">
@@ -1656,6 +1601,60 @@
       <div class="foot-bar">
         <span class="author">SRE ↔ SDI</span>
         <span>A OPERAÇÃO É A MESMA</span>
+      </div>
+    </section>
+    <!-- =====================================================
+         SLIDE 03 — TIPOS DE DADO ESPACIAL
+         Vector vs Raster + variantes 3D/4D/Tiles
+         ===================================================== -->
+    <section class="slide" data-title="Tipos de dado" data-section="Fundação">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>MODELOS DE DADO · VECTOR &amp; RASTER</span></div>
+        <div class="sheet">SHEET <em>04</em> / 19</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Vector &amp; raster</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Tipos de <span class="accent">dado espacial</span>.</h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Todo dado geo se reduz a duas formas: <strong style="color: var(--ink)">vector</strong> (geometria discreta) ou <strong style="color: var(--ink)">raster</strong> (matriz contínua) — mais 3 variantes especializadas.
+        </p>
+
+        <div class="two-col reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <div class="col-card" data-lightbox="vector-examples">
+            <div class="col-eyebrow">Geometria discreta</div>
+            <h3>Vector</h3>
+            <p class="col-desc">Ponto, linha, polígono — coordenadas + atributos.</p>
+            <ul>
+              <li><strong style="color: var(--ink)">Ponto</strong> · POIs, sensores, eventos</li>
+              <li><strong style="color: var(--ink)">Linha</strong> · rotas, rios, malha viária</li>
+              <li><strong style="color: var(--ink)">Polígono</strong> · limites, lotes, biomas</li>
+              <li>Formatos · GeoJSON, Shapefile, GeoPackage, PostGIS</li>
+            </ul>
+          </div>
+          <div class="col-card uplink" data-lightbox="raster-examples">
+            <div class="col-eyebrow">Matriz contínua</div>
+            <h3>Raster</h3>
+            <p class="col-desc">Grades de pixels georreferenciadas + bandas.</p>
+            <ul>
+              <li><strong style="color: var(--ink)">Imagery</strong> · Landsat, Sentinel, drone</li>
+              <li><strong style="color: var(--ink)">Elevação</strong> · DEM, DTM, batimetria</li>
+              <li><strong style="color: var(--ink)">Categorical</strong> · uso do solo, cobertura</li>
+              <li>Formatos · GeoTIFF, COG, Zarr</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pills reveal" style="--delay: 0.65s; margin-top: var(--content-gap); justify-content: center;">
+          <span class="pill survey">3D · point clouds (LiDAR) · meshes · 3D Tiles</span>
+          <span class="pill topo">4D · time-dynamic · telemetria · NDVI</span>
+          <span class="pill uplink">Tiles · pirâmides pré-renderizadas (XYZ, WMTS)</span>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Vector + raster + variantes</span>
+        <span>CADA TIPO → ÍNDICE PRÓPRIO · SERVIÇO PRÓPRIO</span>
       </div>
     </section>
 
@@ -1832,74 +1831,13 @@
     </section>
 
     <!-- =====================================================
-         SLIDE 08 — OBSERVABILITY & SLOs
-         ===================================================== -->
-    <section class="slide" data-title="Observability · SLOs" data-section="Stack">
-      <div class="meta-bar">
-        <div class="meta-left"><span class="dot"></span><span>03 · OBSERVABILITY</span></div>
-        <div class="sheet">SHEET <em>10</em> / 19</div>
-      </div>
-
-      <div class="slide-content stack">
-        <span class="eyebrow reveal" style="--delay: 0.05s">SLOs para serviços geoespaciais</span>
-        <h2 class="section reveal" style="--delay: 0.15s">Os SLIs que <span class="accent">importam</span>.</h2>
-
-        <div class="two-col reveal" style="--delay: 0.3s; margin-top: var(--element-gap);">
-          <div class="col-card">
-            <div class="col-eyebrow">SLIs típicos · alvos saudáveis</div>
-            <h3>Latência &amp; disponibilidade</h3>
-            <ul class="metric-list" style="margin-top: 0.7rem;">
-              <li>
-                <span class="metric-name">WMS GetMap · p95</span>
-                <span class="metric-target">&lt; 300 ms</span>
-              </li>
-              <li>
-                <span class="metric-name">WFS GetFeature · p95</span>
-                <span class="metric-target">&lt; 500 ms</span>
-              </li>
-              <li>
-                <span class="metric-name">GetCapabilities · success</span>
-                <span class="metric-target">≥ 99.9 %</span>
-              </li>
-              <li>
-                <span class="metric-name">GWC tile cache hit rate</span>
-                <span class="metric-target">≥ 85 %</span>
-              </li>
-              <li>
-                <span class="metric-name">PostGIS query · p95</span>
-                <span class="metric-target">&lt; 100 ms</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-card uplink">
-            <div class="col-eyebrow">Instrumentação · ferramentas</div>
-            <h3>Como medir</h3>
-            <ul>
-              <li><code>/actuator/prometheus</code> em cada microsserviço</li>
-              <li>Spring Cloud Sleuth → OTel → Jaeger</li>
-              <li><code>postgres_exporter</code> para PostGIS</li>
-              <li>HPA por request rate (KEDA) ou CPU</li>
-              <li>GWC stats em <code>/gwc/rest/statistics</code></li>
-              <li>Loki ou Elastic para logs estruturados</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="foot-bar">
-        <span class="author">SLI · SLO · Error budget</span>
-        <span>OPERAÇÃO BASEADA EM EVIDÊNCIA</span>
-      </div>
-    </section>
-
     <!-- =====================================================
          SLIDE 09 — CATALOG + GOVERNANCE (GeoNetwork + OM)
          ===================================================== -->
     <section class="slide" data-title="Catalog + Governance" data-section="Stack">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>04 · DISCOVERY + GOVERNANCE</span></div>
-        <div class="sheet">SHEET <em>11</em> / 19</div>
+        <div class="sheet">SHEET <em>10</em> / 19</div>
       </div>
 
       <div class="slide-content stack">
@@ -1945,14 +1883,13 @@
         </span>
       </div>
     </section>
-
     <!-- =====================================================
          SLIDE 10 — FRONTEND TIER (MapStore + CesiumJS)
          ===================================================== -->
     <section class="slide" data-title="Frontend tier" data-section="Stack">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>05 · FRONTEND TIER</span></div>
-        <div class="sheet">SHEET <em>12</em> / 19</div>
+        <div class="sheet">SHEET <em>11</em> / 19</div>
       </div>
 
       <div class="slide-content stack">
@@ -2021,7 +1958,67 @@
         </span>
       </div>
     </section>
+    <!-- =====================================================
+         SLIDE 08 — OBSERVABILITY & SLOs
+         ===================================================== -->
+    <section class="slide" data-title="Observability · SLOs" data-section="Stack">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>03 · OBSERVABILITY</span></div>
+        <div class="sheet">SHEET <em>12</em> / 19</div>
+      </div>
 
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">SLOs para serviços geoespaciais</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Os SLIs que <span class="accent">importam</span>.</h2>
+
+        <div class="two-col reveal" style="--delay: 0.3s; margin-top: var(--element-gap);">
+          <div class="col-card">
+            <div class="col-eyebrow">SLIs típicos · alvos saudáveis</div>
+            <h3>Latência &amp; disponibilidade</h3>
+            <ul class="metric-list" style="margin-top: 0.7rem;">
+              <li>
+                <span class="metric-name">WMS GetMap · p95</span>
+                <span class="metric-target">&lt; 300 ms</span>
+              </li>
+              <li>
+                <span class="metric-name">WFS GetFeature · p95</span>
+                <span class="metric-target">&lt; 500 ms</span>
+              </li>
+              <li>
+                <span class="metric-name">GetCapabilities · success</span>
+                <span class="metric-target">≥ 99.9 %</span>
+              </li>
+              <li>
+                <span class="metric-name">GWC tile cache hit rate</span>
+                <span class="metric-target">≥ 85 %</span>
+              </li>
+              <li>
+                <span class="metric-name">PostGIS query · p95</span>
+                <span class="metric-target">&lt; 100 ms</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-card uplink">
+            <div class="col-eyebrow">Instrumentação · ferramentas</div>
+            <h3>Como medir</h3>
+            <ul>
+              <li><code>/actuator/prometheus</code> em cada microsserviço</li>
+              <li>Spring Cloud Sleuth → OTel → Jaeger</li>
+              <li><code>postgres_exporter</code> para PostGIS</li>
+              <li>HPA por request rate (KEDA) ou CPU</li>
+              <li>GWC stats em <code>/gwc/rest/statistics</code></li>
+              <li>Loki ou Elastic para logs estruturados</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">SLI · SLO · Error budget</span>
+        <span>OPERAÇÃO BASEADA EM EVIDÊNCIA</span>
+      </div>
+    </section>
     <!-- =====================================================
          SLIDE 12A — AI + GEOSPATIAL: THE CONVERGENCE
          ===================================================== -->
