@@ -88,6 +88,29 @@
         position: relative;
       }
 
+      /* D — Transição de entrada: slide-content sobe com fade */
+      .slide .slide-content {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.8s var(--ease-out-expo),
+          transform 0.8s var(--ease-out-expo);
+      }
+      .slide.visible .slide-content {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      /* Meta-bar e foot-bar acompanham com delay leve */
+      .slide .meta-bar,
+      .slide .foot-bar {
+        opacity: 0;
+        transition: opacity 0.5s var(--ease-out-expo) 0.15s;
+      }
+      .slide.visible .meta-bar,
+      .slide.visible .foot-bar {
+        opacity: 1;
+      }
+
       .slide-content {
         flex: 1;
         display: flex;
@@ -826,6 +849,25 @@
       .arch-layer.mid .layer-tools .sep { color: var(--uplink); }
       .arch-layer.base .layer-tools .sep { color: var(--survey); }
 
+      /* E — Arch-stack: camadas empilham de baixo pra cima */
+      .arch-stack .arch-layer {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.6s var(--ease-out-expo),
+          transform 0.6s var(--ease-out-expo),
+          box-shadow 0.4s var(--ease-out-quint),
+          background-color 0.4s var(--ease-out-quint);
+      }
+      .arch-stack .arch-layer:nth-child(1) { transition-delay: 0.65s; }
+      .arch-stack .arch-layer:nth-child(2) { transition-delay: 0.5s; }
+      .arch-stack .arch-layer:nth-child(3) { transition-delay: 0.35s; }
+      .arch-stack .arch-layer:nth-child(4) { transition-delay: 0.2s; }
+      .slide.visible .arch-stack .arch-layer {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
       .closing-quote {
         font-family: var(--font-display);
         font-style: italic;
@@ -1025,6 +1067,50 @@
         transition: width 0.2s var(--ease-out-quint);
         box-shadow: 0 0 12px var(--topo-glow);
       }
+
+      /* F — Section progress: indicador segmentado */
+      .section-progress {
+        position: fixed;
+        top: 6px; left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 2px;
+        z-index: 101;
+        opacity: 0;
+        transition: opacity 0.4s var(--ease-out-quint);
+        pointer-events: none;
+      }
+      .section-progress.visible { opacity: 1; pointer-events: auto; }
+      .section-seg {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        cursor: pointer;
+      }
+      .section-seg-bar {
+        height: 3px;
+        border-radius: 1.5px;
+        background: var(--ink-faint);
+        transition: background 0.3s var(--ease-out-quint), box-shadow 0.3s var(--ease-out-quint);
+      }
+      .section-seg-label {
+        font-family: var(--font-mono);
+        font-size: clamp(0.5rem, 0.55vw, 0.6rem);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        padding: 2px 6px 0;
+        white-space: nowrap;
+        transition: color 0.3s var(--ease-out-quint);
+      }
+      .section-seg.active .section-seg-bar {
+        background: var(--topo);
+        box-shadow: 0 0 8px var(--topo-glow);
+      }
+      .section-seg.active .section-seg-label { color: var(--topo); }
+      .section-seg.done .section-seg-bar { background: var(--ink-mute); }
+      .section-seg.done .section-seg-label { color: var(--ink-mute); }
+      @media (max-width: 700px) { .section-progress { display: none; } }
 
       .nav-dots {
         position: fixed;
@@ -1340,14 +1426,15 @@
     <!-- Magnifier lens (lupa ativada por botão direito) -->
     <div class="magnifier-lens" id="magnifierLens"></div>
 
-    <!-- Progress bar + nav dots -->
+    <!-- Progress bar + section progress + nav dots -->
     <div class="progress-bar" id="progressBar"></div>
+    <nav class="section-progress" id="sectionProgress" aria-label="Seções da apresentação"></nav>
     <nav class="nav-dots" id="navDots" aria-label="Navegação de slides"></nav>
 
     <!-- =====================================================
          SLIDE 01 — TITLE (SRE-angled)
          ===================================================== -->
-    <section class="slide" data-title="Capa">
+    <section class="slide" data-title="Capa" data-section="Intro">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>TECH TALK · SRE PERSPECTIVE · 2026</span></div>
         <div class="sheet">SHEET <em>01</em> / 19</div>
@@ -1401,7 +1488,7 @@
          SLIDE 02 — POR QUE UMA IDE (motivação)
          4 pain cards: silos, sem discovery, babel de formatos, vendor lock
          ===================================================== -->
-    <section class="slide" data-title="Por que uma IDE">
+    <section class="slide" data-title="Por que uma IDE" data-section="Fundação">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>POR QUE EXISTE · MOTIVAÇÃO</span></div>
         <div class="sheet">SHEET <em>02</em> / 19</div>
@@ -1448,7 +1535,7 @@
          SLIDE 03 — TIPOS DE DADO ESPACIAL
          Vector vs Raster + variantes 3D/4D/Tiles
          ===================================================== -->
-    <section class="slide" data-title="Tipos de dado">
+    <section class="slide" data-title="Tipos de dado" data-section="Fundação">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>MODELOS DE DADO · VECTOR &amp; RASTER</span></div>
         <div class="sheet">SHEET <em>03</em> / 19</div>
@@ -1502,7 +1589,7 @@
     <!-- =====================================================
          SLIDE 04 — VOCÊ JÁ OPERA ISSO (terminology bridge)
          ===================================================== -->
-    <section class="slide" data-title="Você já opera isso">
+    <section class="slide" data-title="Você já opera isso" data-section="Fundação">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>QUADRO DE TRADUÇÃO</span></div>
         <div class="sheet">SHEET <em>04</em> / 19</div>
@@ -1572,7 +1659,7 @@
     <!-- =====================================================
          SLIDE 03 — IDE EM 4 CAMADAS (SRE framing)
          ===================================================== -->
-    <section class="slide" data-title="IDE em 4 camadas">
+    <section class="slide" data-title="IDE em 4 camadas" data-section="Fundação">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>CONCEITO · 4 CAMADAS</span></div>
         <div class="sheet">SHEET <em>05</em> / 19</div>
@@ -1618,7 +1705,7 @@
     <!-- =====================================================
          SLIDE 04 — POSTGIS (familiar para SRE)
          ===================================================== -->
-    <section class="slide" data-title="PostGIS">
+    <section class="slide" data-title="PostGIS" data-section="Stack">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>01 · STORAGE · FAMILIAR</span></div>
         <div class="sheet">SHEET <em>06</em> / 19</div>
@@ -1653,7 +1740,7 @@
     <!-- =====================================================
          SLIDE 05 — GEOSERVER MONOLITO (the problem)
          ===================================================== -->
-    <section class="slide" data-title="GeoServer monolito">
+    <section class="slide" data-title="GeoServer monolito" data-section="Stack">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>02 · SERVICE · LEGACY</span></div>
         <div class="sheet">SHEET <em>07</em> / 19</div>
@@ -1679,7 +1766,7 @@
     <!-- =====================================================
          SLIDE 06 — GEOSERVER CLOUD (cloud-native)
          ===================================================== -->
-    <section class="slide" data-title="GeoServer Cloud">
+    <section class="slide" data-title="GeoServer Cloud" data-section="Stack">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>02 · SERVICE · CLOUD-NATIVE</span></div>
         <div class="sheet">SHEET <em>08</em> / 19</div>
@@ -1718,7 +1805,7 @@
     <!-- =====================================================
          SLIDE 07 — K8S REFERENCE ARCHITECTURE (key visual)
          ===================================================== -->
-    <section class="slide" data-title="Reference architecture K8s">
+    <section class="slide" data-title="Reference architecture K8s" data-section="Stack">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>REFERENCE ARCHITECTURE · K8S</span></div>
         <div class="sheet">SHEET <em>09</em> / 19</div>
@@ -1744,7 +1831,7 @@
     <!-- =====================================================
          SLIDE 08 — OBSERVABILITY & SLOs
          ===================================================== -->
-    <section class="slide" data-title="Observability · SLOs">
+    <section class="slide" data-title="Observability · SLOs" data-section="Stack">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>03 · OBSERVABILITY</span></div>
         <div class="sheet">SHEET <em>10</em> / 19</div>
@@ -1806,7 +1893,7 @@
     <!-- =====================================================
          SLIDE 09 — CATALOG + GOVERNANCE (GeoNetwork + OM)
          ===================================================== -->
-    <section class="slide" data-title="Catalog + Governance">
+    <section class="slide" data-title="Catalog + Governance" data-section="Stack">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>04 · DISCOVERY + GOVERNANCE</span></div>
         <div class="sheet">SHEET <em>11</em> / 19</div>
@@ -1859,7 +1946,7 @@
     <!-- =====================================================
          SLIDE 10 — FRONTEND TIER (MapStore + CesiumJS)
          ===================================================== -->
-    <section class="slide" data-title="Frontend tier">
+    <section class="slide" data-title="Frontend tier" data-section="Stack">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>05 · FRONTEND TIER</span></div>
         <div class="sheet">SHEET <em>12</em> / 19</div>
@@ -1935,7 +2022,7 @@
     <!-- =====================================================
          SLIDE 12A — AI + GEOSPATIAL: THE CONVERGENCE
          ===================================================== -->
-    <section class="slide" data-title="AI + Geospatial">
+    <section class="slide" data-title="AI + Geospatial" data-section="AI">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>AI · GEOSPATIAL CONVERGENCE</span></div>
         <div class="sheet">SHEET <em>13</em> / 19</div>
@@ -1981,7 +2068,7 @@
     <!-- =====================================================
          SLIDE 12B — MCP SERVER: GEO TOOLS FOR AI AGENTS
          ===================================================== -->
-    <section class="slide" data-title="MCP Server Geospatial">
+    <section class="slide" data-title="MCP Server Geospatial" data-section="AI">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>MCP · MODEL CONTEXT PROTOCOL</span></div>
         <div class="sheet">SHEET <em>14</em> / 19</div>
@@ -2042,7 +2129,7 @@
     <!-- =====================================================
          SLIDE 12C — GEOSPATIAL AI HARNESS
          ===================================================== -->
-    <section class="slide" data-title="Geospatial AI Harness">
+    <section class="slide" data-title="Geospatial AI Harness" data-section="AI">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>AI HARNESS · PIPELINE AUTÔNOMO</span></div>
         <div class="sheet">SHEET <em>15</em> / 19</div>
@@ -2102,7 +2189,7 @@
     <!-- =====================================================
          SLIDE 12D — O QUE MUDA PARA SRE
          ===================================================== -->
-    <section class="slide" data-title="AI Workloads · SRE">
+    <section class="slide" data-title="AI Workloads · SRE" data-section="AI">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>SRE · AI WORKLOADS</span></div>
         <div class="sheet">SHEET <em>16</em> / 19</div>
@@ -2154,7 +2241,7 @@
            cyan (uplink) = governance/frontend (OpenMetadata, MapStore, CesiumJS)
            red (survey)  = infra (Kubernetes, Prometheus)
          ===================================================== -->
-    <section class="slide" data-title="Recursos · Links">
+    <section class="slide" data-title="Recursos · Links" data-section="Wrap-up">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>RECURSOS · LINKS RÁPIDOS</span></div>
         <div class="sheet">SHEET <em>17</em> / 19</div>
@@ -2666,7 +2753,7 @@
          SLIDE 15 — EXEMPLOS REAIS (IDEs em produção)
          4 cards clicáveis com portais reais operando o stack.
          ===================================================== -->
-    <section class="slide" data-title="Exemplos reais">
+    <section class="slide" data-title="Exemplos reais" data-section="Wrap-up">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>EM PRODUÇÃO · EXEMPLOS REAIS</span></div>
         <div class="sheet">SHEET <em>18</em> / 19</div>
@@ -2749,7 +2836,7 @@
     <!-- =====================================================
          SLIDE 16 — CLOSING (architecture + takeaway)
          ===================================================== -->
-    <section class="slide" data-title="Takeaway">
+    <section class="slide" data-title="Takeaway" data-section="Wrap-up">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>TAKEAWAY · FECHAMENTO</span></div>
         <div class="sheet">SHEET <em>19</em> / 19</div>
@@ -2860,7 +2947,9 @@
           this.current = 0;
           this.progressBar = document.getElementById('progressBar');
           this.navDotsContainer = document.getElementById('navDots');
+          this.sectionProgressContainer = document.getElementById('sectionProgress');
 
+          this.setupSectionProgress();
           this.setupNavDots();
           this.setupIntersectionObserver();
           this.setupKeyboardNav();
@@ -2886,6 +2975,49 @@
           });
         }
 
+        setupSectionProgress() {
+          this.sections = [];
+          const seen = new Set();
+          this.slides.forEach((slide, i) => {
+            const name = slide.dataset.section;
+            if (!name || seen.has(name)) return;
+            seen.add(name);
+            const firstIdx = i;
+            let lastIdx = i;
+            this.slides.forEach((s, j) => { if (s.dataset.section === name) lastIdx = j; });
+            const count = lastIdx - firstIdx + 1;
+            this.sections.push({ name, firstIdx, lastIdx, count });
+          });
+          this.sectionProgressContainer.innerHTML = '';
+          this.sections.forEach((sec) => {
+            const seg = document.createElement('div');
+            seg.className = 'section-seg';
+            seg.innerHTML =
+              `<span class="section-seg-label">${sec.name}</span>` +
+              `<span class="section-seg-bar" style="width: ${sec.count * 16}px"></span>`;
+            seg.addEventListener('click', () => this.goTo(sec.firstIdx));
+            this.sectionProgressContainer.appendChild(seg);
+          });
+        }
+
+        updateSections() {
+          const segs = this.sectionProgressContainer.querySelectorAll('.section-seg');
+          const currentSection = this.slides[this.current]?.dataset.section;
+          let foundCurrent = false;
+          this.sections.forEach((sec, i) => {
+            const seg = segs[i];
+            if (!seg) return;
+            seg.classList.remove('active', 'done');
+            if (sec.name === currentSection) {
+              seg.classList.add('active');
+              foundCurrent = true;
+            } else if (!foundCurrent) {
+              seg.classList.add('done');
+            }
+          });
+          this.sectionProgressContainer.classList.toggle('visible', this.current > 0);
+        }
+
         setupIntersectionObserver() {
           const observer = new IntersectionObserver(
             (entries) => {
@@ -2906,6 +3038,7 @@
         updateProgress() {
           const pct = ((this.current + 1) / this.slides.length) * 100;
           this.progressBar.style.width = pct + '%';
+          this.updateSections();
         }
 
         setupKeyboardNav() {
