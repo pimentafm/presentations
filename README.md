@@ -4,29 +4,13 @@ Decks HTML interativos publicados via GitHub Pages.
 
 ## URLs
 
-| Deck | Caminho | Conteúdo |
-|------|---------|----------|
-| **IDE** | `/ide/` | Infraestruturas de Dados Espaciais — perspectiva SRE |
-| **Harness** | `/harness/` | Omni — Spec-Driven Development com agentes de IA |
+Publicado em [pimentafm.github.io/presentations](https://pimentafm.github.io/presentations/).
 
-### Site na raiz (`pimentafm.github.io/ide`)
-
-Para servir em `https://pimentafm.github.io/ide` (sem prefixo `/presentations`), renomeie o repositório para `pimentafm.github.io`:
-
-```bash
-gh repo rename pimentafm.github.io --repo pimentafm/presentations
-```
-
-Depois do rename, as URLs ficam:
-
-- https://pimentafm.github.io/
-- https://pimentafm.github.io/ide/
-- https://pimentafm.github.io/harness/
-
-Enquanto o repositório se chamar `presentations`, as URLs usam o prefixo do projeto:
-
-- https://pimentafm.github.io/presentations/ide/
-- https://pimentafm.github.io/presentations/harness/
+| Deck | URL | Conteúdo |
+|------|-----|----------|
+| Catálogo | [/presentations/](https://pimentafm.github.io/presentations/) | Índice de decks |
+| **IDE** | [/presentations/ide/](https://pimentafm.github.io/presentations/ide/) | Infraestruturas de Dados Espaciais — perspectiva SRE |
+| **Harness** | [/presentations/harness/](https://pimentafm.github.io/presentations/harness/) | Omni — Spec-Driven Development com agentes de IA |
 
 ## Estrutura
 
