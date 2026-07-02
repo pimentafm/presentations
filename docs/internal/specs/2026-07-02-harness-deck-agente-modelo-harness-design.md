@@ -3,7 +3,7 @@
 - **Data:** 2026-07-02
 - **Autor:** Fernando Pimenta
 - **Deck-alvo:** `harness/` (apresentação Omni, tema violeta)
-- **Status:** Aprovado no brainstorming, aguardando plano de implementação
+- **Status:** Approved (2026-07-02) — pronto para handoff ao pipeline SDD (`/feature-discovery`)
 
 ## Contexto
 
