@@ -1387,7 +1387,7 @@
     <section class="slide" data-title="Capa" data-section="Intro">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>TECH TALK · SDD FRAMEWORK · 2026</span></div>
-        <div class="sheet">SHEET <em>01</em> / 17</div>
+        <div class="sheet">SHEET <em>01</em> / 19</div>
       </div>
       <div class="slide-content">
         <div class="title-block">
@@ -1436,7 +1436,7 @@
     <section class="slide" data-title="O problema" data-section="Contexto">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>CONTEXTO · MOTIVAÇÃO</span></div>
-        <div class="sheet">SHEET <em>02</em> / 17</div>
+        <div class="sheet">SHEET <em>02</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">O problema</span>
@@ -1471,11 +1471,57 @@
       </div>
     </section>
 
-    <!-- SLIDE 03 -->
+    <!-- SLIDE 03 — O MODELO -->
+    <section class="slide" data-title="O Modelo" data-section="Fundação">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>CONCEITO · O MODELO</span></div>
+        <div class="sheet">SHEET <em>03</em> / 19</div>
+      </div>
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Fundação</span>
+        <h2 class="section reveal" style="--delay: 0.15s">O modelo: o <span class="accent-cyan">motor</span></h2>
+        <p class="tagline reveal" style="--delay: 0.25s">O modelo (LLM: Claude, GPT, Gemini…) é poder bruto de raciocínio e linguagem — prevê e raciocina sobre texto.</p>
+        <div class="layer-grid reveal" style="--delay: 0.4s;">
+          <div class="layer"><div class="num">01 · PODER</div><div class="name">Raciocínio e linguagem</div><div class="desc">Resolve, resume, escreve código, explica.</div></div>
+          <div class="layer"><div class="num">02 · SEM MEMÓRIA</div><div class="name">Esquece entre sessões</div><div class="desc">Nada persiste — cada conversa recomeça do zero.</div></div>
+          <div class="layer"><div class="num">03 · SEM AÇÃO</div><div class="name">Não age sozinho</div><div class="desc">Não lê arquivos, não roda comandos, não usa ferramentas.</div></div>
+          <div class="layer"><div class="num">04 · SEM GARANTIA</div><div class="name">Pode alucinar</div><div class="desc">Inventa APIs e fatos com confiança.</div></div>
+        </div>
+        <p class="body-text reveal" style="--delay: 0.55s">Um motor potente — mas sozinho, sem chassi, direção ou freios, não leva ninguém a lugar nenhum.</p>
+      </div>
+      <div class="foot-bar"><span class="author">Trocar de modelo aumenta o poder — não as garantias</span><span>MODELO = LLM</span></div>
+    </section>
+
+    <!-- SLIDE 04 — O HARNESS -->
+    <section class="slide" data-title="O Harness" data-section="Fundação">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>CONCEITO · O HARNESS</span></div>
+        <div class="sheet">SHEET <em>04</em> / 19</div>
+      </div>
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Fundação</span>
+        <h2 class="section reveal" style="--delay: 0.15s">O harness: do motor ao <span class="accent">carro</span></h2>
+        <p class="tagline reveal" style="--delay: 0.25s">Harness = tudo ao redor do modelo para ele agir com segurança e propósito.</p>
+        <table class="term-table reveal" style="--delay: 0.35s; margin-top: var(--element-gap);">
+          <thead><tr><th class="you">Peça</th><th></th><th class="geo">Função</th></tr></thead>
+          <tbody>
+            <tr><td class="you">Contexto</td><td class="arrow">→</td><td class="geo">O que o modelo enxerga (instruções, dados relevantes)</td></tr>
+            <tr><td class="you">Ferramentas</td><td class="arrow">→</td><td class="geo">Ler/escrever arquivos, rodar comandos, buscar</td></tr>
+            <tr><td class="you">Memória / Estado</td><td class="arrow">→</td><td class="geo">O que persiste entre passos e sessões</td></tr>
+            <tr><td class="you">Controle de fluxo</td><td class="arrow">→</td><td class="geo">Etapas, ordem, quando parar</td></tr>
+            <tr><td class="you">Guardrails</td><td class="arrow">→</td><td class="geo">Regras, revisão e gates que barram o erro</td></tr>
+          </tbody>
+        </table>
+        <p class="body-text reveal" style="--delay: 0.55s; text-align: center; color: var(--ink); font-family: var(--font-display); font-size: clamp(1.4rem, 3.4vw, 2.4rem); font-weight: 700; margin-top: var(--element-gap);">Agente = <span style="color: var(--uplink)">Modelo</span> + <span style="color: var(--topo)">Harness</span></p>
+      </div>
+      <div class="foot-bar"><span class="author">O harness canaliza o poder do modelo em comportamento confiável</span><span>AGENTE = MODELO + HARNESS</span></div>
+    </section>
+
+    <!-- SLIDE 05 — O QUE É OMNI -->
     <section class="slide" data-title="O que é Omni" data-section="Sistema">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>SISTEMA · OVERVIEW</span></div>
-        <div class="sheet">SHEET <em>03</em> / 17</div>
+        <div class="sheet">SHEET <em>05</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Framework</span>
@@ -1491,15 +1537,16 @@
       <div class="foot-bar"><span class="author">Dogfooding no repositório omni</span><span>CLI · TUI · MCP GRAPH</span></div>
     </section>
 
-    <!-- SLIDE 04 -->
-    <section class="slide" data-title="Agente = Modelo + Harness" data-section="Fundação">
+    <!-- SLIDE 06 — O HARNESS DO OMNI -->
+    <section class="slide" data-title="O harness do Omni" data-section="Sistema">
       <div class="meta-bar">
-        <div class="meta-left"><span class="dot"></span><span>CONCEITO CENTRAL</span></div>
-        <div class="sheet">SHEET <em>04</em> / 17</div>
+        <div class="meta-left"><span class="dot"></span><span>OMNI · HARNESS NA PRÁTICA</span></div>
+        <div class="sheet">SHEET <em>06</em> / 19</div>
       </div>
       <div class="slide-content stack">
-        <span class="eyebrow reveal" style="--delay: 0.05s">Equação</span>
-        <h2 class="section reveal" style="--delay: 0.15s">Agente = <span class="accent-cyan">Modelo</span> + <span class="accent">Harness</span></h2>
+        <span class="eyebrow reveal" style="--delay: 0.05s">Na prática</span>
+        <h2 class="section reveal" style="--delay: 0.15s">O harness do <span class="accent">Omni</span></h2>
+        <p class="tagline reveal" style="--delay: 0.25s">Como o Omni implementa cada parte do harness.</p>
         <table class="term-table reveal" style="--delay: 0.35s; margin-top: var(--element-gap);">
           <thead><tr><th class="you">Componente</th><th></th><th class="geo">Papel</th></tr></thead>
           <tbody>
@@ -1513,11 +1560,11 @@
       <div class="foot-bar"><span class="author">Investir no harness supera trocar só o LLM</span><span>TENDÊNCIA 2025–2026</span></div>
     </section>
 
-    <!-- SLIDE 05 -->
-    <section class="slide" data-title="Camadas do harness" data-section="Fundação">
+    <!-- SLIDE 07 — CAMADAS DO HARNESS -->
+    <section class="slide" data-title="Camadas do harness" data-section="Sistema">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>HARNESS · CAMADAS</span></div>
-        <div class="sheet">SHEET <em>05</em> / 17</div>
+        <div class="sheet">SHEET <em>07</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Stack</span>
@@ -1534,11 +1581,11 @@
       <div class="foot-bar"><span class="author">PreflightSkill · GraphSkill · GuardClause</span><span>FOUNDATION SKILLS</span></div>
     </section>
 
-    <!-- SLIDE 06 -->
+    <!-- SLIDE 08 — PIPELINE SDD -->
     <section class="slide" data-title="Pipeline SDD" data-section="Pipeline">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>PIPELINE · GATES</span></div>
-        <div class="sheet">SHEET <em>06</em> / 17</div>
+        <div class="sheet">SHEET <em>08</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Fluxo</span>
@@ -1559,11 +1606,11 @@
       <div class="foot-bar"><span class="author">Fases stateless — estado em .omni/features/&lt;id&gt;/</span><span>SDD GATES</span></div>
     </section>
 
-    <!-- SLIDE 07 -->
+    <!-- SLIDE 09 — DISCOVERY -->
     <section class="slide" data-title="Discovery" data-section="Pipeline">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>FASE 1 · DISCOVERY</span></div>
-        <div class="sheet">SHEET <em>07</em> / 17</div>
+        <div class="sheet">SHEET <em>09</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Specify</span>
@@ -1588,11 +1635,11 @@
       <div class="foot-bar"><span class="author">Output: discovery/decision.json</span><span>PHASE 1</span></div>
     </section>
 
-    <!-- SLIDE 08 -->
+    <!-- SLIDE 10 — PLANNING -->
     <section class="slide" data-title="Planning" data-section="Pipeline">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>FASE 2 · PLANNING</span></div>
-        <div class="sheet">SHEET <em>08</em> / 17</div>
+        <div class="sheet">SHEET <em>10</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Plan</span>
@@ -1607,11 +1654,11 @@
       <div class="foot-bar"><span class="author">Routing por domínio via domain-agents.json</span><span>PHASE 2</span></div>
     </section>
 
-    <!-- SLIDE 09 -->
+    <!-- SLIDE 11 — TDD -->
     <section class="slide" data-title="TDD" data-section="Pipeline">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>FASE 3 · TDD</span></div>
-        <div class="sheet">SHEET <em>09</em> / 17</div>
+        <div class="sheet">SHEET <em>11</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Implement</span>
@@ -1626,11 +1673,11 @@
       <div class="foot-bar"><span class="author">AssurancePanel: evaluator → critic</span><span>PHASE 3</span></div>
     </section>
 
-    <!-- SLIDE 10 -->
+    <!-- SLIDE 12 — OMNI GRAPH -->
     <section class="slide" data-title="Omni Graph" data-section="Conhecimento">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>GRAFO · MCP</span></div>
-        <div class="sheet">SHEET <em>10</em> / 17</div>
+        <div class="sheet">SHEET <em>12</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Knowledge graph</span>
@@ -1655,11 +1702,11 @@
       <div class="foot-bar"><span class="author">Substitui leituras ad-hoc de dezenas de arquivos</span><span>OMNI GRAPH</span></div>
     </section>
 
-    <!-- SLIDE 11 -->
+    <!-- SLIDE 13 — ONTOLOGIAS -->
     <section class="slide" data-title="Ontologias" data-section="Conhecimento">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>ONTOLOGIA · DOMÍNIO</span></div>
-        <div class="sheet">SHEET <em>11</em> / 17</div>
+        <div class="sheet">SHEET <em>13</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Grounding</span>
@@ -1682,11 +1729,11 @@
       <div class="foot-bar"><span class="author">Meta: menos alucinação, menos tokens</span><span>ONTOLOGY</span></div>
     </section>
 
-    <!-- SLIDE 12 -->
+    <!-- SLIDE 14 — ANTI-ALUCINAÇÃO -->
     <section class="slide" data-title="Anti-alucinação" data-section="Conhecimento">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>NORTH STAR</span></div>
-        <div class="sheet">SHEET <em>12</em> / 17</div>
+        <div class="sheet">SHEET <em>14</em> / 19</div>
       </div>
       <div class="slide-content stack" style="justify-content: center;">
         <span class="eyebrow reveal" style="--delay: 0.05s">Design spec · 2026</span>
@@ -1698,11 +1745,11 @@
       <div class="foot-bar"><span class="author">omni-graph ontology design</span><span>≤ ~4 KB POR FEATURE</span></div>
     </section>
 
-    <!-- SLIDE 13 -->
+    <!-- SLIDE 15 — PIPELINE VS CATÁLOGO -->
     <section class="slide" data-title="Pipeline vs Catálogo" data-section="Ecossistema">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>AGENTES · 222 TOTAL</span></div>
-        <div class="sheet">SHEET <em>13</em> / 17</div>
+        <div class="sheet">SHEET <em>15</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Ecossistema</span>
@@ -1723,11 +1770,11 @@
       <div class="foot-bar"><span class="author">TUI: Pipeline / Catalog / All</span><span>ECOSSISTEMA</span></div>
     </section>
 
-    <!-- SLIDE 14 -->
+    <!-- SLIDE 16 — TENDÊNCIAS IA -->
     <section class="slide" data-title="Tendências IA" data-section="Tendências">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>IA · 2025–2026</span></div>
-        <div class="sheet">SHEET <em>14</em> / 17</div>
+        <div class="sheet">SHEET <em>16</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Radar</span>
@@ -1744,11 +1791,11 @@
       <div class="foot-bar"><span class="author">Thoughtworks Radar 2025 · GitHub Spec Kit</span><span>TENDÊNCIAS</span></div>
     </section>
 
-    <!-- SLIDE 15 -->
+    <!-- SLIDE 17 — CLI E TUI -->
     <section class="slide" data-title="CLI e TUI" data-section="Operação">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>OPERAÇÃO · CLI</span></div>
-        <div class="sheet">SHEET <em>15</em> / 17</div>
+        <div class="sheet">SHEET <em>17</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Tooling</span>
@@ -1764,11 +1811,11 @@
       <div class="foot-bar"><span class="author">uv tool install omni</span><span>PYTHON 3.11+</span></div>
     </section>
 
-    <!-- SLIDE 16 -->
+    <!-- SLIDE 18 — ROADMAP -->
     <section class="slide" data-title="Roadmap" data-section="Wrap-up">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>HORIZONTE · V1.1</span></div>
-        <div class="sheet">SHEET <em>16</em> / 17</div>
+        <div class="sheet">SHEET <em>18</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Próximos passos</span>
@@ -1784,11 +1831,11 @@
       <div class="foot-bar"><span class="author">0023-omni-graph-ontology · sdd-harness-preflight</span><span>ROADMAP</span></div>
     </section>
 
-    <!-- SLIDE 17 — CLOSING -->
+    <!-- SLIDE 19 — CLOSING -->
     <section class="slide" data-title="Fechamento" data-section="Wrap-up">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>TAKEAWAY · FECHAMENTO</span></div>
-        <div class="sheet">SHEET <em>17</em> / 17</div>
+        <div class="sheet">SHEET <em>19</em> / 19</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Conclusão</span>
