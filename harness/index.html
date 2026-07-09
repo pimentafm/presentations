@@ -1514,6 +1514,12 @@
       }
       .slide-content.tdd-slide { gap: clamp(0.45rem, 1.1vh, 1rem); }
       .slide-content.tdd-slide .feature-list { gap: clamp(0.28rem, 0.75vh, 0.6rem); }
+      .foot-bar .social-link--text {
+        display: inline;
+        font-family: inherit;
+        font-size: inherit;
+        letter-spacing: inherit;
+      }
 
     </style>
   </head>
@@ -1566,7 +1572,7 @@
             com <span class="accent">H</span>arness
           </h1>
           <p class="subtitle reveal" style="--delay: 0.7s">
-            Como estruturar AI agents com rules, etapas e memória — do pedido à entrega auditable.
+            Como estruturar AI agents com método e harness — do pedido à entrega auditável, com rules, skills, MCP e revisão em cada etapa.
           </p>
           <p class="term-note reveal" style="--delay: 0.85s"><strong>Harness</strong> = estrutura ao redor do modelo. <strong>Agent</strong> = modelo + harness. Hoje: conceitos primeiro, produto depois.</p>
         </div>
@@ -1591,7 +1597,7 @@
           <span class="author">Fernando Pimenta</span>
           <span class="role">Geospatial Solutions Architect</span>
         </div>
-        <span>github.com/pimentafm/omni · Agent = Model + Harness</span>
+        <span><a href="https://pimentafm.github.io/presentations/" target="_blank" rel="noopener" class="social-link social-link--text" aria-label="Apresentações" title="Apresentações">pimentafm.github.io/presentations</a> · Agent = Model + Harness</span>
       </div>
       <div class="keyboard-hint">
         <span>navegar</span>
@@ -1703,7 +1709,7 @@
           <div class="glossary-item"><dt>Agent</dt><dd>Modelo + harness com um objetivo — não é só o chat, é o sistema completo.</dd></div>
           <div class="glossary-item"><dt>Prompt</dt><dd>Pedido ou instrução que você envia à AI.</dd></div>
           <div class="glossary-item"><dt>SDD</dt><dd>Desenvolvimento guiado por especificação — definir e validar o “o quê” <em>antes</em> do código, com gates entre fases e estado salvo em disco.</dd></div>
-          <div class="glossary-item"><dt>Pipeline</dt><dd>Sequência de etapas em ordem — como uma linha de montagem.</dd></div>
+          <div class="glossary-item"><dt>Pipeline</dt><dd>Sequência fixa de etapas em ordem — a linha de montagem do fluxo (ex.: fases SDD).</dd></div>
           <div class="glossary-item"><dt>Gate</dt><dd>Checagem de qualidade: só avança se passar (GO = segue, NO-GO = para).</dd></div>
           <div class="glossary-item"><dt>Hallucination</dt><dd>Quando a AI inventa informação com aparência de verdade.</dd></div>
           <div class="glossary-item"><dt>Skill</dt><dd>Manual reutilizável de instruções que a AI segue em tarefas parecidas.</dd></div>
@@ -1714,10 +1720,13 @@
           <div class="glossary-item"><dt>Graph</dt><dd>Mapa de como código, documentos e conceitos se conectam no projeto.</dd></div>
           <div class="glossary-item"><dt>TDD</dt><dd>Desenvolvimento orientado a testes — escrever o teste <em>antes</em> do código que o atende.</dd></div>
           <div class="glossary-item"><dt>Catalog</dt><dd>Agents especialistas opcionais — você chama quando precisa de opinião, fora do fluxo fixo.</dd></div>
-          <div class="glossary-item"><dt>Workflow</dt><dd>Revisão do trabalho completo no branch — depois do SDD, antes de merge (<code>/workflow-reviewer</code>).</dd></div>
+          <div class="glossary-item"><dt>Workflow</dt><dd>Fluxo de trabalho orquestrado — etapas, ordem e quando avançar ou parar (mesma ideia de pipeline; não é revisão de branch).</dd></div>
+          <div class="glossary-item"><dt>Guardrails</dt><dd>Trilhos de segurança do harness — limites fixos que impedem o agent de sair do rumo ou pular etapas.</dd></div>
+          <div class="glossary-item"><dt>Discovery</dt><dd>Primeira fase SDD — entender contexto e decidir se a feature vale a pena (GO / NO-GO).</dd></div>
+          <div class="glossary-item"><dt>Planning</dt><dd>Segunda fase SDD — spec detalhada e tarefas; só avança se o gate de qualidade passar.</dd></div>
         </dl>
       </div>
-      <div class="foot-bar"><span class="author">Volte a este slide quando surgir dúvida sobre um termo</span><span>GLOSSÁRIO · 17 TERMOS</span></div>
+      <div class="foot-bar"><span class="author">Volte a este slide quando surgir dúvida sobre um termo</span><span>GLOSSÁRIO · 20 TERMOS</span></div>
     </section>
 
     <!-- SLIDE 06 — ONTOLOGIAS (antes do método — responde ao problema de vocabulário) -->
@@ -2254,11 +2263,11 @@ Write minimal code to pass.</div>
         <h2 class="section reveal" style="--delay: 0.15s">Evolução do <span class="accent">harness</span></h2>
         <p class="term-note reveal" style="--delay: 0.22s">O que vem a seguir para tornar o Omni mais rigoroso e auto-gerenciável.</p>
         <ul class="checklist reveal" style="--delay: 0.35s;">
-          <li>Validação de vocabulário em <strong>modo rigoroso</strong></li>
-          <li>Ligação explícita tarefa → conceito do negócio</li>
-          <li><strong>Metaharness</strong> — benchmarks e detecção de desvio</li>
-          <li>Busca semântica sobre conceitos (v2)</li>
-          <li><strong>Gates</strong> mais determinísticos com Cursor SDK</li>
+          <li><strong>Ontology em modo rigoroso</strong> — <code>--strict</code> bloqueia termos fora do dicionário oficial (não só avisa)</li>
+          <li><strong>Tarefa → conceito</strong> — cada task SDD declara <code>concepts[]</code> da ontology; grafo liga entrega ao vocabulário do negócio</li>
+          <li><strong>Metaharness</strong> — benchmarks do harness, métricas de qualidade e alerta quando o fluxo desvia do esperado</li>
+          <li><strong>Busca semântica (v2)</strong> — encontrar conceitos e contexto por significado no graph, não só por nome exato</li>
+          <li><strong>Gates com Cursor SDK</strong> — orquestração automática em CI; validação numérica continua em Python</li>
         </ul>
       </div>
       <div class="foot-bar"><span class="author">Features em desenvolvimento no repositório omni</span><span>ROADMAP</span></div>
@@ -2303,7 +2312,7 @@ Write minimal code to pass.</div>
           <span class="author">obrigado · fernando pimenta</span>
           <span class="role">Geospatial Solutions Architect</span>
         </div>
-        <span>github.com/pimentafm/omni · Modelo + Harness = engenharia com AI</span>
+        <span><a href="https://pimentafm.github.io/presentations/" target="_blank" rel="noopener" class="social-link social-link--text" aria-label="Apresentações" title="Apresentações">pimentafm.github.io/presentations</a> · Modelo + Harness = engenharia com AI</span>
       </div>
     </section>
 

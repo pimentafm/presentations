@@ -203,6 +203,12 @@ extra_css = """
       }
       .slide-content.tdd-slide { gap: clamp(0.45rem, 1.1vh, 1rem); }
       .slide-content.tdd-slide .feature-list { gap: clamp(0.28rem, 0.75vh, 0.6rem); }
+      .foot-bar .social-link--text {
+        display: inline;
+        font-family: inherit;
+        font-size: inherit;
+        letter-spacing: inherit;
+      }
 """
 if ".glossary-grid" not in css:
     css += extra_css
