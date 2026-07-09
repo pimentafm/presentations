@@ -46,8 +46,171 @@ extra_css = """
         max-width: 62ch;
       }
       .closing-quote strong { color: var(--topo); font-style: normal; font-weight: 700; }
+      .term-note {
+        font-size: var(--small-size);
+        color: var(--ink-mute);
+        line-height: 1.45;
+        max-width: 62ch;
+      }
+      .term-note strong { color: var(--ink); font-weight: 500; }
+      .glossary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: clamp(0.35rem, 0.7vw, 0.55rem);
+        max-width: min(95vw, 1200px);
+      }
+      @media (max-width: 1100px) { .glossary-grid { grid-template-columns: repeat(3, 1fr); } }
+      @media (max-width: 600px) { .glossary-grid { grid-template-columns: 1fr; } }
+      .glossary-item {
+        padding: clamp(0.55rem, 1vw, 0.85rem) clamp(0.7rem, 1.2vw, 1rem);
+        border: 1px solid var(--hairline);
+        border-radius: 4px;
+        background: rgba(244, 236, 216, 0.02);
+      }
+      .glossary-item dt {
+        font-family: var(--font-mono);
+        font-size: var(--micro-size);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--topo);
+        margin-bottom: 0.25rem;
+      }
+      .glossary-item dd {
+        font-size: var(--small-size);
+        color: var(--ink-mute);
+        line-height: 1.4;
+      }
+      .code-block.flow {
+        white-space: normal;
+        overflow-x: visible;
+        overflow-wrap: break-word;
+        max-width: min(72ch, 96vw);
+        line-height: 1.55;
+      }
+      .code-block.compact {
+        font-size: clamp(0.58rem, 1.05vw, 0.72rem);
+        padding: clamp(0.45rem, 1vw, 0.7rem) clamp(0.6rem, 1.2vw, 0.95rem);
+        max-width: min(78ch, 96vw);
+        line-height: 1.42;
+        white-space: pre-wrap;
+      }
+      .example-label {
+        font-family: var(--font-mono);
+        font-size: var(--micro-size);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-bottom: 0.3rem;
+      }
+      .ex-line {
+        display: block;
+        margin-top: 0.35rem;
+        font-family: var(--font-mono);
+        font-size: calc(var(--small-size) * 0.86);
+        color: var(--ink-faint);
+        font-weight: 400;
+        line-height: 1.35;
+      }
+      .ex-line code { color: var(--uplink); }
+      .anti-panel {
+        width: 100%;
+        max-width: min(95vw, 980px);
+        margin: 0 auto;
+        border: 1px solid var(--hairline);
+        border-radius: 6px;
+        background: linear-gradient(165deg, rgba(237, 90, 62, 0.05) 0%, rgba(244, 236, 216, 0.02) 38%, rgba(6, 10, 20, 0.15) 100%);
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+      }
+      .anti-panel-head {
+        padding: clamp(0.55rem, 1.1vh, 0.8rem) clamp(1rem, 2vw, 1.4rem);
+        border-bottom: 1px solid var(--hairline);
+        background: rgba(237, 90, 62, 0.07);
+        font-family: var(--font-mono);
+        font-size: var(--small-size);
+        color: var(--ink-mute);
+        text-align: center;
+        letter-spacing: 0.02em;
+      }
+      .anti-panel-head strong { color: var(--survey); font-weight: 600; }
+      .anti-problem-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0;
+      }
+      @media (max-width: 820px) {
+        .anti-problem-grid { grid-template-columns: 1fr; }
+        .anti-problem-grid .layer { border-right: none !important; border-bottom: 1px solid var(--hairline); }
+        .anti-problem-grid .layer:last-child { border-bottom: none; }
+      }
+      .anti-problem-grid .layer {
+        border: none;
+        border-radius: 0;
+        border-right: 1px solid var(--hairline);
+        background: transparent;
+        padding: clamp(0.75rem, 1.5vw, 1.15rem) clamp(0.85rem, 1.6vw, 1.25rem);
+      }
+      .anti-problem-grid .layer::after { display: none; }
+      .anti-problem-grid .layer:last-child { border-right: none; }
+      .anti-problem-grid .layer .num { color: var(--survey); letter-spacing: 0.12em; }
+      .anti-problem-grid .layer .name { font-size: clamp(0.95rem, 1.75vw, 1.25rem); }
+      .anti-solution {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(0.4rem, 0.9vh, 0.65rem);
+        padding: clamp(0.8rem, 1.6vh, 1.15rem) clamp(1rem, 2vw, 1.5rem);
+        border-top: 1px solid var(--hairline);
+        background: rgba(167, 139, 250, 0.04);
+      }
+      .anti-solution-flow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: clamp(0.35rem, 0.9vw, 0.7rem);
+      }
+      .anti-solution-step {
+        padding: 0.4rem 0.75rem;
+        border: 1px solid rgba(167, 139, 250, 0.35);
+        border-radius: 4px;
+        background: rgba(167, 139, 250, 0.1);
+        color: var(--topo);
+        font-family: var(--font-mono);
+        font-size: clamp(0.72rem, 1.2vw, 0.85rem);
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: lowercase;
+      }
+      .anti-solution-step.uplink {
+        border-color: rgba(77, 212, 214, 0.4);
+        background: rgba(77, 212, 214, 0.1);
+        color: var(--uplink);
+      }
+      .anti-solution-arrow {
+        color: var(--ink-faint);
+        font-family: var(--font-mono);
+        font-size: var(--small-size);
+        opacity: 0.55;
+      }
+      .anti-solution-note {
+        margin: 0;
+        text-align: center;
+        font-size: var(--micro-size);
+        color: var(--ink-faint);
+        line-height: 1.45;
+        max-width: 48ch;
+      }
+      .slide-content.tdd-slide { gap: clamp(0.45rem, 1.1vh, 1rem); }
+      .slide-content.tdd-slide .feature-list { gap: clamp(0.28rem, 0.75vh, 0.6rem); }
+      .foot-bar .social-link--text {
+        display: inline;
+        font-family: inherit;
+        font-size: inherit;
+        letter-spacing: inherit;
+      }
 """
-if ".closing-quote" not in css:
+if ".glossary-grid" not in css:
     css += extra_css
 
 graph_bg = """
@@ -82,30 +245,145 @@ lightbox = """
       <button class="lightbox-close" aria-label="Fechar">&times;</button>
       <div class="lightbox-content" id="lightboxContent">
         <div class="lightbox-figure" data-lightbox-group="graph-mcp">
-          <svg viewBox="0 0 800 420" width="800" style="max-width:90vw;border:1px solid rgba(244,236,216,0.1);border-radius:6px;background:#060a14">
-            <text x="400" y="36" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono,monospace" font-size="14">Omni Graph MCP — fluxo de contexto</text>
-            <rect x="40" y="70" width="160" height="56" rx="4" fill="rgba(244,236,216,0.05)" stroke="#4dd4d6"/>
-            <text x="120" y="104" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="12">code-index</text>
-            <rect x="320" y="70" width="160" height="56" rx="4" fill="rgba(244,236,216,0.05)" stroke="#a78bfa"/>
-            <text x="400" y="104" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="12">knowledge-graph</text>
-            <rect x="600" y="70" width="160" height="56" rx="4" fill="rgba(244,236,216,0.05)" stroke="#ed5a3e"/>
-            <text x="680" y="104" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="12">MCP server</text>
-            <line x1="200" y1="98" x2="320" y2="98" stroke="#f4ecd8" opacity="0.4"/>
-            <line x1="480" y1="98" x2="600" y2="98" stroke="#f4ecd8" opacity="0.4"/>
-            <rect x="120" y="200" width="200" height="70" rx="4" fill="rgba(167,139,250,0.08)" stroke="#a78bfa"/>
-            <text x="220" y="232" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="11">ontology_bundle</text>
-            <text x="220" y="252" text-anchor="middle" fill="#f4ecd8" font-size="10" opacity="0.6">≤4KB · concepts · gaps</text>
-            <rect x="480" y="200" width="200" height="70" rx="4" fill="rgba(77,212,214,0.08)" stroke="#4dd4d6"/>
-            <text x="580" y="232" text-anchor="middle" fill="#4dd4d6" font-family="Roboto Mono" font-size="11">context_bundle</text>
-            <text x="580" y="252" text-anchor="middle" fill="#f4ecd8" font-size="10" opacity="0.6">módulo · símbolos · SDD</text>
-            <line x1="680" y1="126" x2="580" y2="200" stroke="#4dd4d6" opacity="0.35"/>
-            <line x1="680" y1="126" x2="220" y2="200" stroke="#a78bfa" opacity="0.35"/>
-            <rect x="280" y="330" width="240" height="56" rx="4" fill="rgba(244,236,216,0.04)" stroke="rgba(244,236,216,0.2)"/>
-            <text x="400" y="364" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="12">SDD Agents (discovery · planning · TDD)</text>
-            <line x1="220" y1="270" x2="340" y2="330" stroke="#a78bfa" opacity="0.3"/>
-            <line x1="580" y1="270" x2="460" y2="330" stroke="#4dd4d6" opacity="0.3"/>
+          <svg viewBox="0 0 1000 680" width="1000" style="max-width:min(94vw,1000px);max-height:78vh;border:1px solid rgba(244,236,216,0.12);border-radius:8px;background:#060a14" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#f4ecd8" opacity="0.55"/>
+              </marker>
+              <marker id="arr-cyan" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#4dd4d6" opacity="0.8"/>
+              </marker>
+              <marker id="arr-violet" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L8,4 L0,8 Z" fill="#a78bfa" opacity="0.8"/>
+              </marker>
+            </defs>
+
+            <text x="500" y="32" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono,monospace" font-size="15" font-weight="500">Knowledge Graph — do repositório à AI (fluxo completo)</text>
+            <text x="500" y="52" text-anchor="middle" fill="#f4ecd8" font-size="11" opacity="0.55">Omni Graph MCP · consultas compactas e rastreáveis · ≤4KB por pacote</text>
+
+            <!-- LANE LABELS -->
+            <text x="18" y="98" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.45" transform="rotate(-90 18 98)">FONTES</text>
+            <text x="18" y="198" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.45" transform="rotate(-90 18 198)">BUILD</text>
+            <text x="18" y="298" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.45" transform="rotate(-90 18 298)">GRAFO</text>
+            <text x="18" y="408" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.45" transform="rotate(-90 18 408)">MCP</text>
+            <text x="18" y="538" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.45" transform="rotate(-90 18 538)">AGENT</text>
+
+            <!-- ROW 1 · FONTES -->
+            <rect x="44" y="68" width="900" height="72" rx="6" fill="rgba(244,236,216,0.02)" stroke="rgba(244,236,216,0.12)"/>
+            <rect x="60" y="82" width="200" height="44" rx="4" fill="rgba(244,236,216,0.04)" stroke="rgba(244,236,216,0.25)"/>
+            <text x="160" y="100" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="11">repositório</text>
+            <text x="160" y="116" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">src/ · docs/ · testes</text>
+            <rect x="280" y="82" width="200" height="44" rx="4" fill="rgba(167,139,250,0.06)" stroke="#a78bfa" stroke-opacity="0.5"/>
+            <text x="380" y="100" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="11">ontology.yaml</text>
+            <text x="380" y="116" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">conceitos · sinônimos</text>
+            <rect x="500" y="82" width="220" height="44" rx="4" fill="rgba(77,212,214,0.06)" stroke="#4dd4d6" stroke-opacity="0.5"/>
+            <text x="610" y="100" text-anchor="middle" fill="#4dd4d6" font-family="Roboto Mono" font-size="11">.omni/features/&lt;id&gt;/</text>
+            <text x="610" y="116" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">spec · tasks · gates SDD</text>
+            <rect x="740" y="82" width="188" height="44" rx="4" fill="rgba(237,90,62,0.06)" stroke="#ed5a3e" stroke-opacity="0.45"/>
+            <text x="834" y="100" text-anchor="middle" fill="#ed5a3e" font-family="Roboto Mono" font-size="11">sem graph</text>
+            <text x="834" y="116" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">40+ arquivos ao acaso ✗</text>
+
+            <line x1="500" y1="140" x2="500" y2="158" stroke="#f4ecd8" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
+
+            <!-- ROW 2 · BUILD -->
+            <rect x="44" y="158" width="900" height="88" rx="6" fill="rgba(244,236,216,0.02)" stroke="rgba(244,236,216,0.12)"/>
+            <rect x="60" y="172" width="155" height="60" rx="4" fill="rgba(77,212,214,0.05)" stroke="#4dd4d6" stroke-opacity="0.6"/>
+            <text x="137" y="194" text-anchor="middle" fill="#4dd4d6" font-family="Roboto Mono" font-size="10">Tree-sitter</text>
+            <text x="137" y="210" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.55">AST · símbolos</text>
+            <text x="137" y="224" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.55">imports · calls</text>
+            <line x1="215" y1="202" x2="248" y2="202" stroke="#f4ecd8" opacity="0.4" marker-end="url(#arr)"/>
+            <rect x="248" y="172" width="175" height="60" rx="4" fill="rgba(244,236,216,0.04)" stroke="rgba(244,236,216,0.3)"/>
+            <text x="335" y="194" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="10">code-index.json</text>
+            <text x="335" y="212" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">índice estruturado</text>
+            <line x1="423" y1="202" x2="456" y2="202" stroke="#f4ecd8" opacity="0.4" marker-end="url(#arr)"/>
+            <rect x="456" y="172" width="195" height="60" rx="4" fill="rgba(167,139,250,0.06)" stroke="#a78bfa" stroke-opacity="0.6"/>
+            <text x="553" y="194" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="10">omni graph build</text>
+            <text x="553" y="212" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">liga código + ontology</text>
+            <line x1="651" y1="202" x2="684" y2="202" stroke="#f4ecd8" opacity="0.4" marker-end="url(#arr)"/>
+            <rect x="684" y="172" width="244" height="60" rx="4" fill="rgba(244,236,216,0.04)" stroke="rgba(244,236,216,0.35)"/>
+            <text x="806" y="194" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="10">knowledge-graph.sqlite</text>
+            <text x="806" y="212" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">nós · arestas · pesos</text>
+
+            <line x1="500" y1="246" x2="500" y2="264" stroke="#f4ecd8" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
+
+            <!-- ROW 3 · GRAFO (nós) -->
+            <rect x="44" y="264" width="900" height="88" rx="6" fill="rgba(244,236,216,0.02)" stroke="rgba(244,236,216,0.12)"/>
+            <text x="500" y="282" text-anchor="middle" fill="#f4ecd8" font-size="10" opacity="0.6">nós no grafo — cada um com ID, tipo e relações</text>
+            <circle cx="130" cy="318" r="22" fill="rgba(77,212,214,0.1)" stroke="#4dd4d6"/>
+            <text x="130" y="322" text-anchor="middle" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">file</text>
+            <circle cx="250" cy="318" r="22" fill="rgba(77,212,214,0.1)" stroke="#4dd4d6"/>
+            <text x="250" y="322" text-anchor="middle" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">symbol</text>
+            <circle cx="370" cy="318" r="22" fill="rgba(167,139,250,0.1)" stroke="#a78bfa"/>
+            <text x="370" y="322" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="9">module</text>
+            <circle cx="490" cy="318" r="22" fill="rgba(167,139,250,0.1)" stroke="#a78bfa"/>
+            <text x="490" y="322" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="9">concept</text>
+            <circle cx="610" cy="318" r="22" fill="rgba(244,236,216,0.06)" stroke="rgba(244,236,216,0.4)"/>
+            <text x="610" y="322" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="9">doc</text>
+            <circle cx="730" cy="318" r="22" fill="rgba(244,236,216,0.06)" stroke="rgba(244,236,216,0.4)"/>
+            <text x="730" y="322" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="9">feature</text>
+            <circle cx="850" cy="318" r="22" fill="rgba(237,90,62,0.08)" stroke="#ed5a3e" stroke-opacity="0.6"/>
+            <text x="850" y="322" text-anchor="middle" fill="#ed5a3e" font-family="Roboto Mono" font-size="9">domain</text>
+            <line x1="152" y1="318" x2="228" y2="318" stroke="#4dd4d6" opacity="0.35"/>
+            <line x1="272" y1="318" x2="348" y2="318" stroke="#a78bfa" opacity="0.35"/>
+            <line x1="392" y1="318" x2="468" y2="318" stroke="#a78bfa" opacity="0.35"/>
+            <line x1="512" y1="318" x2="588" y2="318" stroke="#f4ecd8" opacity="0.25"/>
+            <line x1="632" y1="318" x2="708" y2="318" stroke="#f4ecd8" opacity="0.25"/>
+            <text x="500" y="348" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.45">ex.: concept:bureau_score → symbol:calc_score() → file:src/risk/score.py</text>
+
+            <line x1="500" y1="352" x2="500" y2="370" stroke="#f4ecd8" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
+
+            <!-- ROW 4 · MCP SERVER + TOOLS -->
+            <rect x="44" y="370" width="900" height="118" rx="6" fill="rgba(237,90,62,0.04)" stroke="#ed5a3e" stroke-opacity="0.35"/>
+            <rect x="60" y="384" width="168" height="90" rx="4" fill="rgba(237,90,62,0.08)" stroke="#ed5a3e" stroke-opacity="0.55"/>
+            <text x="144" y="406" text-anchor="middle" fill="#ed5a3e" font-family="Roboto Mono" font-size="11">Omni Graph</text>
+            <text x="144" y="422" text-anchor="middle" fill="#ed5a3e" font-family="Roboto Mono" font-size="11">MCP server</text>
+            <text x="144" y="442" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.55">stdio · Cursor</text>
+            <text x="144" y="458" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.55">omni preflight</text>
+            <line x1="228" y1="429" x2="258" y2="429" stroke="#ed5a3e" opacity="0.5" marker-end="url(#arr)"/>
+            <rect x="258" y="386" width="672" height="86" rx="4" fill="rgba(244,236,216,0.03)" stroke="rgba(244,236,216,0.2)"/>
+            <text x="276" y="406" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.65">ferramentas expostas à AI:</text>
+            <text x="276" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_search</text>
+            <text x="390" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_neighbors</text>
+            <text x="530" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_strong_neighbors</text>
+            <text x="710" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_traverse</text>
+            <text x="276" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_ontology_bundle</text>
+            <text x="450" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_context_bundle</text>
+            <text x="610" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_symbol_summaries</text>
+            <text x="276" y="468" fill="#f4ecd8" font-size="9" opacity="0.45">busca · vizinhos · pacotes ≤4KB · resumos por arquivo/feature</text>
+
+            <line x1="500" y1="488" x2="500" y2="506" stroke="#f4ecd8" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
+
+            <!-- ROW 5 · PACOTES (exemplo) -->
+            <rect x="44" y="506" width="900" height="108" rx="6" fill="rgba(244,236,216,0.02)" stroke="rgba(244,236,216,0.12)"/>
+            <text x="500" y="524" text-anchor="middle" fill="#f4ecd8" font-size="10" opacity="0.6">exemplo · feature <tspan fill="#a78bfa" font-family="Roboto Mono">login-oauth</tspan> — 2 chamadas em vez de ler o repo inteiro</text>
+            <rect x="60" y="536" width="420" height="68" rx="4" fill="rgba(167,139,250,0.08)" stroke="#a78bfa" stroke-opacity="0.55"/>
+            <text x="76" y="556" fill="#a78bfa" font-family="Roboto Mono" font-size="10">graph_ontology_bundle(feature_id)</text>
+            <text x="76" y="574" fill="#f4ecd8" font-size="9" opacity="0.65">→ concepts · contexts · gaps · warnings</text>
+            <text x="76" y="590" fill="#f4ecd8" font-size="9" opacity="0.45">vocabulário oficial antes de codificar</text>
+            <rect x="508" y="536" width="420" height="68" rx="4" fill="rgba(77,212,214,0.08)" stroke="#4dd4d6" stroke-opacity="0.55"/>
+            <text x="524" y="556" fill="#4dd4d6" font-family="Roboto Mono" font-size="10">graph_context_bundle(path)</text>
+            <text x="524" y="574" fill="#f4ecd8" font-size="9" opacity="0.65">→ módulo · símbolos · vizinhos · SDD state</text>
+            <text x="524" y="590" fill="#f4ecd8" font-size="9" opacity="0.45">ex.: path=src/auth/handler.py</text>
+
+            <line x1="270" y1="614" x2="270" y2="632" stroke="#a78bfa" opacity="0.5" marker-end="url(#arr-violet)"/>
+            <line x1="718" y1="614" x2="718" y2="632" stroke="#4dd4d6" opacity="0.5" marker-end="url(#arr-cyan)"/>
+
+            <!-- ROW 6 · AGENTES SDD -->
+            <rect x="44" y="632" width="900" height="44" rx="6" fill="rgba(244,236,216,0.03)" stroke="rgba(244,236,216,0.18)"/>
+            <rect x="60" y="642" width="155" height="24" rx="3" fill="rgba(167,139,250,0.12)" stroke="#a78bfa" stroke-opacity="0.4"/>
+            <text x="137" y="658" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="9">discovery</text>
+            <line x1="215" y1="654" x2="235" y2="654" stroke="#f4ecd8" opacity="0.3"/>
+            <rect x="235" y="642" width="155" height="24" rx="3" fill="rgba(167,139,250,0.08)" stroke="#a78bfa" stroke-opacity="0.35"/>
+            <text x="312" y="658" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="9">planning</text>
+            <line x1="390" y1="654" x2="410" y2="654" stroke="#f4ecd8" opacity="0.3"/>
+            <rect x="410" y="642" width="155" height="24" rx="3" fill="rgba(77,212,214,0.1)" stroke="#4dd4d6" stroke-opacity="0.4"/>
+            <text x="487" y="658" text-anchor="middle" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">TDD</text>
+            <line x1="565" y1="654" x2="585" y2="654" stroke="#f4ecd8" opacity="0.3"/>
+            <rect x="585" y="642" width="155" height="24" rx="3" fill="rgba(244,236,216,0.05)" stroke="rgba(244,236,216,0.3)"/>
+            <text x="662" y="658" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="9">workflow-review</text>
+            <text x="820" y="658" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">contexto auditável</text>
           </svg>
-          <div class="lightbox-caption">Omni Graph MCP — ontology_bundle e context_bundle para agentes SDD</div>
+          <div class="lightbox-caption">6 camadas · build offline → consulta MCP → pacotes ≤4KB → agents SDD · rastreável no chat</div>
         </div>
       </div>
     </div>
@@ -120,7 +398,7 @@ html = f"""<!DOCTYPE html>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Omni — Spec-Driven Development com Agentes de IA</title>
+    <title>Omni — Spec-Driven Development com AI Agents</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,400;1,700;1,900&family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
