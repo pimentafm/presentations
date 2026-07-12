@@ -209,8 +209,200 @@ extra_css = """
         font-size: inherit;
         letter-spacing: inherit;
       }
+
+      /* —— Harness: viewport fit (meta/foot clearance + dense slides) —— */
+      .slide-content {
+        box-sizing: border-box;
+      }
+      .slide-content:not(.stack) {
+        padding-top: clamp(2.85rem, 6vh, 4rem) !important;
+        padding-bottom: clamp(2.85rem, 6vh, 4rem) !important;
+      }
+      .slide-content.stack {
+        --safe-y: clamp(2.85rem, 6vh, 4rem);
+        padding: var(--safe-y) clamp(1rem, 3.5vw, 2.75rem) !important;
+        justify-content: center;
+        align-items: stretch;
+        gap: clamp(0.32rem, 0.85vh, 0.7rem);
+        min-height: 0;
+      }
+      .slide:has(.foot-bar .socials) .slide-content.stack {
+        padding-bottom: clamp(3.35rem, 7.5vh, 4.75rem) !important;
+      }
+      .slide-content.dense-slide {
+        gap: clamp(0.26rem, 0.7vh, 0.58rem);
+      }
+      .slide-content.stack .tagline {
+        line-height: 1.35;
+      }
+      .slide-content.dense-slide .term-note {
+        font-size: var(--micro-size);
+        line-height: 1.35;
+      }
+      .term-table.compact-rows {
+        font-size: var(--micro-size);
+      }
+      .term-table.compact-rows thead th {
+        padding: clamp(0.2rem, 0.45vh, 0.35rem) clamp(0.45rem, 0.9vw, 0.7rem);
+      }
+      .term-table.compact-rows tbody td {
+        padding: clamp(0.18rem, 0.4vh, 0.32rem) clamp(0.45rem, 0.9vw, 0.7rem);
+        line-height: 1.3;
+        vertical-align: top;
+      }
+      .term-table.compact-rows td.you {
+        white-space: nowrap;
+        width: clamp(52px, 9vw, 72px);
+      }
+      .term-table.compact-rows td.arrow {
+        width: clamp(18px, 3vw, 28px);
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .term-table.compact-rows td.geo {
+        font-weight: 400;
+      }
+      .slide-content.dense-slide .pills {
+        gap: clamp(0.22rem, 0.45vh, 0.4rem);
+        justify-content: center;
+      }
+      .slide-content.dense-slide .pills .pill {
+        font-size: var(--micro-size);
+        padding: 0.18rem 0.5rem;
+        white-space: normal;
+        text-align: center;
+      }
+      .slide-content.glossary-slide {
+        gap: clamp(0.3rem, 0.8vh, 0.55rem);
+      }
+      .slide-content.glossary-slide .glossary-grid {
+        gap: clamp(0.28rem, 0.55vw, 0.45rem);
+      }
+      .slide-content.glossary-slide .glossary-item {
+        padding: clamp(0.38rem, 0.75vw, 0.6rem) clamp(0.55rem, 1vw, 0.8rem);
+      }
+      .slide-content.glossary-slide .glossary-item dd {
+        font-size: var(--micro-size);
+        line-height: 1.28;
+      }
+      .slide-content.cli-slide.dense-slide .metric-list {
+        gap: clamp(0.28rem, 0.6vh, 0.45rem);
+      }
+      .slide-content.cli-slide.dense-slide .metric-list li {
+        font-size: var(--micro-size);
+      }
+      /* Centralização vertical em todos os slides (capa + stack) */
+      .slide .slide-content {
+        justify-content: center !important;
+      }
+      /* Títulos h2 uniformes em todos os sheets */
+      .slide .slide-content h2.section {
+        font-size: var(--h2-size) !important;
+        line-height: 1.02;
+      }
+      @media (max-height: 780px) {
+        .slide-content.glossary-slide .glossary-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-height: 680px) {
+        .slide-content.glossary-slide .glossary-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-height: 650px) {
+        .slide-content.glossary-slide .eyebrow,
+        .slide-content.glossary-slide .term-note {
+          display: none;
+        }
+        .slide-content.glossary-slide .glossary-grid {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 0.22rem;
+        }
+        .slide-content.glossary-slide .glossary-item {
+          padding: 0.28rem 0.4rem;
+        }
+        .slide-content.glossary-slide .glossary-item dt {
+          font-size: calc(var(--micro-size) * 0.88);
+          margin-bottom: 0.08rem;
+        }
+        .slide-content.glossary-slide .glossary-item dd {
+          font-size: calc(var(--micro-size) * 0.82);
+          line-height: 1.18;
+        }
+      }
+
+      /* Nav de seções abaixo da meta-bar (evita sobreposição) */
+      .section-progress {
+        top: clamp(2.35rem, 4.8vh, 3.15rem);
+      }
+      @media (max-width: 900px) {
+        .section-seg-label { display: none; }
+      }
+
+      /* Slides densos: arch-stack, layer-grid, anti-panel */
+      .slide-content.arch-slide .arch-stack,
+      .slide-content.dense-slide .arch-stack {
+        gap: clamp(0.18rem, 0.45vh, 0.38rem);
+      }
+      .slide-content.arch-slide .arch-layer,
+      .slide-content.dense-slide .arch-layer {
+        padding: clamp(0.32rem, 0.65vh, 0.55rem) clamp(0.55rem, 1.1vw, 0.85rem);
+        gap: clamp(0.35rem, 0.75vw, 0.65rem);
+        grid-template-columns: clamp(84px, 13vw, 132px) 1fr;
+      }
+      .slide-content.arch-slide .arch-layer .layer-tools,
+      .slide-content.dense-slide .arch-layer .layer-tools {
+        font-size: clamp(0.72rem, 1.35vw, 0.98rem);
+        line-height: 1.18;
+      }
+      .slide-content.trends-slide .layer-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(0.22rem, 0.5vw, 0.4rem);
+      }
+      .slide-content.dense-slide .layer-grid {
+        gap: clamp(0.24rem, 0.52vw, 0.42rem);
+      }
+      .slide-content.dense-slide .layer-grid .layer {
+        padding: clamp(0.32rem, 0.65vh, 0.52rem);
+      }
+      .slide-content.dense-slide .layer-grid .layer .desc {
+        font-size: var(--micro-size);
+        line-height: 1.22;
+      }
+      .slide-content.anti-slide.dense-slide .closing-quote {
+        font-size: clamp(0.92rem, 2vw, 1.28rem) !important;
+        line-height: 1.35;
+      }
+      .slide-content.anti-slide.dense-slide .anti-problem-grid .layer .desc {
+        font-size: var(--micro-size);
+        line-height: 1.2;
+      }
+      .slide-content.ontology-slide .code-block.compact {
+        font-size: calc(var(--micro-size) * 0.92);
+        line-height: 1.22;
+        padding: clamp(0.35rem, 0.7vh, 0.55rem) clamp(0.5rem, 1vw, 0.75rem);
+      }
+      .slide-content.harness-slide .term-table {
+        font-size: var(--micro-size);
+      }
+      .slide-content.harness-slide .term-table tbody td {
+        padding: clamp(0.15rem, 0.35vh, 0.28rem) clamp(0.4rem, 0.85vw, 0.65rem);
+        line-height: 1.28;
+      }
+      @media (max-height: 820px) {
+        .slide-content.ontology-slide .body-text { display: none; }
+        .slide-content.ontology-slide .term-table { display: none; }
+        .slide-content.harness-slide .body-text { font-size: clamp(1rem, 2.4vw, 1.6rem) !important; }
+        .slide-content.harness-slide .term-note { display: none; }
+      }
+      @media (max-height: 700px) {
+        .slide-content.anti-slide .anti-solution-note { display: none; }
+        .slide-content.arch-slide .body-text { display: none; }
+        .slide-content.arch-slide.dense-slide .closing-quote { font-size: clamp(0.85rem, 1.8vw, 1.05rem) !important; }
+      }
 """
-if ".glossary-grid" not in css:
+if ".glossary-grid" not in css or ".slide-content.dense-slide" not in css:
     css += extra_css
 
 graph_bg = """
@@ -277,7 +469,7 @@ lightbox = """
             <text x="380" y="100" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="11">ontology.yaml</text>
             <text x="380" y="116" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">conceitos · sinônimos</text>
             <rect x="500" y="82" width="220" height="44" rx="4" fill="rgba(77,212,214,0.06)" stroke="#4dd4d6" stroke-opacity="0.5"/>
-            <text x="610" y="100" text-anchor="middle" fill="#4dd4d6" font-family="Roboto Mono" font-size="11">.omni/features/&lt;id&gt;/</text>
+            <text x="610" y="100" text-anchor="middle" fill="#4dd4d6" font-family="Roboto Mono" font-size="11">.omni/features|bugs/</text>
             <text x="610" y="116" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">spec · tasks · gates SDD</text>
             <rect x="740" y="82" width="188" height="44" rx="4" fill="rgba(237,90,62,0.06)" stroke="#ed5a3e" stroke-opacity="0.45"/>
             <text x="834" y="100" text-anchor="middle" fill="#ed5a3e" font-family="Roboto Mono" font-size="11">sem graph</text>
@@ -349,7 +541,8 @@ lightbox = """
             <text x="276" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_ontology_bundle</text>
             <text x="450" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_context_bundle</text>
             <text x="610" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_symbol_summaries</text>
-            <text x="276" y="468" fill="#f4ecd8" font-size="9" opacity="0.45">busca · vizinhos · pacotes ≤4KB · resumos por arquivo/feature</text>
+            <text x="276" y="468" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_semantic_search</text>
+            <text x="450" y="468" fill="#f4ecd8" font-size="9" opacity="0.45">busca · vizinhos · semântica · pacotes ≤4KB</text>
 
             <line x1="500" y1="488" x2="500" y2="506" stroke="#f4ecd8" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
 
@@ -381,7 +574,7 @@ lightbox = """
             <line x1="565" y1="654" x2="585" y2="654" stroke="#f4ecd8" opacity="0.3"/>
             <rect x="585" y="642" width="155" height="24" rx="3" fill="rgba(244,236,216,0.05)" stroke="rgba(244,236,216,0.3)"/>
             <text x="662" y="658" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="9">workflow-review</text>
-            <text x="820" y="658" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">contexto auditável</text>
+            <text x="820" y="658" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">feature + bug · contexto auditável</text>
           </svg>
           <div class="lightbox-caption">6 camadas · build offline → consulta MCP → pacotes ≤4KB → agents SDD · rastreável no chat</div>
         </div>
