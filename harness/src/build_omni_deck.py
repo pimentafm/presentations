@@ -300,6 +300,9 @@ extra_css = """
         font-size: var(--h2-size) !important;
         line-height: 1.02;
       }
+      /* Capa (sheet 01): Omni + Harness em parchment; AI Agents + com em violeta */
+      h1.display.cover-title .title-ink { color: var(--ink); }
+      h1.display.cover-title .title-topo { color: var(--topo); }
       @media (max-height: 780px) {
         .slide-content.glossary-slide .glossary-grid {
           grid-template-columns: repeat(3, 1fr);
