@@ -1,2 +1,27 @@
 # Omni SDD runtime state — mantido em disco, não versionado
 .omni/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python (build_omni_deck.py)
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+
+# Editores / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs e ambiente local
+*.log
+.env
+.env.*
