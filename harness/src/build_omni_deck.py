@@ -291,6 +291,145 @@ extra_css = """
       .slide-content.cli-slide.dense-slide .metric-list li {
         font-size: var(--micro-size);
       }
+      .cli-tui-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+        gap: clamp(0.65rem, 1.4vw, 1.15rem);
+        align-items: center;
+        width: 100%;
+        max-width: min(96vw, 1180px);
+      }
+      .tui-shot {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .tui-shot img {
+        width: 100%;
+        max-height: min(50vh, 400px);
+        object-fit: contain;
+        border-radius: 6px;
+        border: 1px solid var(--hairline);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+      }
+      .tui-shot figcaption {
+        font-family: var(--font-mono);
+        font-size: var(--micro-size);
+        color: var(--ink-faint);
+        text-align: center;
+        letter-spacing: 0.04em;
+      }
+      @media (max-width: 960px) {
+        .cli-tui-grid { grid-template-columns: 1fr; }
+        .tui-shot img { max-height: 34vh; }
+      }
+      @media (max-height: 760px) {
+        .slide.cli-tui-slide .term-note { display: none; }
+        .tui-shot img { max-height: min(44vh, 340px); }
+        .cli-tui-grid .metric-list li { font-size: calc(var(--micro-size) * 0.92); }
+      }
+      .checklist li .roi-note {
+        display: block;
+        margin-top: 0.22em;
+        font-family: var(--font-mono);
+        font-size: var(--micro-size);
+        color: var(--ink-mute);
+        line-height: 1.35;
+      }
+      .checklist li .roi-note strong {
+        color: var(--uplink);
+        font-weight: 500;
+      }
+      .slide-content.roadmap-slide.dense-slide .checklist li {
+        font-size: var(--small-size);
+        line-height: 1.38;
+      }
+      .resource-board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(0.32rem, 0.65vw, 0.5rem);
+        width: 100%;
+        max-width: min(96vw, 1120px);
+      }
+      .resource-group {
+        padding: clamp(0.42rem, 0.85vw, 0.65rem) clamp(0.5rem, 1vw, 0.75rem);
+        border: 1px solid var(--hairline);
+        border-radius: 4px;
+        background: rgba(244, 236, 216, 0.02);
+      }
+      .resource-head {
+        font-family: var(--font-mono);
+        font-size: var(--micro-size);
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--topo);
+        margin-bottom: 0.32rem;
+      }
+      .resource-group ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.22rem, 0.45vh, 0.34rem);
+        margin: 0;
+        padding: 0;
+      }
+      .resource-group li {
+        display: flex;
+        align-items: baseline;
+        gap: 0.35rem;
+      }
+      .resource-group li.study-pick {
+        background: rgba(167, 139, 250, 0.1);
+        border: 1px solid rgba(167, 139, 250, 0.28);
+        border-radius: 3px;
+        padding: 0.14rem 0.28rem;
+        margin: 0 -0.28rem;
+      }
+      .study-seq {
+        font-family: var(--font-mono);
+        font-size: calc(var(--micro-size) * 0.82);
+        color: var(--ink-faint);
+        flex-shrink: 0;
+        min-width: 1.35rem;
+        letter-spacing: 0.02em;
+      }
+      .resource-group li.study-pick .study-seq {
+        color: var(--topo);
+        font-weight: 700;
+      }
+      .resource-group a {
+        color: var(--uplink);
+        text-decoration: none;
+        font-size: var(--micro-size);
+        line-height: 1.32;
+        font-weight: 500;
+      }
+      .resource-group a:hover {
+        color: var(--topo);
+        text-decoration: underline;
+      }
+      .resource-group li.study-pick a {
+        color: var(--topo);
+        font-weight: 600;
+      }
+      .resource-group .hint {
+        display: none;
+      }
+      @media (max-width: 1000px) {
+        .resource-board { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-height: 760px) {
+        .slide-content.resources-slide .term-note { display: none; }
+        .resource-board { gap: 0.28rem; }
+        .resource-group { padding: 0.35rem 0.45rem; }
+      }
+      @media (max-height: 650px) {
+        .resource-board { grid-template-columns: repeat(3, 1fr); }
+        .resource-group ul { gap: 0.15rem; }
+        .resource-group a { font-size: calc(var(--micro-size) * 0.88); }
+      }
+
       /* Centralização vertical em todos os slides (capa + stack) */
       .slide .slide-content {
         justify-content: center !important;
@@ -313,6 +452,72 @@ extra_css = """
           grid-template-columns: repeat(2, 1fr);
         }
       }
+      /* Sheet 17 — agentes Omni flutuando */
+      .slide.omni-intro-slide .omni-agent-field {
+        position: absolute;
+        inset: 0;
+        z-index: 0 !important;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .slide.omni-intro-slide .slide-content,
+      .slide.omni-intro-slide .meta-bar,
+      .slide.omni-intro-slide .foot-bar {
+        z-index: 2;
+      }
+      .omni-agent {
+        position: absolute;
+        left: var(--x0, 10%);
+        top: var(--y0, 20%);
+        width: var(--size, 36px);
+        height: var(--size, 36px);
+        opacity: var(--opacity, 0.32);
+        background: url("omni.png") center / contain no-repeat;
+        image-rendering: pixelated;
+        filter: drop-shadow(0 0 calc(var(--size) * 0.15) rgba(167, 139, 250, 0.35));
+        animation: var(--anim, agentDriftA) var(--duration, 20s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+        will-change: transform;
+      }
+      @keyframes agentDriftA {
+        0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        20% { transform: translate(38px, -28px) rotate(-6deg) scale(1.04); }
+        45% { transform: translate(72px, 18px) rotate(4deg) scale(0.96); }
+        70% { transform: translate(24px, 44px) rotate(-3deg) scale(1.02); }
+        90% { transform: translate(-16px, 12px) rotate(2deg) scale(1); }
+      }
+      @keyframes agentDriftB {
+        0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        25% { transform: translate(-52px, 22px) rotate(5deg) scale(1.05); }
+        50% { transform: translate(-28px, -36px) rotate(-4deg) scale(0.94); }
+        75% { transform: translate(18px, -18px) rotate(3deg) scale(1.03); }
+      }
+      @keyframes agentDriftC {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(44px, 32px) rotate(-5deg); }
+        66% { transform: translate(-36px, 48px) rotate(6deg); }
+      }
+      @keyframes agentDriftD {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        30% { transform: translate(-42px, -24px) scale(1.06); }
+        60% { transform: translate(56px, -8px) scale(0.95); }
+        85% { transform: translate(12px, 38px) scale(1.02); }
+      }
+      @keyframes agentDriftE {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        40% { transform: translate(28px, -44px) rotate(-8deg); }
+        80% { transform: translate(-48px, 16px) rotate(5deg); }
+      }
+      @keyframes agentDriftF {
+        0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        15% { transform: translate(-22px, 30px) rotate(4deg) scale(1.08); }
+        55% { transform: translate(64px, -20px) rotate(-6deg) scale(0.92); }
+        85% { transform: translate(-34px, -32px) rotate(3deg) scale(1.04); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .omni-agent { animation: none !important; }
+      }
+
       @media (max-height: 650px) {
         .slide-content.glossary-slide .eyebrow,
         .slide-content.glossary-slide .term-note {
@@ -454,7 +659,7 @@ lightbox = """
             </defs>
 
             <text x="500" y="32" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono,monospace" font-size="15" font-weight="500">Knowledge Graph — do repositório à AI (fluxo completo)</text>
-            <text x="500" y="52" text-anchor="middle" fill="#f4ecd8" font-size="11" opacity="0.55">Omni Graph MCP · consultas compactas e rastreáveis · ≤4KB por pacote</text>
+            <text x="500" y="52" text-anchor="middle" fill="#f4ecd8" font-size="11" opacity="0.55">Omni Graph MCP · 13 ferramentas · ontology ≤4KB · respostas ≤8KB</text>
 
             <!-- LANE LABELS -->
             <text x="18" y="98" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.45" transform="rotate(-90 18 98)">FONTES</text>
@@ -494,6 +699,7 @@ lightbox = """
             <rect x="456" y="172" width="195" height="60" rx="4" fill="rgba(167,139,250,0.06)" stroke="#a78bfa" stroke-opacity="0.6"/>
             <text x="553" y="194" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="10">omni graph build</text>
             <text x="553" y="212" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">liga código + ontology</text>
+            <text x="553" y="224" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="8" opacity="0.7">bootstrap-ontology</text>
             <line x1="651" y1="202" x2="684" y2="202" stroke="#f4ecd8" opacity="0.4" marker-end="url(#arr)"/>
             <rect x="684" y="172" width="244" height="60" rx="4" fill="rgba(244,236,216,0.04)" stroke="rgba(244,236,216,0.35)"/>
             <text x="806" y="194" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="10">knowledge-graph.sqlite</text>
@@ -528,26 +734,32 @@ lightbox = """
             <line x1="500" y1="352" x2="500" y2="370" stroke="#f4ecd8" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
 
             <!-- ROW 4 · MCP SERVER + TOOLS -->
-            <rect x="44" y="370" width="900" height="118" rx="6" fill="rgba(237,90,62,0.04)" stroke="#ed5a3e" stroke-opacity="0.35"/>
-            <rect x="60" y="384" width="168" height="90" rx="4" fill="rgba(237,90,62,0.08)" stroke="#ed5a3e" stroke-opacity="0.55"/>
+            <rect x="44" y="370" width="900" height="128" rx="6" fill="rgba(237,90,62,0.04)" stroke="#ed5a3e" stroke-opacity="0.35"/>
+            <rect x="60" y="384" width="168" height="100" rx="4" fill="rgba(237,90,62,0.08)" stroke="#ed5a3e" stroke-opacity="0.55"/>
             <text x="144" y="406" text-anchor="middle" fill="#ed5a3e" font-family="Roboto Mono" font-size="11">Omni Graph</text>
             <text x="144" y="422" text-anchor="middle" fill="#ed5a3e" font-family="Roboto Mono" font-size="11">MCP server</text>
             <text x="144" y="442" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.55">stdio · Cursor</text>
             <text x="144" y="458" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.55">omni preflight</text>
-            <line x1="228" y1="429" x2="258" y2="429" stroke="#ed5a3e" opacity="0.5" marker-end="url(#arr)"/>
-            <rect x="258" y="386" width="672" height="86" rx="4" fill="rgba(244,236,216,0.03)" stroke="rgba(244,236,216,0.2)"/>
-            <text x="276" y="406" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.65">ferramentas expostas à AI:</text>
-            <text x="276" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_search</text>
-            <text x="390" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_neighbors</text>
-            <text x="530" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_strong_neighbors</text>
-            <text x="710" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_traverse</text>
-            <text x="276" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_ontology_bundle</text>
-            <text x="450" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_context_bundle</text>
-            <text x="610" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_symbol_summaries</text>
-            <text x="276" y="468" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_semantic_search</text>
-            <text x="450" y="468" fill="#f4ecd8" font-size="9" opacity="0.45">busca · vizinhos · semântica · pacotes ≤4KB</text>
+            <text x="144" y="474" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="8" opacity="0.75">13 tools</text>
+            <line x1="228" y1="434" x2="258" y2="434" stroke="#ed5a3e" opacity="0.5" marker-end="url(#arr)"/>
+            <rect x="258" y="386" width="672" height="96" rx="4" fill="rgba(244,236,216,0.03)" stroke="rgba(244,236,216,0.2)"/>
+            <text x="276" y="404" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.65">ferramentas expostas à AI (13):</text>
+            <text x="276" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_status</text>
+            <text x="360" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_search</text>
+            <text x="450" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_get_node</text>
+            <text x="560" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_neighbors</text>
+            <text x="680" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_traverse</text>
+            <text x="790" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_strong_neighbors</text>
+            <text x="276" y="440" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_symbol_summaries</text>
+            <text x="440" y="440" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_communities</text>
+            <text x="570" y="440" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_domain_map</text>
+            <text x="700" y="440" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_semantic_search</text>
+            <text x="276" y="458" fill="#a78bfa" font-family="Roboto Mono" font-size="8.5">graph_ontology_bundle</text>
+            <text x="440" y="458" fill="#a78bfa" font-family="Roboto Mono" font-size="8.5">graph_context_bundle</text>
+            <text x="600" y="458" fill="#a78bfa" font-family="Roboto Mono" font-size="8.5">graph_ontology_validate</text>
+            <text x="276" y="476" fill="#f4ecd8" font-size="9" opacity="0.45">busca · vizinhos · comunidades · semântica · pacotes ontology ≤4KB</text>
 
-            <line x1="500" y1="488" x2="500" y2="506" stroke="#f4ecd8" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
+            <line x1="500" y1="498" x2="500" y2="516" stroke="#f4ecd8" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
 
             <!-- ROW 5 · PACOTES (exemplo) -->
             <rect x="44" y="506" width="900" height="108" rx="6" fill="rgba(244,236,216,0.02)" stroke="rgba(244,236,216,0.12)"/>
@@ -579,7 +791,7 @@ lightbox = """
             <text x="662" y="658" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="9">workflow-review</text>
             <text x="820" y="658" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">feature + bug · contexto auditável</text>
           </svg>
-          <div class="lightbox-caption">6 camadas · build offline → consulta MCP → pacotes ≤4KB → agents SDD · rastreável no chat</div>
+          <div class="lightbox-caption">6 camadas · build offline → 13 tools MCP → ontology ≤4KB · agents SDD · rastreável no chat</div>
         </div>
       </div>
     </div>

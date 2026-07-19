@@ -1602,6 +1602,145 @@
       .slide-content.cli-slide.dense-slide .metric-list li {
         font-size: var(--micro-size);
       }
+      .cli-tui-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+        gap: clamp(0.65rem, 1.4vw, 1.15rem);
+        align-items: center;
+        width: 100%;
+        max-width: min(96vw, 1180px);
+      }
+      .tui-shot {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+      }
+      .tui-shot img {
+        width: 100%;
+        max-height: min(50vh, 400px);
+        object-fit: contain;
+        border-radius: 6px;
+        border: 1px solid var(--hairline);
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+      }
+      .tui-shot figcaption {
+        font-family: var(--font-mono);
+        font-size: var(--micro-size);
+        color: var(--ink-faint);
+        text-align: center;
+        letter-spacing: 0.04em;
+      }
+      @media (max-width: 960px) {
+        .cli-tui-grid { grid-template-columns: 1fr; }
+        .tui-shot img { max-height: 34vh; }
+      }
+      @media (max-height: 760px) {
+        .slide.cli-tui-slide .term-note { display: none; }
+        .tui-shot img { max-height: min(44vh, 340px); }
+        .cli-tui-grid .metric-list li { font-size: calc(var(--micro-size) * 0.92); }
+      }
+      .checklist li .roi-note {
+        display: block;
+        margin-top: 0.22em;
+        font-family: var(--font-mono);
+        font-size: var(--micro-size);
+        color: var(--ink-mute);
+        line-height: 1.35;
+      }
+      .checklist li .roi-note strong {
+        color: var(--uplink);
+        font-weight: 500;
+      }
+      .slide-content.roadmap-slide.dense-slide .checklist li {
+        font-size: var(--small-size);
+        line-height: 1.38;
+      }
+      .resource-board {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: clamp(0.32rem, 0.65vw, 0.5rem);
+        width: 100%;
+        max-width: min(96vw, 1120px);
+      }
+      .resource-group {
+        padding: clamp(0.42rem, 0.85vw, 0.65rem) clamp(0.5rem, 1vw, 0.75rem);
+        border: 1px solid var(--hairline);
+        border-radius: 4px;
+        background: rgba(244, 236, 216, 0.02);
+      }
+      .resource-head {
+        font-family: var(--font-mono);
+        font-size: var(--micro-size);
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--topo);
+        margin-bottom: 0.32rem;
+      }
+      .resource-group ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(0.22rem, 0.45vh, 0.34rem);
+        margin: 0;
+        padding: 0;
+      }
+      .resource-group li {
+        display: flex;
+        align-items: baseline;
+        gap: 0.35rem;
+      }
+      .resource-group li.study-pick {
+        background: rgba(167, 139, 250, 0.1);
+        border: 1px solid rgba(167, 139, 250, 0.28);
+        border-radius: 3px;
+        padding: 0.14rem 0.28rem;
+        margin: 0 -0.28rem;
+      }
+      .study-seq {
+        font-family: var(--font-mono);
+        font-size: calc(var(--micro-size) * 0.82);
+        color: var(--ink-faint);
+        flex-shrink: 0;
+        min-width: 1.35rem;
+        letter-spacing: 0.02em;
+      }
+      .resource-group li.study-pick .study-seq {
+        color: var(--topo);
+        font-weight: 700;
+      }
+      .resource-group a {
+        color: var(--uplink);
+        text-decoration: none;
+        font-size: var(--micro-size);
+        line-height: 1.32;
+        font-weight: 500;
+      }
+      .resource-group a:hover {
+        color: var(--topo);
+        text-decoration: underline;
+      }
+      .resource-group li.study-pick a {
+        color: var(--topo);
+        font-weight: 600;
+      }
+      .resource-group .hint {
+        display: none;
+      }
+      @media (max-width: 1000px) {
+        .resource-board { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (max-height: 760px) {
+        .slide-content.resources-slide .term-note { display: none; }
+        .resource-board { gap: 0.28rem; }
+        .resource-group { padding: 0.35rem 0.45rem; }
+      }
+      @media (max-height: 650px) {
+        .resource-board { grid-template-columns: repeat(3, 1fr); }
+        .resource-group ul { gap: 0.15rem; }
+        .resource-group a { font-size: calc(var(--micro-size) * 0.88); }
+      }
+
       /* Centralização vertical em todos os slides (capa + stack) */
       .slide .slide-content {
         justify-content: center !important;
@@ -1624,6 +1763,72 @@
           grid-template-columns: repeat(2, 1fr);
         }
       }
+      /* Sheet 17 — agentes Omni flutuando */
+      .slide.omni-intro-slide .omni-agent-field {
+        position: absolute;
+        inset: 0;
+        z-index: 0 !important;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .slide.omni-intro-slide .slide-content,
+      .slide.omni-intro-slide .meta-bar,
+      .slide.omni-intro-slide .foot-bar {
+        z-index: 2;
+      }
+      .omni-agent {
+        position: absolute;
+        left: var(--x0, 10%);
+        top: var(--y0, 20%);
+        width: var(--size, 36px);
+        height: var(--size, 36px);
+        opacity: var(--opacity, 0.32);
+        background: url("omni.png") center / contain no-repeat;
+        image-rendering: pixelated;
+        filter: drop-shadow(0 0 calc(var(--size) * 0.15) rgba(167, 139, 250, 0.35));
+        animation: var(--anim, agentDriftA) var(--duration, 20s) ease-in-out infinite;
+        animation-delay: var(--delay, 0s);
+        will-change: transform;
+      }
+      @keyframes agentDriftA {
+        0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        20% { transform: translate(38px, -28px) rotate(-6deg) scale(1.04); }
+        45% { transform: translate(72px, 18px) rotate(4deg) scale(0.96); }
+        70% { transform: translate(24px, 44px) rotate(-3deg) scale(1.02); }
+        90% { transform: translate(-16px, 12px) rotate(2deg) scale(1); }
+      }
+      @keyframes agentDriftB {
+        0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        25% { transform: translate(-52px, 22px) rotate(5deg) scale(1.05); }
+        50% { transform: translate(-28px, -36px) rotate(-4deg) scale(0.94); }
+        75% { transform: translate(18px, -18px) rotate(3deg) scale(1.03); }
+      }
+      @keyframes agentDriftC {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(44px, 32px) rotate(-5deg); }
+        66% { transform: translate(-36px, 48px) rotate(6deg); }
+      }
+      @keyframes agentDriftD {
+        0%, 100% { transform: translate(0, 0) scale(1); }
+        30% { transform: translate(-42px, -24px) scale(1.06); }
+        60% { transform: translate(56px, -8px) scale(0.95); }
+        85% { transform: translate(12px, 38px) scale(1.02); }
+      }
+      @keyframes agentDriftE {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        40% { transform: translate(28px, -44px) rotate(-8deg); }
+        80% { transform: translate(-48px, 16px) rotate(5deg); }
+      }
+      @keyframes agentDriftF {
+        0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+        15% { transform: translate(-22px, 30px) rotate(4deg) scale(1.08); }
+        55% { transform: translate(64px, -20px) rotate(-6deg) scale(0.92); }
+        85% { transform: translate(-34px, -32px) rotate(3deg) scale(1.04); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .omni-agent { animation: none !important; }
+      }
+
       @media (max-height: 650px) {
         .slide-content.glossary-slide .eyebrow,
         .slide-content.glossary-slide .term-note {
@@ -1756,7 +1961,7 @@
     <section class="slide" data-title="Capa" data-section="Intro">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>PALESTRA · FRAMEWORK SDD · 2026</span></div>
-        <div class="sheet">SHEET <em>01</em> / 23</div>
+        <div class="sheet">SHEET <em>01</em> / 24</div>
       </div>
       <div class="slide-content">
         <div class="title-block">
@@ -1806,7 +2011,7 @@
     <section class="slide" data-title="O problema" data-section="Contexto">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>CONTEXTO · MOTIVAÇÃO</span></div>
-        <div class="sheet">SHEET <em>02</em> / 23</div>
+        <div class="sheet">SHEET <em>02</em> / 24</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">O problema</span>
@@ -1845,7 +2050,7 @@
     <section class="slide" data-title="O Modelo" data-section="Fundação">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>CONCEITO · O MODELO</span></div>
-        <div class="sheet">SHEET <em>03</em> / 23</div>
+        <div class="sheet">SHEET <em>03</em> / 24</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Fundação</span>
@@ -1866,7 +2071,7 @@
     <section class="slide" data-title="O Harness" data-section="Fundação">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>CONCEITO · O HARNESS</span></div>
-        <div class="sheet">SHEET <em>04</em> / 23</div>
+        <div class="sheet">SHEET <em>04</em> / 24</div>
       </div>
       <div class="slide-content stack harness-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Fundação</span>
@@ -1892,7 +2097,7 @@
     <section class="slide" data-title="Glossário" data-section="Fundação">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>REFERÊNCIA · TERMOS</span></div>
-        <div class="sheet">SHEET <em>05</em> / 23</div>
+        <div class="sheet">SHEET <em>05</em> / 24</div>
       </div>
       <div class="slide-content stack glossary-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Para todos os públicos</span>
@@ -1928,12 +2133,12 @@
     <section class="slide" data-title="Ontology" data-section="Conhecimento">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>CONHECIMENTO · VOCABULÁRIO</span></div>
-        <div class="sheet">SHEET <em>06</em> / 23</div>
+        <div class="sheet">SHEET <em>06</em> / 24</div>
       </div>
       <div class="slide-content stack dense-slide ontology-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Vocabulário do domínio</span>
         <h2 class="section reveal" style="--delay: 0.15s">Domain <span class="accent">Ontology</span></h2>
-        <p class="term-note reveal" style="--delay: 0.22s"><strong>Ontology</strong> = dicionário oficial do negócio. <strong>Domain</strong> = área de conhecimento (ex.: crédito, geoespacial, pagamentos). No Omni, <code>omni project init</code> gera ontology em camadas.</p>
+        <p class="term-note reveal" style="--delay: 0.22s"><strong>Ontology</strong> = dicionário oficial do negócio. <strong>Domain</strong> = área de conhecimento (ex.: crédito, geoespacial, pagamentos). No Omni, <code>omni project init</code> gera ontology em camadas; <code>omni graph bootstrap-ontology</code> rascunha termos a partir de <code>docs/domain/</code> + code-index.</p>
         <p class="body-text reveal" style="--delay: 0.28s">Uma ontologia cataloga conceitos do domínio — significado, relações e nomes aceitos no projeto.</p>
         <div class="reveal" style="--delay: 0.32s;">
           <div class="example-label">Exemplo · ontology.yaml (domínio crédito)</div>
@@ -1949,7 +2154,7 @@
           <tbody>
             <tr><td class="you">Arquivo de ontology (YAML)</td><td class="arrow">→</td><td class="geo">Termos, contextos e sinônimos aceitos pela AI</td></tr>
             <tr><td class="you">Glossário humano (Markdown)</td><td class="arrow">→</td><td class="geo">Mesmo vocabulário, legível para pessoas</td></tr>
-            <tr><td class="you">Pacote compacto por feature</td><td class="arrow">→</td><td class="geo">Resumo ≤4KB enviado à AI — sem ler o repositório inteiro</td></tr>
+            <tr><td class="you">Pacote compacto por feature</td><td class="arrow">→</td><td class="geo">Resumo ontology ≤4KB enviado à AI — respostas MCP até 8KB</td></tr>
           </tbody>
         </table>
         <div class="pills reveal" style="--delay: 0.5s;">
@@ -1966,7 +2171,7 @@
     <section class="slide" data-title="Knowledge Graph" data-section="Conhecimento">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>CONHECIMENTO · MAPA</span></div>
-        <div class="sheet">SHEET <em>07</em> / 23</div>
+        <div class="sheet">SHEET <em>07</em> / 24</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Mapa do projeto</span>
@@ -1985,7 +2190,7 @@
           <div class="col-card" data-lightbox="graph-mcp">
             <div class="col-eyebrow">Ferramentas MCP</div>
             <h3>Consultas compactas</h3>
-            <p class="col-desc">Busca exata, vizinhos, resumos por feature — e busca <strong>semântica</strong> opcional (<code>graph_semantic_search</code>) por significado, não só por nome. Clique para ver o fluxo.</p>
+            <p class="col-desc"><strong>13 ferramentas MCP</strong> — busca exata, vizinhos, comunidades, domínios arquiteturais e busca <strong>semântica</strong> opcional (<code>graph_semantic_search</code>). Clique para ver o fluxo.</p>
           </div>
         </div>
       </div>
@@ -1996,7 +2201,7 @@
     <section class="slide" data-title="Anti-hallucination" data-section="Conhecimento">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>CONHECIMENTO · PRINCÍPIO</span></div>
-        <div class="sheet">SHEET <em>08</em> / 23</div>
+        <div class="sheet">SHEET <em>08</em> / 24</div>
       </div>
       <div class="slide-content stack dense-slide anti-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Por que ontology + graph</span>
@@ -2004,7 +2209,7 @@
           Não é acumular documentos — é <strong>melhorar o harness</strong>: respostas oficiais em vez de a AI vasculhar o repositório ao acaso.
         </p>
         <div class="anti-panel reveal" style="--delay: 0.32s;">
-          <div class="anti-panel-head">Sem <strong>pacotes compactos</strong> (ontology + graph via MCP, ≤4KB), a AI tende a:</div>
+          <div class="anti-panel-head">Sem <strong>pacotes compactos</strong> (ontology ≤4KB + graph via MCP, cap 8KB), a AI tende a:</div>
           <div class="anti-problem-grid">
             <div class="layer">
               <div class="num">01 · CONTEXTO</div>
@@ -2041,7 +2246,7 @@
     <section class="slide" data-title="Por que SDD" data-section="Método">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>MÉTODO · PROPÓSITO</span></div>
-        <div class="sheet">SHEET <em>09</em> / 23</div>
+        <div class="sheet">SHEET <em>09</em> / 24</div>
       </div>
       <div class="slide-content stack dense-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Do caos à entrega com evidência</span>
@@ -2083,12 +2288,12 @@
     <section class="slide" data-title="Pipeline SDD" data-section="Método">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>MÉTODO · GATES</span></div>
-        <div class="sheet">SHEET <em>10</em> / 23</div>
+        <div class="sheet">SHEET <em>10</em> / 24</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Controle de fluxo do harness</span>
         <h2 class="section reveal" style="--delay: 0.15s">SDD — Discovery → Planning → <span class="accent">TDD</span> → Review</h2>
-        <p class="term-note reveal" style="--delay: 0.22s"><strong>SDD</strong> coloca etapas e <strong>gates</strong> no harness: cada fase só começa se a anterior passar no critério. Progresso salvo em disco — auditable.</p>
+        <p class="term-note reveal" style="--delay: 0.22s"><strong>SDD</strong> coloca etapas e <strong>gates</strong> no harness: cada fase só começa se a anterior passar no critério. Feature e bug seguem o mesmo padrão — <code>/feature-*</code> e <code>/bug-*</code>.</p>
         <ul class="feature-list reveal" style="--delay: 0.35s;">
           <li data-num="01"><strong>Discovery</strong> — vale a pena fazer? Nota de viabilidade e decisão GO/NO-GO</li>
           <li data-num="02"><strong>Planning</strong> — spec + tarefas; gate exige nota <em>3/3 por seção</em></li>
@@ -2116,7 +2321,7 @@
     <section class="slide" data-title="Discovery" data-section="Método">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>MÉTODO · FASE 1</span></div>
-        <div class="sheet">SHEET <em>11</em> / 23</div>
+        <div class="sheet">SHEET <em>11</em> / 24</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Especificar</span>
@@ -2157,7 +2362,7 @@
     <section class="slide" data-title="Planning" data-section="Método">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>MÉTODO · FASE 2</span></div>
-        <div class="sheet">SHEET <em>12</em> / 23</div>
+        <div class="sheet">SHEET <em>12</em> / 24</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Planejar</span>
@@ -2188,7 +2393,7 @@
     <section class="slide" data-title="TDD" data-section="Método">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>MÉTODO · FASE 3</span></div>
-        <div class="sheet">SHEET <em>13</em> / 23</div>
+        <div class="sheet">SHEET <em>13</em> / 24</div>
       </div>
       <div class="slide-content stack tdd-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Implementar</span>
@@ -2217,7 +2422,7 @@
     <section class="slide" data-title="Pipeline vs Catalog" data-section="Ecossistema">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>ECOSSISTEMA · AGENTS</span></div>
-        <div class="sheet">SHEET <em>14</em> / 23</div>
+        <div class="sheet">SHEET <em>14</em> / 24</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Quem faz o quê</span>
@@ -2237,7 +2442,7 @@
           <div class="col-card survey">
             <div class="col-eyebrow">200 · Catalog</div>
             <h3>Consultoria sob demanda</h3>
-            <p class="col-desc">Especialistas por área (marketing, finanças, segurança…) — instalados quando necessário. Só leitura por padrão.</p>
+            <p class="col-desc">Especialistas por área — <strong>17 divisões</strong> (engenharia, marketing, segurança…). Instalados sob demanda. Só leitura por padrão.</p>
             <ul>
               <li><code>security-reviewer</code> — opinião AppSec</li>
               <li><code>proposal-strategist</code> — RFP / proposta</li>
@@ -2253,7 +2458,7 @@
     <section class="slide" data-title="Quando usar" data-section="Ecossistema">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>ECOSSISTEMA · GUIA DE USO</span></div>
-        <div class="sheet">SHEET <em>15</em> / 23</div>
+        <div class="sheet">SHEET <em>15</em> / 24</div>
       </div>
       <div class="slide-content stack dense-slide guide-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Decisão prática</span>
@@ -2286,7 +2491,7 @@
     <section class="slide" data-title="Camadas do harness" data-section="Ecossistema">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>ARQUITETURA · CAMADAS</span></div>
-        <div class="sheet">SHEET <em>16</em> / 23</div>
+        <div class="sheet">SHEET <em>16</em> / 24</div>
       </div>
       <div class="slide-content stack dense-slide arch-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Anatomia completa</span>
@@ -2305,30 +2510,37 @@
     </section>
 
     <!-- SLIDE 15 — O QUE É OMNI -->
-    <section class="slide" data-title="O que é Omni" data-section="Sistema">
+    <section class="slide omni-intro-slide" data-title="O que é Omni" data-section="Sistema">
+      <div class="omni-agent-field" aria-hidden="true">
+        <div class="omni-agent" style="--size: 44px; --opacity: 0.38; --x0: 86%; --y0: 14%; --duration: 19s; --delay: -3s; --anim: agentDriftB;"></div>
+        <div class="omni-agent" style="--size: 32px; --opacity: 0.3; --x0: 92%; --y0: 38%; --duration: 23s; --delay: -8s; --anim: agentDriftC;"></div>
+        <div class="omni-agent" style="--size: 52px; --opacity: 0.42; --x0: 78%; --y0: 62%; --duration: 17s; --delay: -1s; --anim: agentDriftD;"></div>
+        <div class="omni-agent" style="--size: 28px; --opacity: 0.26; --x0: 88%; --y0: 78%; --duration: 24s; --delay: -11s; --anim: agentDriftE;"></div>
+        <div class="omni-agent" style="--size: 40px; --opacity: 0.35; --x0: 72%; --y0: 28%; --duration: 21s; --delay: -6s; --anim: agentDriftA;"></div>
+      </div>
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>SISTEMA · OMNI</span></div>
-        <div class="sheet">SHEET <em>17</em> / 23</div>
+        <div class="sheet">SHEET <em>17</em> / 24</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">O produto</span>
         <h2 class="section reveal" style="--delay: 0.15s">O que é <span class="accent">Omni</span></h2>
-        <p class="tagline reveal" style="--delay: 0.25s">Framework open source que reúne tudo que vimos: <strong>SDD</strong> com gates, ontology, knowledge graph e 222 agents — no editor <strong>Cursor</strong>.</p>
+        <p class="tagline reveal" style="--delay: 0.25s">Framework open source (v1.0) que reúne tudo que vimos: <strong>SDD</strong> com gates, ontology, knowledge graph e 222 agents — no editor <strong>Cursor</strong>.</p>
         <div class="layer-grid reveal" style="--delay: 0.4s;">
-          <div class="layer"><div class="num">222</div><div class="name">Agents</div><div class="desc">22 no pipeline + 200 no catalog</div></div>
-          <div class="layer"><div class="num">76</div><div class="name">Skills</div><div class="desc">Manuais por fase, papel e artefato</div></div>
-          <div class="layer"><div class="num">11</div><div class="name">Comandos</div><div class="desc">Feature + bug SDD, review, utilitários</div></div>
-          <div class="layer"><div class="num">≤4KB</div><div class="name">Omni Graph</div><div class="desc">Pacotes MCP + busca semântica opcional</div></div>
+          <div class="layer"><div class="num">222</div><div class="name">Agents</div><div class="desc">22 pipeline + 200 catalog · 17 divisões</div></div>
+          <div class="layer"><div class="num">76</div><div class="name">Skills</div><div class="desc">49 SDD + 27 utilitários</div></div>
+          <div class="layer"><div class="num">16</div><div class="name">Rules</div><div class="desc">3 always-on + 13 opt-in</div></div>
+          <div class="layer"><div class="num">13</div><div class="name">Graph MCP</div><div class="desc">Ferramentas · ontology ≤4KB · cap 8KB</div></div>
         </div>
       </div>
-      <div class="foot-bar"><span class="author">Estado em <code>.omni/features/</code> e <code>.omni/bugs/</code> · valida com <code>omni doctor</code></span><span>FRAMEWORK OMNI</span></div>
+      <div class="foot-bar"><span class="author">11 comandos slash · estado em <code>.omni/features/</code> e <code>.omni/bugs/</code> · valida com <code>omni doctor</code></span><span>FRAMEWORK OMNI</span></div>
     </section>
 
     <!-- SLIDE 16 — O HARNESS DO OMNI -->
     <section class="slide" data-title="O harness do Omni" data-section="Sistema">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>OMNI · NA PRÁTICA</span></div>
-        <div class="sheet">SHEET <em>18</em> / 23</div>
+        <div class="sheet">SHEET <em>18</em> / 24</div>
       </div>
       <div class="slide-content stack dense-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Modelo + harness no Omni</span>
@@ -2338,8 +2550,9 @@
           <thead><tr><th class="you">Componente</th><th></th><th class="geo">No Omni</th></tr></thead>
           <tbody>
             <tr><td class="you">LLM (Claude, GPT…)</td><td class="arrow">→</td><td class="geo">O cérebro — capacidade de raciocínio</td></tr>
-            <tr><td class="you">Rules + Skills + MCP</td><td class="arrow">→</td><td class="geo">Rules em <code>.cursor/rules</code>, skills e Omni Graph MCP</td></tr>
+            <tr><td class="you">Rules + Skills + MCP</td><td class="arrow">→</td><td class="geo">16 rules em <code>.cursor/rules</code>, 76 skills e Omni Graph MCP (13 tools)</td></tr>
             <tr><td class="you">Agents + Gates + .omni/</td><td class="arrow">→</td><td class="geo">222 agents, gates SDD e estado em disco</td></tr>
+            <tr><td class="you">Profiles (opcional)</td><td class="arrow">→</td><td class="geo"><code>--process-profile</code> overlay de entrega (DoR/DoD) · <code>--model-profile</code> tier e fallback por agent</td></tr>
           </tbody>
         </table>
         <p class="body-text reveal" style="--delay: 0.5s">SDD: <code>/feature-*</code> · <code>/bug-*</code> · <code>/workflow-reviewer</code> · utilitários: <code>/brainstorming</code> · <code>/commit</code> · <code>/route</code></p>
@@ -2358,7 +2571,7 @@
     <section class="slide" data-title="Omni Graph" data-section="Sistema">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>OMNI · GRAPH</span></div>
-        <div class="sheet">SHEET <em>19</em> / 23</div>
+        <div class="sheet">SHEET <em>19</em> / 24</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Implementação do mapa</span>
@@ -2371,13 +2584,14 @@
             <ul>
               <li>Tree-sitter → <code>code-index.json</code></li>
               <li><code>omni graph build</code> → banco SQLite em <code>.omni/</code></li>
+              <li><code>graph bootstrap-ontology</code> → rascunho de <code>ontology.yaml</code></li>
               <li><code>preflight --semantic</code> → embeddings locais (opcional)</li>
             </ul>
           </div>
           <div class="col-card" data-lightbox="graph-mcp">
             <div class="col-eyebrow">Pacotes MCP</div>
             <h3>ontology_bundle · context_bundle</h3>
-            <p class="col-desc">Vocabulário e contexto por feature — conectam ontology (slide 06) ao graph. Clique para ver o fluxo.</p>
+            <p class="col-desc">13 ferramentas — vocabulário e contexto por feature. Conectam ontology (slide 06) ao graph. Clique para ver o fluxo.</p>
           </div>
         </div>
       </div>
@@ -2388,7 +2602,7 @@
     <section class="slide" data-title="Tendências AI" data-section="Tendências">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>CONTEXTO · MERCADO</span></div>
-        <div class="sheet">SHEET <em>20</em> / 23</div>
+        <div class="sheet">SHEET <em>20</em> / 24</div>
       </div>
       <div class="slide-content stack dense-slide trends-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Não estamos sozinhos</span>
@@ -2407,23 +2621,32 @@
     </section>
 
     <!-- SLIDE 19 — CLI E TUI -->
-    <section class="slide" data-title="CLI e TUI" data-section="Operação">
+    <section class="slide cli-tui-slide" data-title="CLI e TUI" data-section="Operação">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>OPERAÇÃO · FERRAMENTAS</span></div>
-        <div class="sheet">SHEET <em>21</em> / 23</div>
+        <div class="sheet">SHEET <em>21</em> / 24</div>
       </div>
       <div class="slide-content stack dense-slide cli-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Como usar</span>
         <h2 class="section reveal" style="--delay: 0.15s">Linha de comando & <span class="accent-cyan">interface visual</span></h2>
-        <p class="term-note reveal" style="--delay: 0.22s"><strong>CLI</strong> = você digita comandos no terminal. <strong>TUI</strong> = menus e painéis visuais dentro do terminal.</p>
-        <ul class="metric-list reveal" style="--delay: 0.3s;">
-          <li><span class="metric-name">omni install</span><span class="metric-target">instala no editor Cursor</span></li>
-          <li><span class="metric-name">omni project init</span><span class="metric-target">cria pasta .omni/ no projeto</span></li>
-          <li><span class="metric-name">omni doctor</span><span class="metric-target">verifica se está tudo certo</span></li>
-          <li><span class="metric-name">omni preflight</span><span class="metric-target">índice, graph e ontology bundled</span></li>
-          <li><span class="metric-name">omni models resolve</span><span class="metric-target">mostra tier e fallback por agent</span></li>
-          <li><span class="metric-name">omni tui</span><span class="metric-target">navega agents, features e config</span></li>
-        </ul>
+        <p class="term-note reveal" style="--delay: 0.22s"><strong>CLI</strong> = comandos no terminal · <strong>TUI</strong> = interface visual (<code>omni tui</code>). <strong>Process profile</strong> = overlay de entrega; <strong>model profile</strong> = quem roda em qual modelo.</p>
+        <div class="cli-tui-grid reveal" style="--delay: 0.3s;">
+          <ul class="metric-list">
+            <li><span class="metric-name">omni install</span><span class="metric-target">instala agents, rules, skills e MCP no Cursor</span></li>
+            <li><span class="metric-name">omni project init</span><span class="metric-target">scaffold <code>.omni/</code> — opcional <code>--process-profile</code> / <code>--model-profile</code></span></li>
+            <li><span class="metric-name">omni doctor</span><span class="metric-target">valida global + projeto (<code>--strict</code> opcional)</span></li>
+            <li><span class="metric-name">omni preflight</span><span class="metric-target">atualiza índice e graph stale (<code>--semantic</code> opcional)</span></li>
+            <li><span class="metric-name">omni route</span><span class="metric-target">dry-run do prompt router (graph-first)</span></li>
+            <li><span class="metric-name">omni graph bootstrap-ontology</span><span class="metric-target">rascunho de ontology a partir de docs + code-index</span></li>
+            <li><span class="metric-name">omni feature gate</span><span class="metric-target">valida gates SDD de uma feature em disco</span></li>
+            <li><span class="metric-name">omni models *</span><span class="metric-target"><code>list-profiles</code> · <code>apply-profile</code> · <code>resolve</code> — perfis e chain por agent</span></li>
+            <li><span class="metric-name">omni tui</span><span class="metric-target">navega agents, features, MCP e config</span></li>
+          </ul>
+          <figure class="tui-shot">
+            <img src="tui.png" alt="Omni TUI v0.1.0 — abas Agents, Skills, MCP, Features e Doctor" width="960" height="540" loading="lazy" decoding="async" />
+            <figcaption>omni tui · 222 agents · 76 skills · MCP catalog</figcaption>
+          </figure>
+        </div>
       </div>
       <div class="foot-bar"><span class="author">Instalação: <code>uv tool install omni</code> · requer Python 3.11+</span><span>LINHA DE COMANDO</span></div>
     </section>
@@ -2431,29 +2654,116 @@
     <!-- SLIDE 20 — ROADMAP -->
     <section class="slide" data-title="Roadmap" data-section="Wrap-up">
       <div class="meta-bar">
-        <div class="meta-left"><span class="dot"></span><span>HORIZONTE · V1.1</span></div>
-        <div class="sheet">SHEET <em>22</em> / 23</div>
+        <div class="meta-left"><span class="dot"></span><span>HORIZONTE · ROI DO HARNESS</span></div>
+        <div class="sheet">SHEET <em>22</em> / 24</div>
       </div>
-      <div class="slide-content stack dense-slide">
-        <span class="eyebrow reveal" style="--delay: 0.05s">Próximos passos</span>
-        <h2 class="section reveal" style="--delay: 0.15s">Evolução do <span class="accent">harness</span></h2>
-        <p class="term-note reveal" style="--delay: 0.22s">O que vem a seguir para tornar o Omni mais rigoroso e auto-gerenciável.</p>
+      <div class="slide-content stack dense-slide roadmap-slide">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Próxima camada de maturidade</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Onde o <span class="accent">harness</span> ainda ganha alavancagem</h2>
+        <p class="term-note reveal" style="--delay: 0.22s">ROI do harness = menos alucinação, menos retrabalho e entrega rastreável — <em>sem</em> depender de trocar o modelo. Itens abaixo fecham o ciclo <strong>vocabulário → gate → rastreio → medição</strong>.</p>
         <ul class="checklist reveal" style="--delay: 0.35s;">
-          <li><strong>Ontology em modo rigoroso</strong> — <code>--strict</code> bloqueia termos fora do dicionário oficial (não só avisa)</li>
-          <li><strong>Tarefa → conceito</strong> — cada task SDD declara <code>concepts[]</code> da ontology; grafo liga entrega ao vocabulário do negócio</li>
-          <li><strong>Metaharness</strong> — benchmarks do harness, métricas de qualidade e alerta quando o fluxo desvia do esperado</li>
-          <li><strong>Model tiers em CI</strong> — resolver e validar fallback chains automaticamente no pipeline</li>
-          <li><strong>Gates com Cursor SDK</strong> — orquestração automática em CI; validação numérica continua em Python</li>
+          <li><strong>Ontology nos gates SDD</strong> — bloquear avanço de fase quando o vocabulário foge do dicionário oficial (hoje <code>doctor --strict</code> avisa; próximo passo é gate duro)
+            <span class="roi-note"><strong>ROI harness:</strong> menos termos inventados · menos revisão cosmética · guardrail automático em vez de prompt</span></li>
+          <li><strong>Tarefa → conceito</strong> — cada task SDD declara <code>concepts[]</code>; o graph liga código entregue ao vocabulário do negócio
+            <span class="roi-note"><strong>ROI harness:</strong> contexto certo por tarefa · auditoria spec→código · menos drift entre planning e TDD</span></li>
+          <li><strong>Metaharness</strong> — benchmarks do fluxo, métricas de qualidade e alerta quando o método desvia do esperado
+            <span class="roi-note"><strong>ROI harness:</strong> a estrutura não regride em silêncio · investimento no harness fica mensurável (não só “parece melhor”)</span></li>
+          <li><strong>TOON nos pacotes de contexto</strong> — serializar bundles de ontology, trechos do graph e payloads MCP em <a href="https://toonformat.dev/" target="_blank" rel="noopener">Token-Oriented Object Notation</a> em vez de JSON/YAML (~30–60% menos tokens em estruturas tabulares)
+            <span class="roi-note"><strong>ROI harness:</strong> mais dado útil no mesmo cap 4KB/8KB · menos truncamento · menor custo e latência sem trocar o modelo</span></li>
         </ul>
+        <div class="pills reveal" style="--delay: 0.48s;">
+          <span class="pill topo">contexto: bootstrap-ontology</span>
+          <span class="pill uplink">foco: rigor + rastreio</span>
+          <span class="pill survey">medir o harness</span>
+          <span class="pill topo">toon · contexto compacto</span>
+        </div>
       </div>
-      <div class="foot-bar"><span class="author">Features em desenvolvimento no repositório omni</span><span>ROADMAP</span></div>
+      <div class="foot-bar"><span class="author">Cada item reduz custo de <strong>retrabalho</strong> e aumenta <strong>confiança</strong> na entrega com AI</span><span>ROADMAP · HARNESS</span></div>
     </section>
 
-    <!-- SLIDE 21 — FECHAMENTO -->
+    <!-- SLIDE 21 — RECURSOS -->
+    <section class="slide" data-title="Recursos" data-section="Wrap-up">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>RECURSOS · APRENDER MAIS</span></div>
+        <div class="sheet">SHEET <em>23</em> / 24</div>
+      </div>
+      <div class="slide-content stack dense-slide resources-slide">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Para aprofundar</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Leitura <span class="accent">essencial</span></h2>
+        <p class="term-note reveal" style="--delay: 0.22s">Sequência sugerida de estudos (01–32) · <strong class="accent">destaque</strong> = 5 leituras essenciais</p>
+        <div class="resource-board reveal" style="--delay: 0.32s;">
+          <div class="resource-group">
+            <div class="resource-head">01–09 · Harness · agents</div>
+            <ul>
+              <li class="study-pick"><span class="study-seq">01</span><a href="https://www.anthropic.com/research/building-effective-agents" target="_blank" rel="noopener">Anthropic — Building effective agents</a></li>
+              <li><span class="study-seq">02</span><a href="https://github.com/nexu-io/harness-engineering-guide" target="_blank" rel="noopener">nexu-io — Harness Engineering Guide</a></li>
+              <li class="study-pick"><span class="study-seq">03</span><a href="https://agents.siddhantkhare.com/" target="_blank" rel="noopener">Siddhant Khare — The Agentic Engineering Guide</a></li>
+              <li><span class="study-seq">04</span><a href="https://agentpatterns.ai/agent-design/harness-engineering/" target="_blank" rel="noopener">AgentPatterns — Harness Engineering</a></li>
+              <li><span class="study-seq">05</span><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Anthropic — Effective Context Engineering for AI Agents</a></li>
+              <li><span class="study-seq">06</span><a href="https://docs.langchain.com/oss/python/deepagents/overview" target="_blank" rel="noopener">LangChain — Deep Agents overview</a></li>
+              <li><span class="study-seq">07</span><a href="https://docs.langchain.com/oss/python/langgraph/graph-api" target="_blank" rel="noopener">LangGraph — Graph API (state · nodes · edges)</a></li>
+              <li><span class="study-seq">08</span><a href="https://agent-harness.ai/blog/what-is-harness-engineering/" target="_blank" rel="noopener">agent-harness.ai — What is Harness Engineering</a></li>
+              <li><span class="study-seq">09</span><a href="https://github.com/OpenMind7/definitive-agent-harness-guide" target="_blank" rel="noopener">OpenMind7 — Definitive Agent Harness Guide</a></li>
+            </ul>
+          </div>
+          <div class="resource-group">
+            <div class="resource-head">10–15 · Spec-Driven Development</div>
+            <ul>
+              <li class="study-pick"><span class="study-seq">10</span><a href="https://github.github.com/spec-kit/" target="_blank" rel="noopener">GitHub Spec Kit — documentação</a></li>
+              <li><span class="study-seq">11</span><a href="https://tao-hpu.medium.com/spec-driven-development-in-the-ai-coding-era-b7cae86a8e12" target="_blank" rel="noopener">Tao An — Spec-Driven Development in the AI Coding Era</a></li>
+              <li><span class="study-seq">12</span><a href="https://newsletter.kentbeck.com/p/canon-tdd" target="_blank" rel="noopener">Kent Beck — Canon TDD</a></li>
+              <li><span class="study-seq">13</span><a href="https://kiro.dev/docs/specs/" target="_blank" rel="noopener">Kiro — Specs (requirements · design · tasks)</a></li>
+              <li><span class="study-seq">14</span><a href="https://www.augmentcode.com/guides/what-is-spec-driven-development" target="_blank" rel="noopener">Augment Code — What is Spec-Driven Development</a></li>
+              <li><span class="study-seq">15</span><a href="https://www.dplooy.com/blog/spec-driven-development-with-ai-complete-2025-guide" target="_blank" rel="noopener">dplooy — Spec-Driven Development with AI</a></li>
+            </ul>
+          </div>
+          <div class="resource-group">
+            <div class="resource-head">16–20 · Ontologia · vocabulário</div>
+            <ul>
+              <li class="study-pick"><span class="study-seq">16</span><a href="https://enterprise-knowledge.com/ontology-and-knowledge-graph-in-the-age-of-ai-and-agents/" target="_blank" rel="noopener">Enterprise Knowledge — Ontology &amp; Knowledge Graph in the Age of AI</a></li>
+              <li><span class="study-seq">17</span><a href="https://thurley.dev/blog/ubiquitous-language-and-naming-strategies/" target="_blank" rel="noopener">thurley.dev — Ubiquitous Language &amp; Naming</a></li>
+              <li><span class="study-seq">18</span><a href="https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/HEAD/okf/SPEC.md" target="_blank" rel="noopener">Open Knowledge Format (OKF) — specification</a></li>
+              <li><span class="study-seq">19</span><a href="https://schema.org/docs/documents.html" target="_blank" rel="noopener">Schema.org — vocabulário leve em prática</a></li>
+              <li><span class="study-seq">20</span><a href="https://www.sciencedirect.com/science/article/pii/S1570826825000022" target="_blank" rel="noopener">ScienceDirect — KG &amp; Ontology Engineering with LLMs</a></li>
+            </ul>
+          </div>
+          <div class="resource-group">
+            <div class="resource-head">21–25 · Editor · MCP · ops</div>
+            <ul>
+              <li class="study-pick"><span class="study-seq">21</span><a href="https://modelcontextprotocol.io/docs/learn/architecture" target="_blank" rel="noopener">MCP — Architecture overview</a></li>
+              <li><span class="study-seq">22</span><a href="https://agents.md/" target="_blank" rel="noopener">AGENTS.md — onboarding de codebase para agents</a></li>
+              <li><span class="study-seq">23</span><a href="https://modelcontextprotocol.io/docs/develop/connect-local-servers" target="_blank" rel="noopener">MCP — Connect local servers</a></li>
+              <li><span class="study-seq">24</span><a href="https://modelcontextprotocol.io/docs/develop/build-server" target="_blank" rel="noopener">MCP — Build a server</a></li>
+              <li><span class="study-seq">25</span><a href="https://www.conventionalcommits.org/" target="_blank" rel="noopener">Conventional Commits</a></li>
+            </ul>
+          </div>
+          <div class="resource-group">
+            <div class="resource-head">26–29 · Graph · RAG · contexto</div>
+            <ul>
+              <li><span class="study-seq">26</span><a href="https://microsoft.github.io/graphrag/" target="_blank" rel="noopener">Microsoft GraphRAG</a></li>
+              <li><span class="study-seq">27</span><a href="https://neo4j.com/graphacademy/training-gdm-40/03-graph-data-modeling-core-principles/" target="_blank" rel="noopener">Neo4j GraphAcademy — Data Modeling Core Principles</a></li>
+              <li><span class="study-seq">28</span><a href="https://arxiv.org/abs/2510.20345" target="_blank" rel="noopener">arXiv — LLM-empowered Knowledge Graph Construction</a></li>
+              <li><span class="study-seq">29</span><a href="https://www.graph-data-modeling.org/cypher-query-optimization-and-index-lifecycle/" target="_blank" rel="noopener">graph-data-modeling.org — Cypher Query Optimization</a></li>
+            </ul>
+          </div>
+          <div class="resource-group">
+            <div class="resource-head">30–32 · Tendências · engenharia</div>
+            <ul>
+              <li><span class="study-seq">30</span><a href="https://arxiv.org/html/2603.28052" target="_blank" rel="noopener">Meta-Harness — End-to-End Optimization of Model Harnesses</a></li>
+              <li><span class="study-seq">31</span><a href="https://lilianweng.github.io/posts/2026-07-04-harness/" target="_blank" rel="noopener">Lil'Log — Harness Engineering for Self-Improvement</a></li>
+              <li><span class="study-seq">32</span><a href="https://www.thoughtworks.com/radar" target="_blank" rel="noopener">Thoughtworks Technology Radar</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="foot-bar"><span class="author">Links externos — validados em jul/2026 · complementam o deck, não substituem experimentação hands-on</span><span>RECURSOS</span></div>
+    </section>
+
+    <!-- SLIDE 22 — FECHAMENTO -->
     <section class="slide" data-title="Fechamento" data-section="Wrap-up">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>RESUMO · FECHAMENTO</span></div>
-        <div class="sheet">SHEET <em>23</em> / 23</div>
+        <div class="sheet">SHEET <em>24</em> / 24</div>
       </div>
       <div class="slide-content stack dense-slide arch-slide">
         <span class="eyebrow reveal" style="--delay: 0.05s">Conclusão</span>
@@ -2462,7 +2772,7 @@
           <div class="arch-layer ai"><div class="layer-label">Agent</div><div class="layer-tools">Model <span class="sep">·</span> Harness <span class="sep">=</span> Comportamento confiável</div></div>
           <div class="arch-layer"><div class="layer-label">Método SDD</div><div class="layer-tools">Feature + Bug pipelines <span class="sep">·</span> Gates <span class="sep">·</span> Review</div></div>
           <div class="arch-layer mid"><div class="layer-label">Conhecimento</div><div class="layer-tools">Ontology <span class="sep">·</span> Graph <span class="sep">·</span> Pacotes MCP</div></div>
-          <div class="arch-layer base"><div class="layer-label">Omni</div><div class="layer-tools">222 agents <span class="sep">·</span> Gates <span class="sep">·</span> Estado em disco</div></div>
+          <div class="arch-layer base"><div class="layer-label">Omni</div><div class="layer-tools">222 agents <span class="sep">·</span> 76 skills <span class="sep">·</span> Estado em disco</div></div>
         </div>
         <p class="closing-quote reveal" style="--delay: 0.65s;">
           Comece com <strong>/feature-discovery</strong> ou <strong>/bug-discovery</strong> — progresso em disco, gates com nota, entrega auditable.
@@ -2512,7 +2822,7 @@
             </defs>
 
             <text x="500" y="32" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono,monospace" font-size="15" font-weight="500">Knowledge Graph — do repositório à AI (fluxo completo)</text>
-            <text x="500" y="52" text-anchor="middle" fill="#f4ecd8" font-size="11" opacity="0.55">Omni Graph MCP · consultas compactas e rastreáveis · ≤4KB por pacote</text>
+            <text x="500" y="52" text-anchor="middle" fill="#f4ecd8" font-size="11" opacity="0.55">Omni Graph MCP · 13 ferramentas · ontology ≤4KB · respostas ≤8KB</text>
 
             <!-- LANE LABELS -->
             <text x="18" y="98" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.45" transform="rotate(-90 18 98)">FONTES</text>
@@ -2552,6 +2862,7 @@
             <rect x="456" y="172" width="195" height="60" rx="4" fill="rgba(167,139,250,0.06)" stroke="#a78bfa" stroke-opacity="0.6"/>
             <text x="553" y="194" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="10">omni graph build</text>
             <text x="553" y="212" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">liga código + ontology</text>
+            <text x="553" y="224" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="8" opacity="0.7">bootstrap-ontology</text>
             <line x1="651" y1="202" x2="684" y2="202" stroke="#f4ecd8" opacity="0.4" marker-end="url(#arr)"/>
             <rect x="684" y="172" width="244" height="60" rx="4" fill="rgba(244,236,216,0.04)" stroke="rgba(244,236,216,0.35)"/>
             <text x="806" y="194" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="10">knowledge-graph.sqlite</text>
@@ -2586,26 +2897,32 @@
             <line x1="500" y1="352" x2="500" y2="370" stroke="#f4ecd8" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
 
             <!-- ROW 4 · MCP SERVER + TOOLS -->
-            <rect x="44" y="370" width="900" height="118" rx="6" fill="rgba(237,90,62,0.04)" stroke="#ed5a3e" stroke-opacity="0.35"/>
-            <rect x="60" y="384" width="168" height="90" rx="4" fill="rgba(237,90,62,0.08)" stroke="#ed5a3e" stroke-opacity="0.55"/>
+            <rect x="44" y="370" width="900" height="128" rx="6" fill="rgba(237,90,62,0.04)" stroke="#ed5a3e" stroke-opacity="0.35"/>
+            <rect x="60" y="384" width="168" height="100" rx="4" fill="rgba(237,90,62,0.08)" stroke="#ed5a3e" stroke-opacity="0.55"/>
             <text x="144" y="406" text-anchor="middle" fill="#ed5a3e" font-family="Roboto Mono" font-size="11">Omni Graph</text>
             <text x="144" y="422" text-anchor="middle" fill="#ed5a3e" font-family="Roboto Mono" font-size="11">MCP server</text>
             <text x="144" y="442" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.55">stdio · Cursor</text>
             <text x="144" y="458" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.55">omni preflight</text>
-            <line x1="228" y1="429" x2="258" y2="429" stroke="#ed5a3e" opacity="0.5" marker-end="url(#arr)"/>
-            <rect x="258" y="386" width="672" height="86" rx="4" fill="rgba(244,236,216,0.03)" stroke="rgba(244,236,216,0.2)"/>
-            <text x="276" y="406" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.65">ferramentas expostas à AI:</text>
-            <text x="276" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_search</text>
-            <text x="390" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_neighbors</text>
-            <text x="530" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_strong_neighbors</text>
-            <text x="710" y="426" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_traverse</text>
-            <text x="276" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_ontology_bundle</text>
-            <text x="450" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_context_bundle</text>
-            <text x="610" y="448" fill="#a78bfa" font-family="Roboto Mono" font-size="9">graph_symbol_summaries</text>
-            <text x="276" y="468" fill="#4dd4d6" font-family="Roboto Mono" font-size="9">graph_semantic_search</text>
-            <text x="450" y="468" fill="#f4ecd8" font-size="9" opacity="0.45">busca · vizinhos · semântica · pacotes ≤4KB</text>
+            <text x="144" y="474" text-anchor="middle" fill="#a78bfa" font-family="Roboto Mono" font-size="8" opacity="0.75">13 tools</text>
+            <line x1="228" y1="434" x2="258" y2="434" stroke="#ed5a3e" opacity="0.5" marker-end="url(#arr)"/>
+            <rect x="258" y="386" width="672" height="96" rx="4" fill="rgba(244,236,216,0.03)" stroke="rgba(244,236,216,0.2)"/>
+            <text x="276" y="404" fill="#f4ecd8" font-family="Roboto Mono" font-size="9" opacity="0.65">ferramentas expostas à AI (13):</text>
+            <text x="276" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_status</text>
+            <text x="360" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_search</text>
+            <text x="450" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_get_node</text>
+            <text x="560" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_neighbors</text>
+            <text x="680" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_traverse</text>
+            <text x="790" y="422" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_strong_neighbors</text>
+            <text x="276" y="440" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_symbol_summaries</text>
+            <text x="440" y="440" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_communities</text>
+            <text x="570" y="440" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_domain_map</text>
+            <text x="700" y="440" fill="#4dd4d6" font-family="Roboto Mono" font-size="8.5">graph_semantic_search</text>
+            <text x="276" y="458" fill="#a78bfa" font-family="Roboto Mono" font-size="8.5">graph_ontology_bundle</text>
+            <text x="440" y="458" fill="#a78bfa" font-family="Roboto Mono" font-size="8.5">graph_context_bundle</text>
+            <text x="600" y="458" fill="#a78bfa" font-family="Roboto Mono" font-size="8.5">graph_ontology_validate</text>
+            <text x="276" y="476" fill="#f4ecd8" font-size="9" opacity="0.45">busca · vizinhos · comunidades · semântica · pacotes ontology ≤4KB</text>
 
-            <line x1="500" y1="488" x2="500" y2="506" stroke="#f4ecd8" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
+            <line x1="500" y1="498" x2="500" y2="516" stroke="#f4ecd8" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
 
             <!-- ROW 5 · PACOTES (exemplo) -->
             <rect x="44" y="506" width="900" height="108" rx="6" fill="rgba(244,236,216,0.02)" stroke="rgba(244,236,216,0.12)"/>
@@ -2637,7 +2954,7 @@
             <text x="662" y="658" text-anchor="middle" fill="#f4ecd8" font-family="Roboto Mono" font-size="9">workflow-review</text>
             <text x="820" y="658" text-anchor="middle" fill="#f4ecd8" font-size="9" opacity="0.5">feature + bug · contexto auditável</text>
           </svg>
-          <div class="lightbox-caption">6 camadas · build offline → consulta MCP → pacotes ≤4KB → agents SDD · rastreável no chat</div>
+          <div class="lightbox-caption">6 camadas · build offline → 13 tools MCP → ontology ≤4KB · agents SDD · rastreável no chat</div>
         </div>
       </div>
     </div>
