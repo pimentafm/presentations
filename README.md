@@ -16,7 +16,7 @@ Navegação: **setas** ou **espaço** para avançar, **scroll** entre slides, **
 |------|-----|----------|
 | **Catálogo** | [/presentations/](https://pimentafm.github.io/presentations/) | Índice de decks |
 | **IDE** | [/presentations/ide/](https://pimentafm.github.io/presentations/ide/) | Infraestruturas de Dados Espaciais — perspectiva SRE |
-| **Harness** | [/presentations/harness/](https://pimentafm.github.io/presentations/harness/) | Omni — Agent = Model + Harness, SDD, ontologia, knowledge graph e ecossistema de agents (24 slides) |
+| **Harness** | [/presentations/harness/](https://pimentafm.github.io/presentations/harness/) | Omni — Agent = Model + Harness, SDD, ontologia, knowledge graph e ecossistema de agents (25 slides) |
 
 ## Estrutura
 

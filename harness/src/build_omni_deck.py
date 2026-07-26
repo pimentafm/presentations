@@ -341,6 +341,10 @@ extra_css = """
         color: var(--uplink);
         font-weight: 500;
       }
+      .foot-bar .ref:hover {
+        color: var(--topo);
+        text-decoration: underline;
+      }
       .slide-content.roadmap-slide.dense-slide .checklist li {
         font-size: var(--small-size);
         line-height: 1.38;
