@@ -456,7 +456,7 @@ extra_css = """
           grid-template-columns: repeat(2, 1fr);
         }
       }
-      /* Sheet 17 — agentes Omni flutuando */
+      /* Sheet 16 — agentes Omni flutuando */
       .slide.omni-intro-slide .omni-agent-field {
         position: absolute;
         inset: 0;

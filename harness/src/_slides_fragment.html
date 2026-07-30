@@ -459,11 +459,93 @@
       <div class="foot-bar"><span class="author">Assurance: um agent avalia, outro critica — nota mínima para aprovar</span><span>FASE 3 · TDD</span></div>
     </section>
 
-    <!-- SLIDE 13 — PIPELINE VS CATÁLOGO -->
+    <!-- SLIDE 13 — QUANDO USAR RULES, SKILLS, AGENTS, PIPELINE, WORKFLOW -->
+    <section class="slide" data-title="Quando usar" data-section="Ecossistema">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>ECOSSISTEMA · GUIA DE USO</span></div>
+        <div class="sheet">SHEET <em>14</em> / 25</div>
+      </div>
+      <div class="slide-content stack dense-slide guide-slide">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Decisão prática</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Quando usar <span class="accent">cada peça</span></h2>
+        <p class="term-note reveal" style="--delay: 0.22s">Cada componente do harness entra em um momento diferente — resumo abaixo.</p>
+        <table class="term-table compact-rows reveal" style="--delay: 0.32s;">
+          <thead><tr><th class="you">Peça</th><th></th><th class="geo">Quando usar</th></tr></thead>
+          <tbody>
+            <tr><td class="you">Rule</td><td class="arrow">→</td><td class="geo"><strong>Sempre.</strong> Limites fixos — git, SDD, segurança. Não negocia por prompt.</td></tr>
+            <tr><td class="you">Skill</td><td class="arrow">→</td><td class="geo"><strong>Tarefa repetível.</strong> Passo a passo (TDD, commit) — carrega sob demanda.</td></tr>
+            <tr><td class="you">Agent</td><td class="arrow">→</td><td class="geo"><strong>Papel especializado.</strong> Writer ≠ reviewer. Catalog = advisory.</td></tr>
+            <tr><td class="you">Pipeline</td><td class="arrow">→</td><td class="geo"><strong>Entregar com gates.</strong> Feature ou bug — discovery → planning → TDD.</td></tr>
+            <tr><td class="you">Router</td><td class="arrow">→</td><td class="geo"><strong>Chat livre.</strong> Graph-first → catalog advisory. SDD bypassa.</td></tr>
+            <tr><td class="you">Workflow</td><td class="arrow">→</td><td class="geo"><strong>Fechar o branch.</strong> Pós-TDD, pré-merge — <code>/workflow-reviewer</code>.</td></tr>
+          </tbody>
+        </table>
+        <div class="pills reveal" style="--delay: 0.42s;">
+          <span class="pill topo">Rule = guardrail</span>
+          <span class="pill uplink">Skill = receita</span>
+          <span class="pill">Agent = papel</span>
+          <span class="pill survey">Pipeline = linha SDD</span>
+          <span class="pill">Router = chat livre</span>
+          <span class="pill">Workflow = review</span>
+        </div>
+      </div>
+      <div class="foot-bar"><span class="author">Regra de ouro: catalog aconselha — pipeline e workflow garantem entrega</span><span>GUIA DE USO</span></div>
+    </section>
+
+    <!-- SLIDE 14 — CAMADAS DO HARNESS -->
+    <section class="slide" data-title="Camadas do harness" data-section="Ecossistema">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>ARQUITETURA · CAMADAS</span></div>
+        <div class="sheet">SHEET <em>15</em> / 25</div>
+      </div>
+      <div class="slide-content stack dense-slide arch-slide">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Anatomia completa</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Cinco camadas de um <span class="accent">harness maduro</span></h2>
+        <p class="term-note reveal" style="--delay: 0.22s">Juntando tudo: <strong>L1</strong> rules · <strong>L2</strong> skills · <strong>L3</strong> agents · <strong>L4</strong> graph · <strong>L5</strong> arquivos em disco.</p>
+        <div class="arch-stack reveal" style="--delay: 0.3s;">
+          <div class="arch-layer base"><div class="layer-label">L5 · Arquivos (disco)</div><div class="layer-tools">features/ · bugs/ · sequence.json · audit</div></div>
+          <div class="arch-layer mid"><div class="layer-label">L4 · Graph + MCP</div><div class="layer-tools">ontology · context · busca no mapa</div></div>
+          <div class="arch-layer mid"><div class="layer-label">L3 · Agents</div><div class="layer-tools">orquestrador · code-writer · revisores</div></div>
+          <div class="arch-layer"><div class="layer-label">L2 · Skills</div><div class="layer-tools">base · fase · papel</div></div>
+          <div class="arch-layer ai"><div class="layer-label">L1 · Rules</div><div class="layer-tools">pipeline SDD · git · sempre ativas</div></div>
+        </div>
+        <p class="body-text reveal" style="--delay: 0.55s">As cinco camadas materializam o guia do slide anterior — <strong>Rules</strong> e <strong>Skills</strong> na base, <strong>Agents</strong> no meio, <strong>Graph</strong> e disco no topo.</p>
+      </div>
+      <div class="foot-bar"><span class="author">Próximo: o <strong>Omni</strong> — framework que materializa este harness no Cursor IDE</span><span>ANTES DO OMNI</span></div>
+    </section>
+
+    <!-- SLIDE 15 — O QUE É OMNI -->
+    <section class="slide omni-intro-slide" data-title="O que é Omni" data-section="Sistema">
+      <div class="omni-agent-field" aria-hidden="true">
+        <div class="omni-agent" style="--size: 44px; --opacity: 0.38; --x0: 86%; --y0: 14%; --duration: 19s; --delay: -3s; --anim: agentDriftB;"></div>
+        <div class="omni-agent" style="--size: 32px; --opacity: 0.3; --x0: 92%; --y0: 38%; --duration: 23s; --delay: -8s; --anim: agentDriftC;"></div>
+        <div class="omni-agent" style="--size: 52px; --opacity: 0.42; --x0: 78%; --y0: 62%; --duration: 17s; --delay: -1s; --anim: agentDriftD;"></div>
+        <div class="omni-agent" style="--size: 28px; --opacity: 0.26; --x0: 88%; --y0: 78%; --duration: 24s; --delay: -11s; --anim: agentDriftE;"></div>
+        <div class="omni-agent" style="--size: 40px; --opacity: 0.35; --x0: 72%; --y0: 28%; --duration: 21s; --delay: -6s; --anim: agentDriftA;"></div>
+      </div>
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>SISTEMA · OMNI</span></div>
+        <div class="sheet">SHEET <em>16</em> / 25</div>
+      </div>
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">O produto</span>
+        <h2 class="section reveal" style="--delay: 0.15s">O que é <span class="accent">Omni</span></h2>
+        <p class="tagline reveal" style="--delay: 0.25s">Framework que reúne tudo que vimos: <strong>SDD</strong> com gates, ontology, knowledge graph e 222 agents — no editor <strong>Cursor</strong>.</p>
+        <div class="layer-grid reveal" style="--delay: 0.4s;">
+          <div class="layer"><div class="num">222</div><div class="name">Agents</div><div class="desc">22 pipeline + 200 catalog · 17 divisões</div></div>
+          <div class="layer"><div class="num">76</div><div class="name">Skills</div><div class="desc">49 SDD + 27 utilitários</div></div>
+          <div class="layer"><div class="num">16</div><div class="name">Rules</div><div class="desc">3 always-on + 13 opt-in</div></div>
+          <div class="layer"><div class="num">13</div><div class="name">Graph MCP</div><div class="desc">Ferramentas · ontology ≤4KB · cap 8KB</div></div>
+        </div>
+      </div>
+      <div class="foot-bar"><span class="author">11 comandos slash · estado em <code>.omni/features/</code> e <code>.omni/bugs/</code> · valida com <code>omni doctor</code></span><span>FRAMEWORK OMNI</span></div>
+    </section>
+
+    <!-- SLIDE 16 — PIPELINE VS CATÁLOGO -->
     <section class="slide" data-title="Pipeline vs Catalog" data-section="Ecossistema">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>ECOSSISTEMA · AGENTS</span></div>
-        <div class="sheet">SHEET <em>14</em> / 25</div>
+        <div class="sheet">SHEET <em>17</em> / 25</div>
       </div>
       <div class="slide-content stack">
         <span class="eyebrow reveal" style="--delay: 0.05s">Quem faz o quê</span>
@@ -495,89 +577,7 @@
       <div class="foot-bar"><span class="author">222 agents no total — chat livre usa <strong>prompt router</strong> (graph-first + catalog advisory)</span><span>ECOSSISTEMA</span></div>
     </section>
 
-    <!-- SLIDE 14 — QUANDO USAR RULES, SKILLS, AGENTS, PIPELINE, WORKFLOW -->
-    <section class="slide" data-title="Quando usar" data-section="Ecossistema">
-      <div class="meta-bar">
-        <div class="meta-left"><span class="dot"></span><span>ECOSSISTEMA · GUIA DE USO</span></div>
-        <div class="sheet">SHEET <em>15</em> / 25</div>
-      </div>
-      <div class="slide-content stack dense-slide guide-slide">
-        <span class="eyebrow reveal" style="--delay: 0.05s">Decisão prática</span>
-        <h2 class="section reveal" style="--delay: 0.15s">Quando usar <span class="accent">cada peça</span></h2>
-        <p class="term-note reveal" style="--delay: 0.22s">Cada componente do harness entra em um momento diferente — resumo abaixo.</p>
-        <table class="term-table compact-rows reveal" style="--delay: 0.32s;">
-          <thead><tr><th class="you">Peça</th><th></th><th class="geo">Quando usar</th></tr></thead>
-          <tbody>
-            <tr><td class="you">Rule</td><td class="arrow">→</td><td class="geo"><strong>Sempre.</strong> Limites fixos — git, SDD, segurança. Não negocia por prompt.</td></tr>
-            <tr><td class="you">Skill</td><td class="arrow">→</td><td class="geo"><strong>Tarefa repetível.</strong> Passo a passo (TDD, commit) — carrega sob demanda.</td></tr>
-            <tr><td class="you">Agent</td><td class="arrow">→</td><td class="geo"><strong>Papel especializado.</strong> Writer ≠ reviewer. Catalog = advisory.</td></tr>
-            <tr><td class="you">Pipeline</td><td class="arrow">→</td><td class="geo"><strong>Entregar com gates.</strong> Feature ou bug — discovery → planning → TDD.</td></tr>
-            <tr><td class="you">Router</td><td class="arrow">→</td><td class="geo"><strong>Chat livre.</strong> Graph-first → catalog advisory. SDD bypassa.</td></tr>
-            <tr><td class="you">Workflow</td><td class="arrow">→</td><td class="geo"><strong>Fechar o branch.</strong> Pós-TDD, pré-merge — <code>/workflow-reviewer</code>.</td></tr>
-          </tbody>
-        </table>
-        <div class="pills reveal" style="--delay: 0.42s;">
-          <span class="pill topo">Rule = guardrail</span>
-          <span class="pill uplink">Skill = receita</span>
-          <span class="pill">Agent = papel</span>
-          <span class="pill survey">Pipeline = linha SDD</span>
-          <span class="pill">Router = chat livre</span>
-          <span class="pill">Workflow = review</span>
-        </div>
-      </div>
-      <div class="foot-bar"><span class="author">Regra de ouro: catalog aconselha — pipeline e workflow garantem entrega</span><span>GUIA DE USO</span></div>
-    </section>
-
-    <!-- SLIDE 15 — CAMADAS DO HARNESS -->
-    <section class="slide" data-title="Camadas do harness" data-section="Ecossistema">
-      <div class="meta-bar">
-        <div class="meta-left"><span class="dot"></span><span>ARQUITETURA · CAMADAS</span></div>
-        <div class="sheet">SHEET <em>16</em> / 25</div>
-      </div>
-      <div class="slide-content stack dense-slide arch-slide">
-        <span class="eyebrow reveal" style="--delay: 0.05s">Anatomia completa</span>
-        <h2 class="section reveal" style="--delay: 0.15s">Cinco camadas de um <span class="accent">harness maduro</span></h2>
-        <p class="term-note reveal" style="--delay: 0.22s">Juntando tudo: <strong>L1</strong> rules · <strong>L2</strong> skills · <strong>L3</strong> agents · <strong>L4</strong> graph · <strong>L5</strong> arquivos em disco.</p>
-        <div class="arch-stack reveal" style="--delay: 0.3s;">
-          <div class="arch-layer base"><div class="layer-label">L5 · Arquivos (disco)</div><div class="layer-tools">features/ · bugs/ · sequence.json · audit</div></div>
-          <div class="arch-layer mid"><div class="layer-label">L4 · Graph + MCP</div><div class="layer-tools">ontology · context · busca no mapa</div></div>
-          <div class="arch-layer mid"><div class="layer-label">L3 · Agents</div><div class="layer-tools">orquestrador · code-writer · revisores</div></div>
-          <div class="arch-layer"><div class="layer-label">L2 · Skills</div><div class="layer-tools">base · fase · papel</div></div>
-          <div class="arch-layer ai"><div class="layer-label">L1 · Rules</div><div class="layer-tools">pipeline SDD · git · sempre ativas</div></div>
-        </div>
-        <p class="body-text reveal" style="--delay: 0.55s">As cinco camadas materializam o guia do slide anterior — <strong>Rules</strong> e <strong>Skills</strong> na base, <strong>Agents</strong> no meio, <strong>Graph</strong> e disco no topo.</p>
-      </div>
-      <div class="foot-bar"><span class="author">Próximo: o <strong>Omni</strong> — framework que materializa este harness no Cursor IDE</span><span>ANTES DO OMNI</span></div>
-    </section>
-
-    <!-- SLIDE 15 — O QUE É OMNI -->
-    <section class="slide omni-intro-slide" data-title="O que é Omni" data-section="Sistema">
-      <div class="omni-agent-field" aria-hidden="true">
-        <div class="omni-agent" style="--size: 44px; --opacity: 0.38; --x0: 86%; --y0: 14%; --duration: 19s; --delay: -3s; --anim: agentDriftB;"></div>
-        <div class="omni-agent" style="--size: 32px; --opacity: 0.3; --x0: 92%; --y0: 38%; --duration: 23s; --delay: -8s; --anim: agentDriftC;"></div>
-        <div class="omni-agent" style="--size: 52px; --opacity: 0.42; --x0: 78%; --y0: 62%; --duration: 17s; --delay: -1s; --anim: agentDriftD;"></div>
-        <div class="omni-agent" style="--size: 28px; --opacity: 0.26; --x0: 88%; --y0: 78%; --duration: 24s; --delay: -11s; --anim: agentDriftE;"></div>
-        <div class="omni-agent" style="--size: 40px; --opacity: 0.35; --x0: 72%; --y0: 28%; --duration: 21s; --delay: -6s; --anim: agentDriftA;"></div>
-      </div>
-      <div class="meta-bar">
-        <div class="meta-left"><span class="dot"></span><span>SISTEMA · OMNI</span></div>
-        <div class="sheet">SHEET <em>17</em> / 25</div>
-      </div>
-      <div class="slide-content stack">
-        <span class="eyebrow reveal" style="--delay: 0.05s">O produto</span>
-        <h2 class="section reveal" style="--delay: 0.15s">O que é <span class="accent">Omni</span></h2>
-        <p class="tagline reveal" style="--delay: 0.25s">Framework open source (v1.0) que reúne tudo que vimos: <strong>SDD</strong> com gates, ontology, knowledge graph e 222 agents — no editor <strong>Cursor</strong>.</p>
-        <div class="layer-grid reveal" style="--delay: 0.4s;">
-          <div class="layer"><div class="num">222</div><div class="name">Agents</div><div class="desc">22 pipeline + 200 catalog · 17 divisões</div></div>
-          <div class="layer"><div class="num">76</div><div class="name">Skills</div><div class="desc">49 SDD + 27 utilitários</div></div>
-          <div class="layer"><div class="num">16</div><div class="name">Rules</div><div class="desc">3 always-on + 13 opt-in</div></div>
-          <div class="layer"><div class="num">13</div><div class="name">Graph MCP</div><div class="desc">Ferramentas · ontology ≤4KB · cap 8KB</div></div>
-        </div>
-      </div>
-      <div class="foot-bar"><span class="author">11 comandos slash · estado em <code>.omni/features/</code> e <code>.omni/bugs/</code> · valida com <code>omni doctor</code></span><span>FRAMEWORK OMNI</span></div>
-    </section>
-
-    <!-- SLIDE 16 — O HARNESS DO OMNI -->
+    <!-- SLIDE 17 — O HARNESS DO OMNI -->
     <section class="slide" data-title="O harness do Omni" data-section="Sistema">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>OMNI · NA PRÁTICA</span></div>
