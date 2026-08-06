@@ -27,7 +27,7 @@ O deck já explica **como** o SDD funciona (pipeline, gates, fases 09–12), mas
 | 08 Anti-alucinação | Transição: "entramos no método de entrega (SDD)" |
 | 09 Pipeline SDD | Fases + gates + comandos — foco operacional |
 
-No projeto Omni (`docs/user-guide/sdd-pipeline.md`, `.omni/README.md`), o propósito do SDD está mais explícito: pipeline com gates, estado em disco, separação de papéis, entrega auditable.
+No projeto Omni (`docs/user-guide/sdd-pipeline.md`, `.omni/README.md`), o propósito do SDD está mais explícito: pipeline com gates, estado em disco, separação de papéis, auditável
 
 ## Objetivo
 
