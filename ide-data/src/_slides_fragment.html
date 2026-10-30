@@ -62,7 +62,7 @@
           <div class="layer">
             <div class="num">02 · JOIN</div>
             <div class="name">Sem chave de junção</div>
-            <div class="desc">Imóvel × alerta × bioma se relacionam por <em>intersecta</em>, <em>contém</em>, <em>dista</em> — não por equi-join.</div>
+            <div class="desc">Imóvel × alerta × bioma se relacionam por <code>ST_Intersects</code>, <code>ST_Contains</code>, <code>ST_DWithin</code> — não por equi-join.</div>
           </div>
           <div class="layer">
             <div class="num">03 · FORMATOS</div>
@@ -224,32 +224,97 @@
         </p>
 
         <ul class="feature-list reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
-          <li data-num="01"><strong>Geográfico vs projetado</strong> — <code>EPSG:4674</code>/<code>4326</code> em graus; <code>EPSG:5880</code> (Policônica) ou UTM em metros. Medida exige um dos dois caminhos abaixo.</li>
+          <li data-num="01"><strong>Geográfico vs projetado</strong> — <code>EPSG:4674</code>/<code>4326</code> em graus; UTM ou Albers em metros. Para medir: <code>geography</code> ou a projeção certa (próximo slide).</li>
           <li data-num="02"><strong>Ordem dos eixos</strong> — GeoJSON é <code>lon, lat</code>; o EPSG:4326 oficial é <code>lat, lon</code>. Trocar é o bug nº 1.</li>
           <li data-num="03"><strong>Validade</strong> — auto-interseção e anéis abertos quebram <code>ST_Intersection</code> e <code>ST_Union</code>. <code>ST_MakeValid</code> na entrada.</li>
-          <li data-num="04"><strong>Serialização</strong> — WKB no storage, WKT para debug, GeoJSON na API. Nunca string livre.</li>
+          <li data-num="04"><strong>Datum legado</strong> — SAD69 e Córrego Alegre ainda chegam de INCRA, cartórios e prefeituras. A diferença para o SIRGAS 2000 é de dezenas de metros: converta com a grade NTv2 do IBGE, nunca só trocando o SRID.</li>
+          <li data-num="05"><strong>Serialização</strong> — WKB no storage, WKT para debug, GeoJSON na API. Nunca string livre.</li>
         </ul>
 
         <div class="code-block reveal" style="--delay: 0.65s; margin-top: var(--element-gap);"><span class="cm">-- Mesmo polígono, três "áreas"</span>
 <span class="kw">SELECT</span> <span class="fn">ST_Area</span>(geom)                       <span class="cm">-- graus²: sem significado físico</span>
-     , <span class="fn">ST_Area</span>(geom::geography)            <span class="cm">-- m² no elipsoide</span>
-     , <span class="fn">ST_Area</span>(<span class="fn">ST_Transform</span>(geom, <span class="str">5880</span>))   <span class="cm">-- m² na Policônica SIRGAS 2000</span>
+     , <span class="fn">ST_Area</span>(geom::geography)            <span class="cm">-- m² no elipsoide (geodésico)</span>
+     , <span class="fn">ST_Area</span>(<span class="fn">ST_Transform</span>(geom, <span class="str">5880</span>))   <span class="cm">-- m² na Policônica: não é equivalente, erra longe do MC</span>
 <span class="kw">FROM</span>   talhoes;</div>
       </div>
 
       <div class="foot-bar">
-        <span class="author">SRID · eixo · validade · encoding</span>
+        <span class="author">SRID · eixo · datum · validade · encoding</span>
         <a class="ref" href="https://epsg.io/4674">epsg.io/4674</a>
       </div>
     </section>
 
     <!-- =====================================================
-         SLIDE 06 — IDE EM 4 CAMADAS (como data platform)
+         SLIDE 06 — PROJEÇÃO É ESCOLHA (cartografia)
+         ===================================================== -->
+    <section class="slide" data-title="Projeções" data-section="Fundação">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>CARTOGRAFIA · PROJEÇÕES</span></div>
+        <div class="sheet">SHEET <em>06</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Toda projeção distorce algo</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Projeção é <span class="accent">escolha</span>, não detalhe.</h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Nenhuma projeção preserva área, forma e distância ao mesmo tempo. A pergunta do pipeline decide a projeção, e não o contrário.
+        </p>
+
+        <table class="term-table reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <thead>
+            <tr>
+              <th class="you">Pergunta do pipeline</th>
+              <th></th>
+              <th class="geo">Projeção · propriedade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="you">Área (ha de imóvel, desmatamento)</td>
+              <td class="arrow">→</td>
+              <td class="geo">Equivalente · Albers SIRGAS 2000 ou <code>geography</code></td>
+            </tr>
+            <tr>
+              <td class="you">Distância e buffer locais</td>
+              <td class="arrow">→</td>
+              <td class="geo">UTM do fuso certo · EPSG:31978–31985 (18S–25S)</td>
+            </tr>
+            <tr>
+              <td class="you">Medida nacional, vários fusos</td>
+              <td class="arrow">→</td>
+              <td class="geo">Elipsoide · <code>geography</code>, sem projetar</td>
+            </tr>
+            <tr>
+              <td class="you">Mapa temático do Brasil</td>
+              <td class="arrow">→</td>
+              <td class="geo">Policônica · EPSG:5880 (convenção IBGE)</td>
+            </tr>
+            <tr>
+              <td class="you">Tiles e mapa web</td>
+              <td class="arrow">→</td>
+              <td class="geo">Conforme · Web Mercator 3857, só para desenhar</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="code-block reveal" style="--delay: 0.65s; margin-top: var(--element-gap);"><span class="cm">-- Quanto o Web Mercator infla a área? (fator ≈ sec²φ)</span>
+<span class="kw">SELECT</span> nm_mun, <span class="fn">ST_Area</span>(<span class="fn">ST_Transform</span>(geom, <span class="str">3857</span>)) / <span class="fn">ST_Area</span>(geom::geography) - <span class="str">1</span> <span class="kw">AS</span> erro
+<span class="kw">FROM</span>   municipios <span class="kw">WHERE</span> nm_mun <span class="kw">IN</span> (<span class="str">'Sinop'</span>, <span class="str">'Porto Alegre'</span>);  <span class="cm">-- ≈ +4,4 %  ·  ≈ +33 %</span></div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Equivalente · conforme · equidistante</span>
+        <a class="ref" href="https://epsg.io/?q=SIRGAS%202000">epsg.io · SIRGAS 2000</a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 07 — IDE EM 4 CAMADAS (como data platform)
          ===================================================== -->
     <section class="slide" data-title="IDE em 4 camadas" data-section="Fundação">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>CONCEITO · 4 CAMADAS</span></div>
-        <div class="sheet">SHEET <em>06</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>07</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -298,12 +363,12 @@
     </section>
 
     <!-- =====================================================
-         SLIDE 07 — FORMATOS CLOUD-NATIVE
+         SLIDE 08 — FORMATOS CLOUD-NATIVE
          ===================================================== -->
     <section class="slide" data-title="Formatos cloud-native" data-section="Lakehouse">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>01 · STORAGE · FORMATOS</span></div>
-        <div class="sheet">SHEET <em>07</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>08</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -358,12 +423,12 @@
     </section>
 
     <!-- =====================================================
-         SLIDE 08 — MEDALLION GEO
+         SLIDE 09 — MEDALLION GEO
          ===================================================== -->
     <section class="slide" data-title="Medallion geo" data-section="Lakehouse">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>01 · STORAGE · MEDALLION</span></div>
-        <div class="sheet">SHEET <em>08</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>09</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -412,12 +477,12 @@
     </section>
 
     <!-- =====================================================
-         SLIDE 09 — INGESTÃO
+         SLIDE 10 — INGESTÃO
          ===================================================== -->
     <section class="slide" data-title="Ingestão" data-section="Lakehouse">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>INGEST · FONTES &amp; FERRAMENTAS</span></div>
-        <div class="sheet">SHEET <em>09</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>10</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -446,12 +511,12 @@
     </section>
 
     <!-- =====================================================
-         SLIDE 10 — ENGINES
+         SLIDE 11 — ENGINES
          ===================================================== -->
     <section class="slide" data-title="Engines" data-section="Pipelines">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>02 · COMPUTE · ENGINES</span></div>
-        <div class="sheet">SHEET <em>10</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>11</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -506,12 +571,12 @@
     </section>
 
     <!-- =====================================================
-         SLIDE 11 — SPATIAL JOIN & INDEXAÇÃO
+         SLIDE 12 — SPATIAL JOIN & INDEXAÇÃO
          ===================================================== -->
     <section class="slide" data-title="Spatial join" data-section="Pipelines">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>02 · COMPUTE · SPATIAL JOIN</span></div>
-        <div class="sheet">SHEET <em>11</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>12</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -542,12 +607,12 @@
     </section>
 
     <!-- =====================================================
-         SLIDE 12 — RASTER PIPELINES
+         SLIDE 13 — RASTER PIPELINES
          ===================================================== -->
     <section class="slide" data-title="Raster pipelines" data-section="Pipelines">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>02 · COMPUTE · RASTER</span></div>
-        <div class="sheet">SHEET <em>12</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>13</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -587,12 +652,12 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
     </section>
 
     <!-- =====================================================
-         SLIDE 13 — QUALIDADE DE DADOS GEO
+         SLIDE 14 — QUALIDADE DE DADOS GEO
          ===================================================== -->
     <section class="slide" data-title="Qualidade geo" data-section="Pipelines">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>DATA QUALITY · CHECKS ESPACIAIS</span></div>
-        <div class="sheet">SHEET <em>13</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>14</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -625,8 +690,16 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
                 <span class="metric-target">faixa por tipo</span>
               </li>
               <li>
-                <span class="metric-name">Sobreposição entre feições</span>
-                <span class="metric-target">monitorar</span>
+                <span class="metric-name">Topologia · gaps e overlaps em malhas</span>
+                <span class="metric-target">0</span>
+              </li>
+              <li>
+                <span class="metric-name">Precisão vs escala de origem</span>
+                <span class="metric-target">≤ 6 casas</span>
+              </li>
+              <li>
+                <span class="metric-name">Classes conforme ET-EDGV</span>
+                <span class="metric-target">mapeadas</span>
               </li>
             </ul>
           </div>
@@ -647,17 +720,17 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
 
       <div class="foot-bar">
         <span class="author">dbt tests · Great Expectations · Soda</span>
-        <span>REFERÊNCIA BR · ET-CQDG (DSG)</span>
+        <span>REFERÊNCIA BR · ET-CQDG · ET-EDGV (DSG)</span>
       </div>
     </section>
 
     <!-- =====================================================
-         SLIDE 14 — PIPELINE END-TO-END (caso agro)
+         SLIDE 15 — PIPELINE END-TO-END (caso agro)
          ===================================================== -->
     <section class="slide" data-title="Pipeline end-to-end" data-section="Pipelines">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>ORQUESTRAÇÃO · CASO AGRO</span></div>
-        <div class="sheet">SHEET <em>14</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>15</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -707,12 +780,12 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
     </section>
 
     <!-- =====================================================
-         SLIDE 15 — CATÁLOGO & LINEAGE
+         SLIDE 16 — CATÁLOGO & LINEAGE
          ===================================================== -->
     <section class="slide" data-title="Catálogo &amp; lineage" data-section="Governança">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>03 · CATALOG · DISCOVERY + LINEAGE</span></div>
-        <div class="sheet">SHEET <em>15</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>16</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -772,12 +845,12 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
     </section>
 
     <!-- =====================================================
-         SLIDE 16 — SERVING (OGC como data contract)
+         SLIDE 17 — SERVING (OGC como data contract)
          ===================================================== -->
     <section class="slide" data-title="Serving" data-section="Governança">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>04 · SERVING · CONTRATOS</span></div>
-        <div class="sheet">SHEET <em>16</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>17</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -837,12 +910,102 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
     </section>
 
     <!-- =====================================================
-         SLIDE 17 — AI + GEO PARA DATA ENGINEERING
+         SLIDE 18 — ESCALA & GENERALIZAÇÃO (cartografia)
+         ===================================================== -->
+    <section class="slide" data-title="Escala &amp; generalização" data-section="Cartografia">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>CARTOGRAFIA · ESCALA</span></div>
+        <div class="sheet">SHEET <em>18</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Um dado, várias escalas</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Escala &amp; <span class="accent">generalização</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          A escala de origem define a precisão do dado. A escala de exibição define quanto detalhe vale a pena trafegar. Generalizar é um job da Gold, não um efeito colateral do tile server.
+        </p>
+
+        <ul class="feature-list reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <li data-num="01"><strong>Precisão ≠ casas decimais</strong> — um limite em 1:250.000 tem incerteza de dezenas de metros. Guardar 15 casas é ruído que pesa no storage e no tile; <code>ST_ReducePrecision</code> na Gold.</li>
+          <li data-num="02"><strong>Simplificar sem abrir buracos</strong> — <code>ST_SimplifyPreserveTopology</code> trata cada feição isolada, e municípios vizinhos se descolam. Em malhas, use <code>ST_CoverageSimplify</code> (PostGIS 3.4+).</li>
+          <li data-num="03"><strong>Seleção por zoom</strong> — o tippecanoe decide o que cai em cada nível (<code>--drop-densest-as-needed</code>): o imóvel pequeno some em z6 e volta em z12.</li>
+        </ul>
+
+        <div class="code-block reveal" style="--delay: 0.65s; margin-top: var(--element-gap);"><span class="cm">-- Gold: uma geometria por faixa de escala, fronteiras compartilhadas intactas</span>
+<span class="kw">SELECT</span> cd_mun
+     , <span class="fn">ST_CoverageSimplify</span>(geom, <span class="str">0.01</span>)  <span class="kw">OVER</span> () <span class="kw">AS</span> geom_z4    <span class="cm">-- ~1 km: país inteiro</span>
+     , <span class="fn">ST_CoverageSimplify</span>(geom, <span class="str">0.001</span>) <span class="kw">OVER</span> () <span class="kw">AS</span> geom_z8    <span class="cm">-- ~100 m: estado</span>
+     , geom                                     <span class="kw">AS</span> geom_full  <span class="cm">-- detalhe total</span>
+<span class="kw">FROM</span>   silver.municipios;</div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Precisão · simplificação · seleção</span>
+        <a class="ref" href="https://github.com/felt/tippecanoe">felt/tippecanoe</a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 19 — SIMBOLOGIA COMO CÓDIGO (cartografia)
+         ===================================================== -->
+    <section class="slide" data-title="Simbologia" data-section="Cartografia">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>CARTOGRAFIA · SIMBOLOGIA</span></div>
+        <div class="sheet">SHEET <em>19</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">O mapa também é contrato</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Simbologia como <span class="accent">código</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          O mesmo dado, com outra classificação, conta outra história. Quebras, paleta e normalização são decisões de produto: versione junto com o pipeline.
+        </p>
+
+        <div class="two-col reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <div class="col-card">
+            <div class="col-eyebrow">Mapa temático</div>
+            <h3>Classificar &amp; normalizar</h3>
+            <ul>
+              <li><strong style="color: var(--ink)">Normalize</strong> · contagem absoluta por município vira mapa de população; use taxa (% da área) ou densidade</li>
+              <li><strong style="color: var(--ink)">Classificação</strong> · quantis, Jenks ou intervalos iguais mudam a leitura; fixe método e quebras</li>
+              <li><strong style="color: var(--ink)">MAUP</strong> · o padrão muda com a unidade (município, H3 res 7, res 9); mantenha várias resoluções na Gold</li>
+              <li><strong style="color: var(--ink)">Paleta</strong> · sequencial para magnitude, divergente para desvio; teste para daltonismo</li>
+            </ul>
+          </div>
+          <div class="col-card uplink">
+            <div class="col-eyebrow">MapLibre Style · Git</div>
+            <h3>Estilo versionado</h3>
+            <div class="code-block uplink" style="margin-top: 0.7rem;">{
+  <span class="str">"id"</span>: <span class="str">"risco-h3"</span>, <span class="str">"type"</span>: <span class="str">"fill"</span>,
+  <span class="str">"source"</span>: <span class="str">"gold"</span>, <span class="str">"source-layer"</span>: <span class="str">"risco_h3_r7"</span>,
+  <span class="str">"paint"</span>: { <span class="str">"fill-color"</span>:
+    [<span class="fn">"step"</span>, [<span class="fn">"get"</span>, <span class="str">"pct_desmatado"</span>],
+      <span class="str">"#f7fbff"</span>, <span class="str">0.01</span>, <span class="str">"#9ecae1"</span>,
+      <span class="str">0.05</span>, <span class="str">"#4292c6"</span>, <span class="str">0.15</span>, <span class="str">"#08306b"</span>] }
+}</div>
+          </div>
+        </div>
+
+        <div class="pills reveal" style="--delay: 0.6s; margin-top: var(--content-gap); justify-content: center;">
+          <span class="pill topo">SLD / SE no GeoServer</span>
+          <span class="pill uplink">MapLibre Style na web</span>
+          <span class="pill survey">mesmo repositório, mesmo review</span>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Normalização · classificação · MAUP</span>
+        <a class="ref" href="https://colorbrewer2.org">colorbrewer2.org</a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 20 — AI + GEO PARA DATA ENGINEERING
          ===================================================== -->
     <section class="slide" data-title="AI + Geo" data-section="AI">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>AI · O NOVO CONSUMIDOR</span></div>
-        <div class="sheet">SHEET <em>17</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>20</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -887,12 +1050,12 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
     </section>
 
     <!-- =====================================================
-         SLIDE 18 — ANTI-PATTERNS
+         SLIDE 21 — ANTI-PATTERNS
          ===================================================== -->
     <section class="slide" data-title="Armadilhas" data-section="Wrap-up">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>ANTI-PATTERNS · LIÇÕES DE PRODUÇÃO</span></div>
-        <div class="sheet">SHEET <em>18</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>21</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -930,22 +1093,37 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
             <div class="name">Parquet sem ordem espacial</div>
             <div class="desc">Sem covering e sem ordenação por H3/Hilbert, todo filtro espacial vira full scan.</div>
           </div>
+          <div class="layer">
+            <div class="num">07 · PROJEÇÃO</div>
+            <div class="name">Medir em Web Mercator</div>
+            <div class="desc">3857 é para desenhar. No Sul, a área sai cerca de 33 % maior.</div>
+          </div>
+          <div class="layer">
+            <div class="num">08 · MAPA</div>
+            <div class="name">Contagem absoluta</div>
+            <div class="desc">Total por município só destaca município grande. Normalize por área ou população.</div>
+          </div>
+          <div class="layer">
+            <div class="num">09 · TOPOLOGIA</div>
+            <div class="name">Simplificar feição a feição</div>
+            <div class="desc">Vizinhos se descolam e surgem gaps no mapa. Em malhas, use coverage simplify.</div>
+          </div>
         </div>
       </div>
 
       <div class="foot-bar">
-        <span class="author">Seis bugs, uma causa</span>
-        <span>CONTRATO GEO EXPLÍCITO NA SILVER</span>
+        <span class="author">Nove bugs, uma causa</span>
+        <span>CONTRATO GEO EXPLÍCITO · DA SILVER AO MAPA</span>
       </div>
     </section>
 
     <!-- =====================================================
-         SLIDE 19 — RECURSOS (ferramentas)
+         SLIDE 22 — RECURSOS (ferramentas)
          ===================================================== -->
     <section class="slide" data-title="Recursos · Links" data-section="Wrap-up">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>RECURSOS · LINKS RÁPIDOS</span></div>
-        <div class="sheet">SHEET <em>19</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>22</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -1098,12 +1276,12 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
     </section>
 
     <!-- =====================================================
-         SLIDE 20 — DADOS ABERTOS (fontes reais)
+         SLIDE 23 — DADOS ABERTOS (fontes reais)
          ===================================================== -->
     <section class="slide" data-title="Fontes de dados" data-section="Wrap-up">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>FONTES · DADOS ABERTOS</span></div>
-        <div class="sheet">SHEET <em>20</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>23</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -1125,7 +1303,13 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
           <a href="https://www.ibge.gov.br/geociencias/downloads-geociencias.html" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
             <div class="num">IBGE · VECTOR</div>
             <div class="name">IBGE Geociências</div>
-            <div class="desc">Malhas territoriais, setores censitários, biomas. Dimensões de referência.</div>
+            <div class="desc">Malhas territoriais, Base Cartográfica Contínua (BC250), biomas. Dimensões de referência.</div>
+          </a>
+
+          <a href="https://bdgex.eb.mil.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
+            <div class="num">EXÉRCITO · DSG · CARTOGRAFIA</div>
+            <div class="name">BDGEx</div>
+            <div class="desc">Cartas topográficas e bases vetoriais modeladas na ET-EDGV. A referência cartográfica oficial.</div>
           </a>
 
           <a href="https://consultapublica.car.gov.br/publico/imoveis/index" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
@@ -1173,12 +1357,12 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
     </section>
 
     <!-- =====================================================
-         SLIDE 21 — TAKEAWAY
+         SLIDE 24 — TAKEAWAY
          ===================================================== -->
     <section class="slide" data-title="Takeaway" data-section="Wrap-up">
       <div class="meta-bar">
         <div class="meta-left"><span class="dot"></span><span>TAKEAWAY · FECHAMENTO</span></div>
-        <div class="sheet">SHEET <em>21</em> / {{TOTAL}}</div>
+        <div class="sheet">SHEET <em>24</em> / {{TOTAL}}</div>
       </div>
 
       <div class="slide-content stack">
@@ -1197,7 +1381,7 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
           <div class="arch-layer">
             <div class="layer-label">Serving + Catálogo</div>
             <div class="layer-tools">
-              GeoServer Cloud <span class="sep">·</span> OGC API <span class="sep">·</span> TiTiler <span class="sep">·</span> STAC <span class="sep">·</span> OpenMetadata
+              GeoServer Cloud <span class="sep">·</span> OGC API <span class="sep">·</span> PMTiles <span class="sep">·</span> estilos versionados <span class="sep">·</span> STAC
             </div>
           </div>
           <div class="arch-layer mid">
@@ -1215,7 +1399,7 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
         </div>
 
         <p class="closing-quote reveal" style="--delay: 0.65s; margin-top: var(--content-gap);">
-          <strong>Padronize CRS e validade na Silver, indexe por H3, publique via OGC e catalogue com STAC.</strong> O resto é a engenharia de dados que você já faz — e é isso que transforma dado geo em produto.
+          <strong>Padronize CRS e validade na Silver, meça na projeção certa, indexe por H3, generalize por escala, publique via OGC e catalogue com STAC.</strong> O mapa é a última camada, mas também tem contrato. O resto é a engenharia de dados que você já faz — e é isso que transforma dado geo em produto.
         </p>
       </div>
 
