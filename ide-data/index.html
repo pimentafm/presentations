@@ -30,13 +30,13 @@
         --ink: #f4ecd8;
         --ink-mute: rgba(244, 236, 216, 0.62);
         --ink-faint: rgba(244, 236, 216, 0.28);
-        --topo: #f5b73d;
-        --topo-glow: rgba(245, 183, 61, 0.18);
+        --topo: #60a5fa;
+        --topo-glow: rgba(96, 165, 250, 0.18);
         --uplink: #4dd4d6;
         --uplink-glow: rgba(77, 212, 214, 0.18);
         --survey: #ed5a3e;
         --survey-glow: rgba(237, 90, 62, 0.18);
-        --grid: rgba(245, 183, 61, 0.06);
+        --grid: rgba(96, 165, 250, 0.06);
         --hairline: rgba(244, 236, 216, 0.10);
 
         --font-display: "Roboto", "Helvetica Neue", Arial, sans-serif;
@@ -509,7 +509,7 @@
         background: var(--bg-elevated);
         white-space: nowrap;
       }
-      .pill.topo { color: var(--topo); border-color: rgba(245, 183, 61, 0.35); }
+      .pill.topo { color: var(--topo); border-color: rgba(96, 165, 250, 0.35); }
       .pill.uplink { color: var(--uplink); border-color: rgba(77, 212, 214, 0.35); }
       .pill.survey { color: var(--survey); border-color: rgba(237, 90, 62, 0.35); }
 
@@ -941,7 +941,7 @@
         background-color: rgba(244, 236, 216, 0.06);
         box-shadow:
           0 10px 28px rgba(0, 0, 0, 0.4),
-          0 0 0 1px rgba(245, 183, 61, 0.32);
+          0 0 0 1px rgba(96, 165, 250, 0.32);
       }
       .tool-card.uplink:hover {
         box-shadow:
@@ -1008,7 +1008,7 @@
         background-color: rgba(244, 236, 216, 0.06);
         box-shadow:
           0 10px 32px rgba(0, 0, 0, 0.4),
-          0 0 0 1px rgba(245, 183, 61, 0.28);
+          0 0 0 1px rgba(96, 165, 250, 0.28);
         z-index: 2;
       }
       .col-card.uplink:hover {
@@ -1320,7 +1320,7 @@
         box-shadow:
           0 0 40px rgba(0, 0, 0, 0.5),
           0 0 18px var(--topo-glow),
-          inset 0 0 30px rgba(245, 183, 61, 0.06);
+          inset 0 0 30px rgba(96, 165, 250, 0.06);
         transition:
           opacity 0.2s var(--ease-out-expo),
           transform 0.3s var(--ease-out-expo);
@@ -1419,7 +1419,7 @@
         </g>
 
         <!-- Equador em âmbar — eco da paleta cartográfica do deck -->
-        <line x1="0" y1="180" x2="720" y2="180" stroke="#f5b73d" stroke-width="0.9" opacity="0.85"/>
+        <line x1="0" y1="180" x2="720" y2="180" stroke="#60a5fa" stroke-width="0.9" opacity="0.85"/>
       </svg>
     </div>
 
@@ -2988,7 +2988,7 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
               if (distSq < influenceSq) {
                 const dist = Math.sqrt(distSq);
                 const t = 1 - dist / this.mouseInfluence;
-                this.ctx.strokeStyle = 'rgba(245, 183, 61, ' + (t * 0.28) + ')';
+                this.ctx.strokeStyle = 'rgba(96, 165, 250, ' + (t * 0.28) + ')';
                 this.ctx.lineWidth = 0.7;
                 this.ctx.beginPath();
                 this.ctx.moveTo(mx, my);
@@ -3006,7 +3006,7 @@ gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_c
               const distSq = dx * dx + dy * dy;
               if (distSq < influenceSq) boost = 1 - Math.sqrt(distSq) / this.mouseInfluence;
             }
-            if (p.tint === 'amber')      color = 'rgba(245, 183, 61, ' + (0.5 + boost * 0.4) + ')';
+            if (p.tint === 'amber')      color = 'rgba(96, 165, 250, ' + (0.5 + boost * 0.4) + ')';
             else if (p.tint === 'cyan')  color = 'rgba(77, 212, 214, ' + (0.5 + boost * 0.4) + ')';
             else                          color = 'rgba(244, 236, 216, ' + (0.32 + boost * 0.5) + ')';
             if (boost > 0) radius = p.r + boost * 0.8;

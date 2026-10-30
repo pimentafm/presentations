@@ -13,7 +13,18 @@ SLIDES = Path(__file__).parent / "_slides_fragment.html"
 
 TITLE = "Infraestruturas de Dados Espaciais — Perspectiva Engenharia de Dados"
 
-ref = REF.read_text()
+# Accent: âmbar topográfico → azul (tema do deck de engenharia de dados)
+BLUE = "#60a5fa"
+BLUE_RGB = "96, 165, 250"
+
+
+def apply_blue_theme(text: str) -> str:
+    text = text.replace("#f5b73d", BLUE)
+    text = text.replace("rgba(245, 183, 61,", f"rgba({BLUE_RGB},")
+    return text.replace("rgba(245,183,61", f"rgba({BLUE_RGB.replace(' ', '')}")
+
+
+ref = apply_blue_theme(REF.read_text())
 slides = SLIDES.read_text()
 
 # Região de slides: do comentário que antecede o primeiro <section class="slide">
