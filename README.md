@@ -16,6 +16,7 @@ Navegação: **setas** ou **espaço** para avançar, **scroll** entre slides, **
 |------|-----|----------|
 | **Catálogo** | [/presentations/](https://pimentafm.github.io/presentations/) | Índice de decks |
 | **IDE** | [/presentations/ide/](https://pimentafm.github.io/presentations/ide/) | Infraestruturas de Dados Espaciais — perspectiva SRE |
+| **IDE · Data Eng** | [/presentations/ide-data/](https://pimentafm.github.io/presentations/ide-data/) | Infraestruturas de Dados Espaciais — perspectiva Engenharia de Dados (21 slides) |
 | **Harness** | [/presentations/harness/](https://pimentafm.github.io/presentations/harness/) | Omni — Agent = Model + Harness, SDD, ontologia, knowledge graph e ecossistema de agents (25 slides) |
 
 ## Estrutura
@@ -25,6 +26,11 @@ Navegação: **setas** ou **espaço** para avançar, **scroll** entre slides, **
 ├── ide/
 │   ├── index.html                # deck IDE (template visual de referência)
 │   └── assets/
+├── ide-data/
+│   ├── index.html                # deck IDE · Engenharia de Dados (gerado)
+│   └── src/
+│       ├── build_deck.py         # gera ide-data/index.html a partir do template IDE
+│       └── _slides_fragment.html # conteúdo dos slides (fonte de edição)
 └── harness/
     ├── index.html                # deck Omni (gerado)
     ├── omni.png                  # asset da capa / branding
@@ -45,6 +51,16 @@ python3 harness/src/build_omni_deck.py
 ```
 
 O build escreve `harness/index.html` (não edite esse arquivo diretamente — ele é artefato gerado).
+
+## Editar o deck IDE · Engenharia de Dados
+
+Altere `ide-data/src/_slides_fragment.html` e regere com:
+
+```bash
+python3 ide-data/src/build_deck.py
+```
+
+CSS, JS e lightbox vêm de `ide/index.html`; imagens são lidas de `ide/assets/`.
 
 ## Deploy
 
