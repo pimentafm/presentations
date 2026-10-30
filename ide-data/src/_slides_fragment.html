@@ -1,0 +1,1230 @@
+    <!-- =====================================================
+         SLIDE 01 — CAPA (Data Engineering-angled)
+         ===================================================== -->
+    <section class="slide" data-title="Capa" data-section="Intro">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>TECH TALK · DATA ENGINEERING PERSPECTIVE · 2026</span></div>
+        <div class="sheet">SHEET <em>01</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content">
+        <div class="title-block">
+          <span class="eyebrow reveal" style="--delay: 0.15s">Knowledge Drop Data Engineering · Serasa Experian · Agro Business Unit</span>
+          <h1 class="display reveal-slow" style="--delay: 0.3s">
+            <span class="accent">I</span>nfraestruturas de<br/>
+            <span class="accent">D</span>ados <span class="accent">E</span>spaciais
+          </h1>
+          <p class="subtitle reveal" style="--delay: 0.7s">
+            Dado geoespacial como cidadão de primeira classe na plataforma de dados.
+          </p>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <div class="socials">
+          {{SOCIAL_LINKS}}
+          <span class="author">Fernando Pimenta</span>
+          <span class="role">Geospatial Solutions Architect</span>
+        </div>
+        <span>44°19′13.307″W / 20°07′30.976″S · SIRGAS2000 · MC −45° · UTM 23S</span>
+      </div>
+
+      <div class="keyboard-hint">
+        <span>navegar</span>
+        <kbd>↓</kbd>
+        <kbd>SPACE</kbd>
+        <kbd>SCROLL</kbd>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 02 — POR QUE DADO GEO É DIFERENTE
+         ===================================================== -->
+    <section class="slide" data-title="Por que é diferente" data-section="Fundação">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>O PROBLEMA · VISTO DO PIPELINE</span></div>
+        <div class="sheet">SHEET <em>02</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">O problema</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Por que dado <span class="accent">geo</span> é diferente?</h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Para o pipeline, geometria parece só mais uma coluna. Não é: ela carrega um <em>sistema de referência</em>, relaciona-se por <em>topologia</em> e chega em formatos pensados para desktop, não para lakes.
+        </p>
+
+        <div class="layer-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <div class="layer">
+            <div class="num">01 · CRS</div>
+            <div class="name">Mesmo número, outro lugar</div>
+            <div class="desc">Sem SRID explícito, <code>(-47, -15)</code> pode ser Brasília ou o meio do Atlântico. Área em graus² não significa nada.</div>
+          </div>
+          <div class="layer">
+            <div class="num">02 · JOIN</div>
+            <div class="name">Sem chave de junção</div>
+            <div class="desc">Imóvel × alerta × bioma se relacionam por <em>intersecta</em>, <em>contém</em>, <em>dista</em> — não por equi-join.</div>
+          </div>
+          <div class="layer">
+            <div class="num">03 · FORMATOS</div>
+            <div class="name">Legado de desktop GIS</div>
+            <div class="desc">Shapefile, KML, File GDB: orientados a linha, sem schema forte, sem predicate pushdown.</div>
+          </div>
+          <div class="layer">
+            <div class="num">04 · VOLUME</div>
+            <div class="name">Raster é outro bicho</div>
+            <div class="desc">TBs de imagens multibanda onde <em>tempo</em> é dimensão. Não cabe em tabela — cabe em array.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">CRS · topologia · formato · volume</span>
+        <span>IDE = PLATAFORMA QUE PADRONIZA ISSO</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 03 — QUADRO DE TRADUÇÃO (DE ↔ Geo)
+         ===================================================== -->
+    <section class="slide" data-title="Você já faz isso" data-section="Fundação">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>QUADRO DE TRADUÇÃO</span></div>
+        <div class="sheet">SHEET <em>03</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Setup</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Mesma engenharia, novo <span class="accent">tipo</span>.</h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Quase todo conceito geo tem um equivalente que você já usa. O que muda é o tipo de dado — e os contratos abertos em volta dele.
+        </p>
+
+        <table class="term-table reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <thead>
+            <tr>
+              <th class="you">Data Engineering</th>
+              <th></th>
+              <th class="geo">Geo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="you">Parquet</td>
+              <td class="arrow">→</td>
+              <td class="geo">GeoParquet (WKB / GeoArrow + CRS nos metadados)</td>
+            </tr>
+            <tr>
+              <td class="you">Iceberg · Delta</td>
+              <td class="arrow">→</td>
+              <td class="geo">Tipos nativos GEOMETRY / GEOGRAPHY</td>
+            </tr>
+            <tr>
+              <td class="you">Schema + tipo da coluna</td>
+              <td class="arrow">→</td>
+              <td class="geo">CRS · EPSG:4674 (SIRGAS 2000)</td>
+            </tr>
+            <tr>
+              <td class="you">Partitioning · Z-order</td>
+              <td class="arrow">→</td>
+              <td class="geo">H3 · geohash · Hilbert · bbox covering</td>
+            </tr>
+            <tr>
+              <td class="you">JOIN por chave</td>
+              <td class="arrow">→</td>
+              <td class="geo">Spatial join (<code>ST_Intersects</code>)</td>
+            </tr>
+            <tr>
+              <td class="you">Spark · DuckDB</td>
+              <td class="arrow">→</td>
+              <td class="geo">Apache Sedona · DuckDB spatial</td>
+            </tr>
+            <tr>
+              <td class="you">Data catalog</td>
+              <td class="arrow">→</td>
+              <td class="geo">STAC · ISO 19115-3 (CSW)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Data Engineering ↔ Geo</span>
+        <span>O PIPELINE É O MESMO</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 04 — TIPOS DE DADO ESPACIAL
+         ===================================================== -->
+    <section class="slide" data-title="Tipos de dado" data-section="Fundação">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>MODELOS DE DADO · VECTOR &amp; RASTER</span></div>
+        <div class="sheet">SHEET <em>04</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Tabela vs array</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Tipos de <span class="accent">dado espacial</span>.</h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          <strong style="color: var(--ink)">Vector</strong> vira tabela com coluna de geometria. <strong style="color: var(--ink)">Raster</strong> vira array N-dimensional. Cada um pede formato, engine e índice próprios.
+        </p>
+
+        <div class="two-col reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <div class="col-card" data-lightbox="vector-examples">
+            <div class="col-eyebrow">Geometria discreta · tabular</div>
+            <h3>Vector</h3>
+            <p class="col-desc">Linhas de tabela: atributos + uma coluna de geometria.</p>
+            <ul>
+              <li><strong style="color: var(--ink)">Ponto</strong> · sensores, armazéns, eventos</li>
+              <li><strong style="color: var(--ink)">Linha</strong> · rodovias, rios, rotas logísticas</li>
+              <li><strong style="color: var(--ink)">Polígono</strong> · imóveis rurais, talhões, municípios</li>
+              <li>Engine · SQL espacial (PostGIS, DuckDB, Sedona)</li>
+            </ul>
+          </div>
+          <div class="col-card uplink" data-lightbox="raster-examples">
+            <div class="col-eyebrow">Matriz contínua · array</div>
+            <h3>Raster</h3>
+            <p class="col-desc">Grade de pixels georreferenciada: (banda, y, x[, tempo]).</p>
+            <ul>
+              <li><strong style="color: var(--ink)">Imagery</strong> · Sentinel-2, Landsat, drone</li>
+              <li><strong style="color: var(--ink)">Contínuo</strong> · elevação, precipitação, temperatura</li>
+              <li><strong style="color: var(--ink)">Categórico</strong> · uso e cobertura do solo</li>
+              <li>Engine · xarray, Dask, GDAL (não SQL)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pills reveal" style="--delay: 0.65s; margin-top: var(--content-gap); justify-content: center;">
+          <span class="pill topo">Vector → GeoParquet · Iceberg · PostGIS</span>
+          <span class="pill uplink">Raster → COG · Zarr</span>
+          <span class="pill survey">Ponte → estatística zonal (raster ⨝ polígono)</span>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Clique nos cards para exemplos</span>
+        <span>CADA TIPO → FORMATO · ENGINE · ÍNDICE</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 05 — CRS & GEOMETRIA (o tipo que mente)
+         ===================================================== -->
+    <section class="slide" data-title="CRS &amp; geometria" data-section="Fundação">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>TIPOS · CRS · VALIDADE</span></div>
+        <div class="sheet">SHEET <em>05</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">O tipo que mente</span>
+        <h2 class="section reveal" style="--delay: 0.15s">CRS é parte do <span class="accent">schema</span>.</h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Uma geometria sem CRS é como um timestamp sem timezone: parece certo até alguém agregar.
+        </p>
+
+        <ul class="feature-list reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <li data-num="01"><strong>Geográfico vs projetado</strong> — <code>EPSG:4674</code>/<code>4326</code> em graus; <code>EPSG:5880</code> (Policônica) ou UTM em metros. Medida exige um dos dois caminhos abaixo.</li>
+          <li data-num="02"><strong>Ordem dos eixos</strong> — GeoJSON é <code>lon, lat</code>; o EPSG:4326 oficial é <code>lat, lon</code>. Trocar é o bug nº 1.</li>
+          <li data-num="03"><strong>Validade</strong> — auto-interseção e anéis abertos quebram <code>ST_Intersection</code> e <code>ST_Union</code>. <code>ST_MakeValid</code> na entrada.</li>
+          <li data-num="04"><strong>Serialização</strong> — WKB no storage, WKT para debug, GeoJSON na API. Nunca string livre.</li>
+        </ul>
+
+        <div class="code-block reveal" style="--delay: 0.65s; margin-top: var(--element-gap);"><span class="cm">-- Mesmo polígono, três "áreas"</span>
+<span class="kw">SELECT</span> <span class="fn">ST_Area</span>(geom)                       <span class="cm">-- graus²: sem significado físico</span>
+     , <span class="fn">ST_Area</span>(geom::geography)            <span class="cm">-- m² no elipsoide</span>
+     , <span class="fn">ST_Area</span>(<span class="fn">ST_Transform</span>(geom, <span class="str">5880</span>))   <span class="cm">-- m² na Policônica SIRGAS 2000</span>
+<span class="kw">FROM</span>   talhoes;</div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">SRID · eixo · validade · encoding</span>
+        <a class="ref" href="https://epsg.io/4674">epsg.io/4674</a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 06 — IDE EM 4 CAMADAS (como data platform)
+         ===================================================== -->
+    <section class="slide" data-title="IDE em 4 camadas" data-section="Fundação">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>CONCEITO · 4 CAMADAS</span></div>
+        <div class="sheet">SHEET <em>06</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Anatomia</span>
+        <h2 class="section reveal" style="--delay: 0.15s">A <span class="accent">IDE</span> é uma data platform.</h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Storage → Serving → Catálogo → Consumo. A diferença: cada fronteira é um padrão aberto (OGC, ISO, STAC). Os seus pipelines alimentam todas elas.
+        </p>
+
+        <div class="layer-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <div class="layer">
+            <div class="num">01 · STORAGE</div>
+            <div class="name">Lakehouse + PostGIS</div>
+            <div class="desc">GeoParquet/Iceberg e COG no object storage; PostGIS para dado quente e servido.</div>
+          </div>
+          <div class="layer">
+            <div class="num">02 · SERVING</div>
+            <div class="name">APIs OGC</div>
+            <div class="desc">WMS, WFS, OGC API Features/Tiles. O "data contract" HTTP do dado geo.</div>
+          </div>
+          <div class="layer">
+            <div class="num">03 · CATALOG</div>
+            <div class="name">Metadados</div>
+            <div class="desc">STAC para assets, ISO 19115-3 para descrição, lineage no catálogo corporativo.</div>
+          </div>
+          <div class="layer">
+            <div class="num">04 · CONSUMERS</div>
+            <div class="name">Consumo</div>
+            <div class="desc">BI, apps web, QGIS, modelos de ML e agents. Todos pelo mesmo contrato.</div>
+          </div>
+        </div>
+
+        <div class="pills reveal" style="--delay: 0.65s; margin-top: var(--content-gap); justify-content: center;">
+          <span class="pill topo">Ingest</span><span class="pill topo">→</span>
+          <span class="pill topo">Bronze · Silver · Gold</span><span class="pill topo">→</span>
+          <span class="pill uplink">Serve (OGC)</span><span class="pill uplink">→</span>
+          <span class="pill uplink">Catalog</span><span class="pill uplink">→</span>
+          <span class="pill survey">Consumo</span>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">IDE · 4 LAYERS</span>
+        <span>SEU PIPELINE ALIMENTA TODAS</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 07 — FORMATOS CLOUD-NATIVE
+         ===================================================== -->
+    <section class="slide" data-title="Formatos cloud-native" data-section="Lakehouse">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>01 · STORAGE · FORMATOS</span></div>
+        <div class="sheet">SHEET <em>07</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Adeus, shapefile</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Formatos <span class="accent">cloud-native</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          O mesmo princípio do Parquet: leitura parcial via HTTP range request, estatísticas para pular blocos, nada de baixar o arquivo inteiro.
+        </p>
+
+        <div class="layer-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap); grid-template-columns: repeat(3, 1fr);">
+          <div class="layer">
+            <div class="num">VECTOR · ANALÍTICO</div>
+            <div class="name">GeoParquet</div>
+            <div class="desc">Parquet + geometria WKB/GeoArrow + CRS nos metadados. Coluna <code>bbox</code> (covering) habilita predicate pushdown espacial.</div>
+          </div>
+          <div class="layer">
+            <div class="num">VECTOR · TABELA</div>
+            <div class="name">Iceberg · Parquet geo types</div>
+            <div class="desc">GEOMETRY/GEOGRAPHY nativos no spec, com bbox nas estatísticas. Time-travel e schema evolution para dado geo.</div>
+          </div>
+          <div class="layer">
+            <div class="num">VECTOR · STREAMING</div>
+            <div class="name">FlatGeobuf</div>
+            <div class="desc">Binário com índice R-tree embutido. Leitura por bbox direto do bucket, sem servidor.</div>
+          </div>
+          <div class="layer">
+            <div class="num">RASTER · 2D</div>
+            <div class="name">COG</div>
+            <div class="desc">Cloud Optimized GeoTIFF: tiles internos + overviews. O padrão de fato para imagem em S3.</div>
+          </div>
+          <div class="layer">
+            <div class="num">RASTER · N-D</div>
+            <div class="name">Zarr</div>
+            <div class="desc">Arrays chunked (tempo, banda, y, x). Séries temporais, clima e datacubes.</div>
+          </div>
+          <div class="layer">
+            <div class="num">SERVING · ESTÁTICO</div>
+            <div class="name">PMTiles</div>
+            <div class="desc">Pirâmide de tiles num único arquivo. Mapa servido de S3 + CDN, sem tile server.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Cloud-native geospatial</span>
+        <span>
+          <a class="ref" href="https://geoparquet.org">geoparquet.org</a>
+          &nbsp;·&nbsp;
+          <a class="ref" href="https://cogeo.org">cogeo.org</a>
+        </span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 08 — MEDALLION GEO
+         ===================================================== -->
+    <section class="slide" data-title="Medallion geo" data-section="Lakehouse">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>01 · STORAGE · MEDALLION</span></div>
+        <div class="sheet">SHEET <em>08</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Arquitetura de referência</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Medallion <span class="accent">geoespacial</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          As mesmas camadas de sempre — com responsabilidades geo explícitas em cada uma.
+        </p>
+
+        <div class="arch-stack reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <div class="arch-layer">
+            <div class="layer-label">Serving</div>
+            <div class="layer-tools">
+              GeoServer <span class="sep">·</span> OGC API <span class="sep">·</span> vector tiles <span class="sep">·</span> BI / warehouse
+            </div>
+          </div>
+          <div class="arch-layer ai">
+            <div class="layer-label">Gold · produto</div>
+            <div class="layer-tools">
+              agregados por H3 / município <span class="sep">·</span> features de ML <span class="sep">·</span> indicadores por imóvel
+            </div>
+          </div>
+          <div class="arch-layer mid">
+            <div class="layer-label">Silver · conformado</div>
+            <div class="layer-tools">
+              GeoParquet / Iceberg <span class="sep">·</span> CRS único <span class="sep">·</span> geometria válida <span class="sep">·</span> célula H3 <span class="sep">·</span> dedup
+            </div>
+          </div>
+          <div class="arch-layer base">
+            <div class="layer-label">Bronze · como chegou</div>
+            <div class="layer-tools">
+              SHP <span class="sep">·</span> KML <span class="sep">·</span> GDB <span class="sep">·</span> GeoJSON <span class="sep">·</span> COG — imutável, com CRS de origem
+            </div>
+          </div>
+        </div>
+
+        <div class="pills reveal" style="--delay: 0.65s; margin-top: var(--content-gap); justify-content: center;">
+          <span class="pill survey">Regra de ouro: reprojetar e validar UMA vez, na Silver</span>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Bronze → Silver → Gold → Serve</span>
+        <span>CONTRATO GEO NA SILVER</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 09 — INGESTÃO
+         ===================================================== -->
+    <section class="slide" data-title="Ingestão" data-section="Lakehouse">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>INGEST · FONTES &amp; FERRAMENTAS</span></div>
+        <div class="sheet">SHEET <em>09</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">De onde vem o dado</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Ingestão <span class="accent">geo</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          GDAL/OGR é o "conector universal": lê 200+ formatos e está por baixo de quase tudo — GeoPandas, DuckDB, QGIS, rasterio.
+        </p>
+
+        <ul class="feature-list reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <li data-num="01"><strong>Downloads em lote</strong> — SHP/GDB de órgãos públicos (SICAR, IBGE, INCRA). Batch idempotente, particionado por UF e data.</li>
+          <li data-num="02"><strong>APIs OGC</strong> — WFS e OGC API Features paginadas. Trate como qualquer API REST: retry, cursor, rate limit.</li>
+          <li data-num="03"><strong>Catálogos STAC</strong> — imagens de satélite por bbox, data e cobertura de nuvem. Ingestão é só de metadados; pixels ficam no bucket de origem.</li>
+        </ul>
+
+        <div class="code-block reveal" style="--delay: 0.65s; margin-top: var(--element-gap);"><span class="cm"># Bronze → Silver: shapefile do SICAR para GeoParquet conformado</span>
+<span class="fn">ogr2ogr</span> -f Parquet silver/car/uf=MT/area_imovel.parquet bronze/car/uf=MT/AREA_IMOVEL.shp \
+  -t_srs <span class="str">EPSG:4674</span> -makevalid -nlt PROMOTE_TO_MULTI \
+  -lco COMPRESSION=ZSTD -lco WRITE_COVERING_BBOX=YES</div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">GDAL/OGR · STAC · OGC API</span>
+        <a class="ref" href="https://gdal.org">gdal.org</a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 10 — ENGINES
+         ===================================================== -->
+    <section class="slide" data-title="Engines" data-section="Pipelines">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>02 · COMPUTE · ENGINES</span></div>
+        <div class="sheet">SHEET <em>10</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Qual engine, quando</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Processamento <span class="accent">espacial</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Todas falam o mesmo dialeto <code>ST_*</code> (Simple Features SQL). A escolha é volume, latência e onde o dado já mora.
+        </p>
+
+        <div class="layer-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap); grid-template-columns: repeat(3, 1fr);">
+          <div class="layer">
+            <div class="num">SINGLE-NODE · SQL</div>
+            <div class="name">DuckDB spatial</div>
+            <div class="desc">Lê GeoParquet direto do S3, tem spatial join e R-tree. Dev loop e jobs de até centenas de GB.</div>
+          </div>
+          <div class="layer">
+            <div class="num">SINGLE-NODE · PYTHON</div>
+            <div class="name">GeoPandas</div>
+            <div class="desc">pandas + Shapely 2 vetorizado. Exploração e ETL que cabe em memória.</div>
+          </div>
+          <div class="layer">
+            <div class="num">OLTP · SERVING</div>
+            <div class="name">PostGIS</div>
+            <div class="desc">Índices GiST, transações, fonte de verdade do serving. Não é o lugar do batch pesado.</div>
+          </div>
+          <div class="layer">
+            <div class="num">DISTRIBUÍDO</div>
+            <div class="name">Apache Sedona</div>
+            <div class="desc">Spatial SQL em Spark e Flink com particionamento espacial (KDB-tree, quadtree). Escala de TB.</div>
+          </div>
+          <div class="layer">
+            <div class="num">GERENCIADO</div>
+            <div class="name">Warehouses</div>
+            <div class="desc">BigQuery, Snowflake e Databricks com tipos GEOGRAPHY, funções <code>ST_*</code> e H3 nativos.</div>
+          </div>
+          <div class="layer">
+            <div class="num">RASTER · ARRAYS</div>
+            <div class="name">xarray + Dask</div>
+            <div class="desc">rioxarray e odc-stac montam datacubes lazy a partir de COGs. Escala horizontal com Dask.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Simple Features SQL · ST_*</span>
+        <span>
+          <a class="ref" href="https://duckdb.org">duckdb</a>
+          &nbsp;·&nbsp;
+          <a class="ref" href="https://sedona.apache.org">sedona</a>
+        </span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 11 — SPATIAL JOIN & INDEXAÇÃO
+         ===================================================== -->
+    <section class="slide" data-title="Spatial join" data-section="Pipelines">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>02 · COMPUTE · SPATIAL JOIN</span></div>
+        <div class="sheet">SHEET <em>11</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">O JOIN mais caro do seu pipeline</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Spatial join &amp; <span class="accent">H3</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Sem chave, o join ingênuo é um produto cartesiano. O truque: transformar geometria em chave discreta para filtrar candidatos, e só então aplicar o predicado exato.
+        </p>
+
+        <ul class="feature-list reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <li data-num="01"><strong>Filtro + refino</strong> — bbox / célula descarta 99% dos pares; <code>ST_Intersects</code> roda só nos candidatos.</li>
+          <li data-num="02"><strong>H3 como chave</strong> — hexágonos hierárquicos viram <code>BIGINT</code>: equi-join, partição e agregação em qualquer engine.</li>
+          <li data-num="03"><strong>Layout do arquivo</strong> — ordenar por H3 ou curva de Hilbert antes de escrever faz o bbox das estatísticas pular row groups.</li>
+        </ul>
+
+        <div class="code-block reveal" style="--delay: 0.65s; margin-top: var(--element-gap);"><span class="cm">-- Sedona (Spark SQL): imóveis CAR × alertas DETER</span>
+<span class="kw">WITH</span> c <span class="kw">AS</span> (<span class="kw">SELECT</span> car_id, geom, <span class="fn">explode</span>(<span class="fn">ST_H3CellIDs</span>(geom, <span class="str">7</span>, true)) <span class="kw">AS</span> h3 <span class="kw">FROM</span> silver.car),
+     a <span class="kw">AS</span> (<span class="kw">SELECT</span> alerta_id, geom, <span class="fn">explode</span>(<span class="fn">ST_H3CellIDs</span>(geom, <span class="str">7</span>, true)) <span class="kw">AS</span> h3 <span class="kw">FROM</span> silver.deter)
+<span class="kw">SELECT DISTINCT</span> c.car_id, a.alerta_id
+<span class="kw">FROM</span>   c <span class="kw">JOIN</span> a <span class="kw">ON</span> c.h3 = a.h3                <span class="cm">-- equi-join barato (BIGINT)</span>
+<span class="kw">WHERE</span>  <span class="fn">ST_Intersects</span>(c.geom, a.geom);         <span class="cm">-- predicado exato só nos candidatos</span></div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Filter → refine</span>
+        <a class="ref" href="https://h3geo.org">h3geo.org</a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 12 — RASTER PIPELINES
+         ===================================================== -->
+    <section class="slide" data-title="Raster pipelines" data-section="Pipelines">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>02 · COMPUTE · RASTER</span></div>
+        <div class="sheet">SHEET <em>12</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">De pixel a coluna</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Raster <span class="accent">pipelines</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Raster raramente é o produto final. O padrão é: buscar no STAC, ler só a janela necessária dos COGs e reduzir para uma tabela por polígono.
+        </p>
+
+        <div class="pills reveal" style="--delay: 0.4s; margin-top: var(--element-gap); justify-content: center;">
+          <span class="pill topo">STAC search</span><span class="pill topo">→</span>
+          <span class="pill topo">COG (range read)</span><span class="pill topo">→</span>
+          <span class="pill uplink">datacube lazy</span><span class="pill uplink">→</span>
+          <span class="pill uplink">índice (NDVI)</span><span class="pill uplink">→</span>
+          <span class="pill survey">estatística zonal</span><span class="pill survey">→</span>
+          <span class="pill survey">tabela Gold</span>
+        </div>
+
+        <div class="code-block reveal" style="--delay: 0.55s; margin-top: var(--content-gap);"><span class="kw">from</span> pystac_client <span class="kw">import</span> Client
+<span class="kw">import</span> odc.stac
+<span class="kw">from</span> exactextract <span class="kw">import</span> exact_extract
+
+items = Client.<span class="fn">open</span>(<span class="str">"https://earth-search.aws.element84.com/v1"</span>).<span class="fn">search</span>(
+    collections=[<span class="str">"sentinel-2-l2a"</span>], bbox=talhoes.<span class="fn">to_crs</span>(<span class="str">4326</span>).total_bounds,
+    datetime=<span class="str">"2026-09"</span>, query={<span class="str">"eo:cloud_cover"</span>: {<span class="str">"lt"</span>: <span class="str">20</span>}},
+).<span class="fn">item_collection</span>()
+
+ds   = odc.stac.<span class="fn">load</span>(items, bands=[<span class="str">"red"</span>, <span class="str">"nir"</span>], resolution=<span class="str">10</span>, groupby=<span class="str">"solar_day"</span>)
+ndvi = ((ds.nir - ds.red) / (ds.nir + ds.red)).<span class="fn">median</span>(<span class="str">"time"</span>)
+gold = <span class="fn">exact_extract</span>(ndvi, talhoes.<span class="fn">to_crs</span>(ds.odc.crs), [<span class="str">"mean"</span>, <span class="str">"stdev"</span>], output=<span class="str">"pandas"</span>)</div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">STAC · COG · xarray · zonal stats</span>
+        <a class="ref" href="https://stacspec.org">stacspec.org</a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 13 — QUALIDADE DE DADOS GEO
+         ===================================================== -->
+    <section class="slide" data-title="Qualidade geo" data-section="Pipelines">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>DATA QUALITY · CHECKS ESPACIAIS</span></div>
+        <div class="sheet">SHEET <em>13</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Testes que o dbt não traz de fábrica</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Qualidade de dado <span class="accent">geo</span></h2>
+
+        <div class="two-col reveal" style="--delay: 0.3s; margin-top: var(--element-gap);">
+          <div class="col-card">
+            <div class="col-eyebrow">Checks na Silver · alvo</div>
+            <h3>Contrato espacial</h3>
+            <ul class="metric-list" style="margin-top: 0.7rem;">
+              <li>
+                <span class="metric-name">Geometria válida · ST_IsValid</span>
+                <span class="metric-target">100 %</span>
+              </li>
+              <li>
+                <span class="metric-name">SRID da coluna</span>
+                <span class="metric-target">= 4674</span>
+              </li>
+              <li>
+                <span class="metric-name">Dentro do limite do Brasil</span>
+                <span class="metric-target">100 %</span>
+              </li>
+              <li>
+                <span class="metric-name">Geometria nula ou vazia</span>
+                <span class="metric-target">0</span>
+              </li>
+              <li>
+                <span class="metric-name">Área plausível (ha)</span>
+                <span class="metric-target">faixa por tipo</span>
+              </li>
+              <li>
+                <span class="metric-name">Sobreposição entre feições</span>
+                <span class="metric-target">monitorar</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-card uplink">
+            <div class="col-eyebrow">dbt · singular test</div>
+            <h3>Como codificar</h3>
+            <div class="code-block uplink" style="margin-top: 0.7rem;"><span class="kw">select</span> car_id
+<span class="kw">from</span>   {{ ref(<span class="str">'silver_car'</span>) }}
+<span class="kw">where</span>  geom <span class="kw">is null</span>
+   <span class="kw">or not</span> <span class="fn">ST_IsValid</span>(geom)
+   <span class="kw">or</span> <span class="fn">ST_SRID</span>(geom) &lt;&gt; <span class="str">4674</span>
+   <span class="kw">or not</span> <span class="fn">ST_Within</span>(geom,
+        (<span class="kw">select</span> geom <span class="kw">from</span> {{ ref(<span class="str">'limite_br'</span>) }}))</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">dbt tests · Great Expectations · Soda</span>
+        <span>REFERÊNCIA BR · ET-CQDG (DSG)</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 14 — PIPELINE END-TO-END (caso agro)
+         ===================================================== -->
+    <section class="slide" data-title="Pipeline end-to-end" data-section="Pipelines">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>ORQUESTRAÇÃO · CASO AGRO</span></div>
+        <div class="sheet">SHEET <em>14</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Juntando tudo</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Risco socioambiental <span class="accent">por imóvel</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Um DAG de assets (Dagster ou Airflow) que cruza cadastro rural, alertas de desmatamento e imagem de satélite — e publica o resultado como camada e tabela.
+        </p>
+
+        <div class="pills reveal" style="--delay: 0.4s; margin-top: var(--element-gap); justify-content: center;">
+          <span class="pill topo">SICAR · DETER · Sentinel-2</span><span class="pill topo">→</span>
+          <span class="pill topo">Bronze</span><span class="pill topo">→</span>
+          <span class="pill uplink">Silver + DQ</span><span class="pill uplink">→</span>
+          <span class="pill uplink">Spatial join · zonal</span><span class="pill uplink">→</span>
+          <span class="pill survey">Gold</span><span class="pill survey">→</span>
+          <span class="pill survey">GeoServer + catálogo</span>
+        </div>
+
+        <div class="two-col reveal" style="--delay: 0.55s; margin-top: var(--content-gap);">
+          <div class="col-card">
+            <div class="col-eyebrow">Assets do DAG</div>
+            <h3>O que roda</h3>
+            <ul>
+              <li><code>car_bronze</code> · download semanal por UF, particionado por data</li>
+              <li><code>deter_bronze</code> · WFS diário do TerraBrasilis</li>
+              <li><code>car_silver</code> · reprojeção, <code>ST_MakeValid</code>, H3, testes</li>
+              <li><code>risco_gold</code> · ha desmatados, sobreposição com UC e TI, NDVI</li>
+            </ul>
+          </div>
+          <div class="col-card uplink">
+            <div class="col-eyebrow">Contratos operacionais</div>
+            <h3>SLAs do produto</h3>
+            <ul>
+              <li><strong style="color: var(--ink)">Freshness</strong> · alerta publicado &lt; 24h após o DETER</li>
+              <li><strong style="color: var(--ink)">Idempotência</strong> · reprocessar uma partição não duplica</li>
+              <li><strong style="color: var(--ink)">DQ gate</strong> · Silver inválida bloqueia a Gold</li>
+              <li><strong style="color: var(--ink)">Publicação</strong> · camada WMS/WFS + registro no catálogo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Ingest · conform · join · publish</span>
+        <span>DADO GEO VIRA PRODUTO DE DADOS</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 15 — CATÁLOGO & LINEAGE
+         ===================================================== -->
+    <section class="slide" data-title="Catálogo &amp; lineage" data-section="Governança">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>03 · CATALOG · DISCOVERY + LINEAGE</span></div>
+        <div class="sheet">SHEET <em>15</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Descobrir + governar</span>
+        <h2 class="section reveal" style="--delay: 0.15s">Catálogo &amp; <span class="accent">lineage</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Três catálogos com papéis diferentes — e complementares. O erro comum é escolher só um.
+        </p>
+
+        <div class="layer-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap); grid-template-columns: repeat(3, 1fr);">
+          <div class="col-card">
+            <div class="col-eyebrow">Assets · imagens</div>
+            <h3>STAC</h3>
+            <p class="col-desc">JSON + API de busca por bbox, tempo e propriedades.</p>
+            <ul>
+              <li>Item → assets (COG, Zarr, thumbnails)</li>
+              <li>Extensões: eo, sar, proj, raster</li>
+              <li>stac-fastapi + pgstac</li>
+              <li>Consumido por odc-stac, QGIS, agents</li>
+            </ul>
+          </div>
+          <div class="col-card">
+            <div class="col-eyebrow">Descritivo · interoperável</div>
+            <h3>GeoNetwork</h3>
+            <p class="col-desc">ISO 19115-3 + CSW. O padrão de governo.</p>
+            <ul>
+              <li>Metadado rico: linhagem, escala, CRS</li>
+              <li>Harvesting e federação (INDE)</li>
+              <li>Workflow editorial de publicação</li>
+              <li>Exigido em IDEs públicas</li>
+            </ul>
+          </div>
+          <div class="col-card uplink">
+            <div class="col-eyebrow">Operacional · corporativo</div>
+            <h3>OpenMetadata</h3>
+            <p class="col-desc">Onde o dado geo encontra o resto da plataforma.</p>
+            <ul>
+              <li>Lineage pipeline → tabela → camada</li>
+              <li>Ownership, glossário, domínios</li>
+              <li>Data quality e alertas</li>
+              <li>Mesmo catálogo do dado não-geo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">STAC · ISO 19115-3 · lineage</span>
+        <span>
+          <a class="ref" href="https://stacspec.org">stac</a>
+          &nbsp;·&nbsp;
+          <a class="ref" href="https://geonetwork-opensource.org">geonetwork</a>
+          &nbsp;·&nbsp;
+          <a class="ref" href="https://open-metadata.org">open-metadata</a>
+        </span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 16 — SERVING (OGC como data contract)
+         ===================================================== -->
+    <section class="slide" data-title="Serving" data-section="Governança">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>04 · SERVING · CONTRATOS</span></div>
+        <div class="sheet">SHEET <em>16</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">A última milha do pipeline</span>
+        <h2 class="section reveal" style="--delay: 0.15s">OGC como <span class="accent">data contract</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          A Gold só gera valor quando alguém consome. Cada consumidor pede um contrato diferente — todos padronizados.
+        </p>
+
+        <table class="term-table reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <thead>
+            <tr>
+              <th class="you">Consumidor</th>
+              <th></th>
+              <th class="geo">Contrato · implementação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="you">Analista GIS · QGIS</td>
+              <td class="arrow">→</td>
+              <td class="geo">WMS / WFS · GeoServer Cloud</td>
+            </tr>
+            <tr>
+              <td class="you">App ou API de negócio</td>
+              <td class="arrow">→</td>
+              <td class="geo">OGC API Features · pg_featureserv, GeoServer</td>
+            </tr>
+            <tr>
+              <td class="you">Mapa web interativo</td>
+              <td class="arrow">→</td>
+              <td class="geo">Vector tiles (MVT) · Martin, pg_tileserv</td>
+            </tr>
+            <tr>
+              <td class="you">Imagem sob demanda</td>
+              <td class="arrow">→</td>
+              <td class="geo">Tiles dinâmicos de COG · TiTiler</td>
+            </tr>
+            <tr>
+              <td class="you">Mapa público, custo zero</td>
+              <td class="arrow">→</td>
+              <td class="geo">PMTiles em S3 + CDN</td>
+            </tr>
+            <tr>
+              <td class="you">BI · analytics</td>
+              <td class="arrow">→</td>
+              <td class="geo">SQL no warehouse (GEOGRAPHY)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Um dado, vários contratos</span>
+        <a class="ref" href="https://ogcapi.ogc.org">ogcapi.ogc.org</a>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 17 — AI + GEO PARA DATA ENGINEERING
+         ===================================================== -->
+    <section class="slide" data-title="AI + Geo" data-section="AI">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>AI · O NOVO CONSUMIDOR</span></div>
+        <div class="sheet">SHEET <em>17</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">O que muda na plataforma</span>
+        <h2 class="section reveal" style="--delay: 0.15s">AI + <span class="accent">Geo</span></h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Foundation models de observação da Terra transformam pixels em vetores. Para a engenharia de dados, isso é mais uma feature table — chaveada por espaço e tempo.
+        </p>
+
+        <div class="two-col reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <div class="col-card">
+            <div class="col-eyebrow">Embeddings geoespaciais</div>
+            <h3>Pixel → vetor</h3>
+            <ul>
+              <li><strong style="color: var(--ink)">Clay · Prithvi</strong> · foundation models multi-sensor</li>
+              <li><strong style="color: var(--ink)">AlphaEarth Foundations</strong> · embeddings anuais prontos, 10 m</li>
+              <li><strong style="color: var(--ink)">SatCLIP</strong> · embedding a partir de coordenadas</li>
+              <li>Reduzidos por polígono ou célula H3 → tabela de features</li>
+            </ul>
+          </div>
+          <div class="col-card uplink">
+            <div class="col-eyebrow">Plataforma</div>
+            <h3>Onde entra a DE</h3>
+            <ul>
+              <li><strong style="color: var(--ink)">Feature store</strong> · chave (h3, data) para treino e inferência</li>
+              <li><strong style="color: var(--ink)">pgvector</strong> · "imóveis parecidos com este" ao lado do PostGIS</li>
+              <li><strong style="color: var(--ink)">MCP server</strong> · PostGIS, STAC e OGC como tools para agents</li>
+              <li><strong style="color: var(--ink)">Text-to-SQL</strong> · só funciona com catálogo e schema bem descritos</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pills reveal" style="--delay: 0.6s; margin-top: var(--content-gap); justify-content: center;">
+          <span class="pill survey">Para um agent, dado sem metadado não existe</span>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Embeddings · feature store · MCP</span>
+        <span>AI CONSOME O MESMO CONTRATO</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 18 — ANTI-PATTERNS
+         ===================================================== -->
+    <section class="slide" data-title="Armadilhas" data-section="Wrap-up">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>ANTI-PATTERNS · LIÇÕES DE PRODUÇÃO</span></div>
+        <div class="sheet">SHEET <em>18</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Já vi isso em produção</span>
+        <h2 class="section reveal" style="--delay: 0.15s">As <span class="accent">armadilhas</span>.</h2>
+
+        <div class="layer-grid reveal" style="--delay: 0.3s; margin-top: var(--element-gap); grid-template-columns: repeat(3, 1fr);">
+          <div class="layer">
+            <div class="num">01 · EIXOS</div>
+            <div class="name">lat/lon trocados</div>
+            <div class="desc">O imóvel em Goiás aparece no Atlântico Sul. Teste de bbox na Silver pega na hora.</div>
+          </div>
+          <div class="layer">
+            <div class="num">02 · UNIDADE</div>
+            <div class="name">Área em graus</div>
+            <div class="desc"><code>ST_Area</code> em 4326 devolve graus². Use <code>geography</code> ou projeção métrica.</div>
+          </div>
+          <div class="layer">
+            <div class="num">03 · ÍNDICE</div>
+            <div class="name">Reprojetar no JOIN</div>
+            <div class="desc"><code>ST_Transform</code> dentro do predicado invalida o índice. Padronize o CRS antes.</div>
+          </div>
+          <div class="layer">
+            <div class="num">04 · CONTRATO</div>
+            <div class="name">Shapefile como interface</div>
+            <div class="desc">Colunas de 10 caracteres, limite de 2 GB, encoding incerto, 4+ arquivos. Só na Bronze.</div>
+          </div>
+          <div class="layer">
+            <div class="num">05 · VALIDADE</div>
+            <div class="name">Geometria inválida silenciosa</div>
+            <div class="desc">Passa no INSERT e explode no <code>ST_Union</code> três etapas depois.</div>
+          </div>
+          <div class="layer">
+            <div class="num">06 · LAYOUT</div>
+            <div class="name">Parquet sem ordem espacial</div>
+            <div class="desc">Sem covering e sem ordenação por H3/Hilbert, todo filtro espacial vira full scan.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Seis bugs, uma causa</span>
+        <span>CONTRATO GEO EXPLÍCITO NA SILVER</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 19 — RECURSOS (ferramentas)
+         ===================================================== -->
+    <section class="slide" data-title="Recursos · Links" data-section="Wrap-up">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>RECURSOS · LINKS RÁPIDOS</span></div>
+        <div class="sheet">SHEET <em>19</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">bookmark</span>
+        <h2 class="section reveal" style="--delay: 0.15s">As <span class="accent">ferramentas</span>.</h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Documentação oficial — clique para abrir. Todas open source ou especificações abertas.
+        </p>
+
+        <div class="tool-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap);">
+          <a href="https://gdal.org" target="_blank" rel="noopener" class="tool-card" aria-label="GDAL — gdal.org">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="3" y="8" width="9" height="16" rx="1"/>
+                <rect x="20" y="8" width="9" height="16" rx="1"/>
+                <line x1="12" y1="16" x2="20" y2="16"/>
+                <polyline points="17,13 20,16 17,19"/>
+              </svg>
+            </div>
+            <div class="tool-name">GDAL</div>
+            <div class="tool-url">gdal.org</div>
+          </a>
+
+          <a href="https://geoparquet.org" target="_blank" rel="noopener" class="tool-card" aria-label="GeoParquet — geoparquet.org">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="4" y="5" width="6" height="22" rx="1"/>
+                <rect x="13" y="5" width="6" height="22" rx="1" opacity="0.6"/>
+                <polygon points="22,10 28,8 28,16 24,18 22,14" fill="currentColor" stroke="none" opacity="0.75"/>
+                <circle cx="25" cy="23" r="2" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <div class="tool-name">GeoParquet</div>
+            <div class="tool-url">geoparquet.org</div>
+          </a>
+
+          <a href="https://duckdb.org/docs/stable/core_extensions/spatial/overview" target="_blank" rel="noopener" class="tool-card" aria-label="DuckDB spatial — duckdb.org">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="16" cy="16" r="12"/>
+                <circle cx="13" cy="16" r="5" fill="currentColor" stroke="none" opacity="0.75"/>
+                <rect x="20" y="14" width="5" height="4" rx="1" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <div class="tool-name">DuckDB spatial</div>
+            <div class="tool-url">duckdb.org</div>
+          </a>
+
+          <a href="https://sedona.apache.org" target="_blank" rel="noopener" class="tool-card" aria-label="Apache Sedona — sedona.apache.org">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="4" y="4" width="11" height="11"/>
+                <rect x="17" y="4" width="11" height="11" opacity="0.6"/>
+                <rect x="4" y="17" width="11" height="11" opacity="0.6"/>
+                <rect x="17" y="17" width="5" height="5"/>
+                <rect x="23" y="17" width="5" height="5" opacity="0.6"/>
+                <rect x="17" y="23" width="5" height="5" opacity="0.6"/>
+                <rect x="23" y="23" width="5" height="5"/>
+              </svg>
+            </div>
+            <div class="tool-name">Apache Sedona</div>
+            <div class="tool-url">sedona.apache.org</div>
+          </a>
+
+          <a href="https://postgis.net" target="_blank" rel="noopener" class="tool-card" aria-label="PostGIS — postgis.net">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <ellipse cx="16" cy="7" rx="10" ry="3"/>
+                <path d="M6 7 L6 25 C 6 26.66 10.48 28 16 28 C 21.52 28 26 26.66 26 25 L26 7"/>
+                <ellipse cx="16" cy="13" rx="10" ry="3" opacity="0.5"/>
+                <ellipse cx="16" cy="19" rx="10" ry="3" opacity="0.35"/>
+              </svg>
+            </div>
+            <div class="tool-name">PostGIS</div>
+            <div class="tool-url">postgis.net</div>
+          </a>
+
+          <a href="https://h3geo.org" target="_blank" rel="noopener" class="tool-card uplink" aria-label="H3 — h3geo.org">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <polygon points="16,3 27,9.5 27,22.5 16,29 5,22.5 5,9.5"/>
+                <polygon points="16,10 21,13 21,19 16,22 11,19 11,13" fill="currentColor" stroke="none" opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="tool-name">H3</div>
+            <div class="tool-url">h3geo.org</div>
+          </a>
+
+          <a href="https://stacspec.org" target="_blank" rel="noopener" class="tool-card uplink" aria-label="STAC — stacspec.org">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <polygon points="16,4 28,10 16,16 4,10"/>
+                <polyline points="4,16 16,22 28,16" opacity="0.6"/>
+                <polyline points="4,22 16,28 28,22" opacity="0.35"/>
+              </svg>
+            </div>
+            <div class="tool-name">STAC</div>
+            <div class="tool-url">stacspec.org</div>
+          </a>
+
+          <a href="https://geoserver.org/geoserver-cloud/" target="_blank" rel="noopener" class="tool-card uplink" aria-label="GeoServer Cloud — geoserver.org">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="4" y="5" width="24" height="6" rx="1"/>
+                <circle cx="8" cy="8" r="0.9" fill="currentColor" stroke="none"/>
+                <rect x="4" y="13" width="24" height="6" rx="1"/>
+                <circle cx="8" cy="16" r="0.9" fill="currentColor" stroke="none"/>
+                <rect x="4" y="21" width="24" height="6" rx="1"/>
+                <circle cx="8" cy="24" r="0.9" fill="currentColor" stroke="none"/>
+              </svg>
+            </div>
+            <div class="tool-name">GeoServer Cloud</div>
+            <div class="tool-url">geoserver.org</div>
+          </a>
+
+          <a href="https://developmentseed.org/titiler/" target="_blank" rel="noopener" class="tool-card survey" aria-label="TiTiler — developmentseed.org/titiler">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="4" y="4" width="24" height="24" rx="1"/>
+                <line x1="12" y1="4" x2="12" y2="28" opacity="0.45"/>
+                <line x1="20" y1="4" x2="20" y2="28" opacity="0.45"/>
+                <line x1="4" y1="12" x2="28" y2="12" opacity="0.45"/>
+                <line x1="4" y1="20" x2="28" y2="20" opacity="0.45"/>
+                <rect x="12" y="12" width="8" height="8" fill="currentColor" stroke="none" opacity="0.75"/>
+              </svg>
+            </div>
+            <div class="tool-name">TiTiler</div>
+            <div class="tool-url">developmentseed.org</div>
+          </a>
+
+          <a href="https://maplibre.org/martin/" target="_blank" rel="noopener" class="tool-card survey" aria-label="Martin — maplibre.org/martin">
+            <div class="tool-icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <polygon points="16,4 28,10 16,16 4,10"/>
+                <path d="M8 10 L14 8 L20 11" opacity="0.6"/>
+                <polyline points="4,16 16,22 28,16" opacity="0.5"/>
+                <polyline points="4,22 16,28 28,22" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="tool-name">Martin</div>
+            <div class="tool-url">maplibre.org/martin</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Ferramentas</span>
+        <span>OSS · PADRÕES ABERTOS · CLOUD-NATIVE</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 20 — DADOS ABERTOS (fontes reais)
+         ===================================================== -->
+    <section class="slide" data-title="Fontes de dados" data-section="Wrap-up">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>FONTES · DADOS ABERTOS</span></div>
+        <div class="sheet">SHEET <em>20</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">Para começar amanhã</span>
+        <h2 class="section reveal" style="--delay: 0.15s">
+          Fontes <span class="accent">reais</span>.
+        </h2>
+        <p class="tagline reveal" style="--delay: 0.3s">
+          Dados públicos que alimentam pipelines geo no Brasil — clique para abrir.
+        </p>
+
+        <div class="layer-grid reveal" style="--delay: 0.45s; margin-top: var(--element-gap); grid-template-columns: repeat(3, 1fr);">
+          <a href="https://inde.gov.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
+            <div class="num">GOVERNO FEDERAL · OGC + CSW</div>
+            <div class="name">INDE</div>
+            <div class="desc">Catálogo nacional de geosserviços (WMS/WFS) de todas as esferas.</div>
+          </a>
+
+          <a href="https://www.ibge.gov.br/geociencias/downloads-geociencias.html" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
+            <div class="num">IBGE · VECTOR</div>
+            <div class="name">IBGE Geociências</div>
+            <div class="desc">Malhas territoriais, setores censitários, biomas. Dimensões de referência.</div>
+          </a>
+
+          <a href="https://consultapublica.car.gov.br/publico/imoveis/index" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
+            <div class="num">SFB · VECTOR · POR UF</div>
+            <div class="name">SICAR</div>
+            <div class="desc">Cadastro Ambiental Rural: imóveis, APP, reserva legal. Download em shapefile.</div>
+          </a>
+
+          <a href="https://terrabrasilis.dpi.inpe.br" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
+            <div class="num">INPE · WFS · DIÁRIO / ANUAL</div>
+            <div class="name">TerraBrasilis</div>
+            <div class="desc">PRODES e DETER: desmatamento anual e alertas quase em tempo real.</div>
+          </a>
+
+          <a href="https://mapbiomas.org" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--topo);">
+            <div class="num">MAPBIOMAS · RASTER ANUAL</div>
+            <div class="name">MapBiomas</div>
+            <div class="desc">Séries anuais de uso e cobertura do solo desde 1985, 30 m.</div>
+          </a>
+
+          <a href="https://data.inpe.br/bdc/" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--uplink);">
+            <div class="num" style="color: var(--uplink);">INPE · STAC · DATACUBES</div>
+            <div class="name">Brazil Data Cube</div>
+            <div class="desc">Cubos de dados de Sentinel, Landsat e CBERS, servidos via STAC.</div>
+          </a>
+
+          <a href="https://element84.com/earth-search/" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--uplink);">
+            <div class="num" style="color: var(--uplink);">AWS OPEN DATA · STAC</div>
+            <div class="name">Earth Search</div>
+            <div class="desc">STAC público para Sentinel-2 e Landsat em COG no S3.</div>
+          </a>
+
+          <a href="https://planetarycomputer.microsoft.com" target="_blank" rel="noopener" class="layer" style="text-decoration: none; cursor: pointer; border-left: 2px solid var(--uplink);">
+            <div class="num" style="color: var(--uplink);">MICROSOFT · STAC</div>
+            <div class="name">Planetary Computer</div>
+            <div class="desc">Catálogo STAC com dezenas de coleções de observação da Terra.</div>
+          </a>
+        </div>
+      </div>
+
+      <div class="foot-bar">
+        <span class="author">Dados abertos geo</span>
+        <span>CLIQUE PARA ABRIR CADA FONTE</span>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         SLIDE 21 — TAKEAWAY
+         ===================================================== -->
+    <section class="slide" data-title="Takeaway" data-section="Wrap-up">
+      <div class="meta-bar">
+        <div class="meta-left"><span class="dot"></span><span>TAKEAWAY · FECHAMENTO</span></div>
+        <div class="sheet">SHEET <em>21</em> / {{TOTAL}}</div>
+      </div>
+
+      <div class="slide-content stack">
+        <span class="eyebrow reveal" style="--delay: 0.05s">O stack inteiro</span>
+        <h2 class="section reveal" style="--delay: 0.15s">
+          Geometria é só mais um tipo — <span class="accent">com contrato</span>.
+        </h2>
+
+        <div class="arch-stack reveal" style="--delay: 0.35s; margin-top: var(--element-gap);">
+          <div class="arch-layer ai">
+            <div class="layer-label">AI + Agents</div>
+            <div class="layer-tools">
+              embeddings <span class="sep">·</span> feature store H3 <span class="sep">·</span> pgvector <span class="sep">·</span> MCP
+            </div>
+          </div>
+          <div class="arch-layer">
+            <div class="layer-label">Serving + Catálogo</div>
+            <div class="layer-tools">
+              GeoServer Cloud <span class="sep">·</span> OGC API <span class="sep">·</span> TiTiler <span class="sep">·</span> STAC <span class="sep">·</span> OpenMetadata
+            </div>
+          </div>
+          <div class="arch-layer mid">
+            <div class="layer-label">Processamento</div>
+            <div class="layer-tools">
+              DuckDB <span class="sep">·</span> Sedona <span class="sep">·</span> PostGIS <span class="sep">·</span> xarray + Dask
+            </div>
+          </div>
+          <div class="arch-layer base">
+            <div class="layer-label">Storage</div>
+            <div class="layer-tools">
+              GeoParquet <span class="sep">·</span> Iceberg <span class="sep">·</span> COG <span class="sep">·</span> Zarr <span class="sep">·</span> S3
+            </div>
+          </div>
+        </div>
+
+        <p class="closing-quote reveal" style="--delay: 0.65s; margin-top: var(--content-gap);">
+          <strong>Padronize CRS e validade na Silver, indexe por H3, publique via OGC e catalogue com STAC.</strong> O resto é a engenharia de dados que você já faz — e é isso que transforma dado geo em produto.
+        </p>
+      </div>
+
+      <div class="foot-bar">
+        <div class="socials">
+          {{SOCIAL_LINKS}}
+          <span class="author">obrigado · fernando pimenta</span>
+          <span class="role">Geospatial Solutions Architect</span>
+        </div>
+        <span>Designing enterprise-grade geospatial ecosystems</span>
+      </div>
+    </section>
